@@ -18,7 +18,22 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Artists()
+        {
+            return View();
+        }
+
+        public IActionResult About_Us()
+        {
+            return View();
+        }
+
+        public IActionResult Exhibitions()
+        {
+            return View();
+        }
+
+        public IActionResult Artistic_Style()
         {
             return View();
         }
