@@ -18,6 +18,9 @@ builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Stor
 
 builder.Services.AddControllersWithViews();
 
+// Not sure why this is needed now
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
