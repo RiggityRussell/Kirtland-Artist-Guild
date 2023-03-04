@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Kirtland_Artist_Guild.Data.Migrations
+namespace Kirtland_Artist_Guild.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230304011426_Update")]
-    partial class Update
+    [Migration("20230304011910_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Kirtland_Artist_Guild.Data.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 3, 20, 14, 26, 37, DateTimeKind.Local).AddTicks(6484),
+                            Created = new DateTime(2023, 3, 3, 20, 19, 9, 849, DateTimeKind.Local).AddTicks(3902),
                             Description = "Neat photo",
                             Name = "The Last Supper",
                             Price = 9.9900000000000002,
@@ -76,7 +76,7 @@ namespace Kirtland_Artist_Guild.Data.Migrations
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 3, 20, 14, 26, 37, DateTimeKind.Local).AddTicks(6525),
+                            Created = new DateTime(2023, 3, 3, 20, 19, 9, 849, DateTimeKind.Local).AddTicks(3938),
                             Description = "Neat photo",
                             Name = "Poker Dogs",
                             Price = 5.9900000000000002,

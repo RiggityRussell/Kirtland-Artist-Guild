@@ -1,4 +1,3 @@
-using Kirtland_Artist_Guild.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;

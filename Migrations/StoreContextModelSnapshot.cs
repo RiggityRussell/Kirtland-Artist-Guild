@@ -4,18 +4,16 @@ using Kirtland_Artist_Guild.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Kirtland_Artist_Guild.Data.Migrations
+namespace Kirtland_Artist_Guild.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230304005903_Initial")]
-    partial class Initial
+    partial class StoreContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +42,8 @@ namespace Kirtland_Artist_Guild.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -64,7 +63,7 @@ namespace Kirtland_Artist_Guild.Data.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 3, 19, 59, 3, 226, DateTimeKind.Local).AddTicks(4807),
+                            Created = new DateTime(2023, 3, 3, 20, 19, 9, 849, DateTimeKind.Local).AddTicks(3902),
                             Description = "Neat photo",
                             Name = "The Last Supper",
                             Price = 9.9900000000000002,
@@ -75,7 +74,7 @@ namespace Kirtland_Artist_Guild.Data.Migrations
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 3, 19, 59, 3, 226, DateTimeKind.Local).AddTicks(4843),
+                            Created = new DateTime(2023, 3, 3, 20, 19, 9, 849, DateTimeKind.Local).AddTicks(3938),
                             Description = "Neat photo",
                             Name = "Poker Dogs",
                             Price = 5.9900000000000002,
