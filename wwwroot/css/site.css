@@ -14,7 +14,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #262626; /* Creating the background color for the pages here. */
+    margin-bottom: 60px;
 }
 
 .KAG_title {

@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="~/Kirtland_Artist_Guild.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #262626;
-        }@*Creating the background color for the pages here.*@
-    </style>
 </head>
 <body>
     <header>
@@ -70,16 +64,16 @@
     </div>
     @*Footer w/ social media link placeholders*@
     <footer class="border-top footer text-muted">
-        <div class="container">
-            
-              <div class="jumbotron text-center" style="margin-bottom:0">
-        <ul class="social-icons">
-            <li><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
-        </ul>
-        &copy; 2023 - Kirtland_Artist_Guild - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
+        <div class="container">            
+            <div class="jumbotron text-center" style="margin-bottom:0">
+                <ul class="social-icons">
+                    <li><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+                &copy; 2023 - Kirtland Artist Guild 
+                <br />Backend: <a asp-area="" asp-controller="Art" asp-action="Index">Art</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

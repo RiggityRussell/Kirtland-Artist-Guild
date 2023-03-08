@@ -7,7 +7,7 @@ namespace Kirtland_Artist_Guild.Controllers
 {
     public class HomeController : Controller
     {
-        private StoreContext _context;
+        private readonly StoreContext _context;
 
         public HomeController(StoreContext context)
         {
