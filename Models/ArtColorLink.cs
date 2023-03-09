@@ -7,7 +7,7 @@
         public int ArtColorID { get; set; } // Foreign key for ArtColor
 
         // Navigation properties
-        public Art Art { get; set; }
-        public ArtColor ArtColor { get; set; }
+        public Art? Art { get; set; }
+        public ArtColor? ArtColor { get; set; }
     }
 }

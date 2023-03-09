@@ -10,6 +10,6 @@ namespace Kirtland_Artist_Guild.Models
         public string Name { get; set; }
 
         // Navigation property to linking entity for many-to-many relationship
-        public ICollection<ArtMediumLink> ArtMediumLinks { get; set; }
+        public ICollection<ArtMediumLink>? ArtMediumLinks { get; set; }
     }
 }
