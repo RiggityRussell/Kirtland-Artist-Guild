@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Artistic style";
+﻿@model Kirtland_Artist_Guild.Models.ArtisticStyleViewModel
+@{
+    ViewData["Title"] = "Artistic Style";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Artistic style</h1>
+    <h1 class="display-4">Artistic Style</h1>
     <p></p>
 </div>
 
@@ -14,13 +15,10 @@
         Filter By Medium
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Oils</a></li>
-        <li><a class="dropdown-item" href="#">Watercolor</a></li>
-        <li><a class="dropdown-item" href="#">Graphite</a></li>
-        <li><a class="dropdown-item" href="#">Sculptures</a></li>
-        <li><a class="dropdown-item" href="#">Photography</a></li>
-        <li><a class="dropdown-item" href="#">Colored Pencil</a></li>
-        <li><a class="dropdown-item" href="#">Mixed Media</a></li>
+        @foreach(var artmedium in Model.ArtMediums)
+        {
+            <li><a class="dropdown-item" href="#">@artmedium.Name</a></li>
+        }
     </ul>
     @*Button 1 ends*@
 
@@ -29,11 +27,10 @@
         Filter by Color
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Black and White</a></li>
-        <li><a class="dropdown-item" href="#">Bright Colors</a></li>
-        <li><a class="dropdown-item" href="#">Pastels</a></li>
-        <li><a class="dropdown-item" href="#">Cool Tones</a></li>
-        <li><a class="dropdown-item" href="#">Warm Tones</a></li>
+        @foreach (var artcolor in Model.ArtColors)
+        {
+            <li><a class="dropdown-item" href="#">@artcolor.Name</a></li>
+        }
     </ul>
     @*Button 2 ends*@
 
@@ -42,15 +39,10 @@
         Filter By Style
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Realism</a></li>
-        <li><a class="dropdown-item" href="#">Abstract</a></li>
-        <li><a class="dropdown-item" href="#">Impressionism</a></li>
-        <li><a class="dropdown-item" href="#">Conceptual Illustration</a></li>
-        <li><a class="dropdown-item" href="#">Expression</a></li>
-        <li><a class="dropdown-item" href="#">Digital</a></li>
-        <li><a class="dropdown-item" href="#">Still Life</a></li>
-        <li><a class="dropdown-item" href="#">Floral</a></li>
-        <li><a class="dropdown-item" href="#">Landscape</a></li>
+        @foreach (var artstyle in Model.ArtStyles)
+        {
+            <li><a class="dropdown-item" href="#">@artstyle.Name</a></li>
+        }
     </ul>
     @*Button 3 ends*@
 
