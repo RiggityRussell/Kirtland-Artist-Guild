@@ -48,7 +48,7 @@ namespace Kirtland_Artist_Guild.Controllers
         // GET: ArtStyleLink/Create
         public IActionResult Create()
         {
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Description");
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name");
             ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name");
             return View();
         }
@@ -66,7 +66,7 @@ namespace Kirtland_Artist_Guild.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Description", artStyleLink.ArtID);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
             ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
             return View(artStyleLink);
         }
@@ -84,7 +84,7 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Description", artStyleLink.ArtID);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
             ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
             return View(artStyleLink);
         }
@@ -121,7 +121,7 @@ namespace Kirtland_Artist_Guild.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Description", artStyleLink.ArtID);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
             ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
             return View(artStyleLink);
         }
