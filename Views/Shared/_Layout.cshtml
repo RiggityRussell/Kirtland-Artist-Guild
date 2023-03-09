@@ -18,7 +18,7 @@
             <img class="slider-image" src="/media/Art3.jpg" alt="Slider Image">
          </div>
  <a class="text-decoration-none text-reset" asp-area="" asp-controller="Home" asp-action="Index">
-    <h1 class="KAG_title">Kirtland Artist Guild</h1>
+            <h1 class="KAG_title text-warning">Kirtland Artist Guild</h1>
 </a>
 
   <div class="container-fluid">
@@ -72,7 +72,15 @@
                     <li><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
                 </ul>
                 &copy; 2023 - Kirtland Artist Guild 
-                <br />Backend: <a asp-area="" asp-controller="Art" asp-action="Index">Art</a>
+                <br />Backend: 
+                <a asp-area="" asp-controller="Art" asp-action="Index">Art</a> -
+                <a asp-area="" asp-controller="ArtColor" asp-action="Index">ArtColor</a> -
+                <a asp-area="" asp-controller="ArtMedium" asp-action="Index">ArtMedium</a> -
+                <a asp-area="" asp-controller="ArtStyle" asp-action="Index">ArtStyle</a> -
+                <a asp-area="" asp-controller="ArtImage" asp-action="Index">ArtImage</a> -
+                <a asp-area="" asp-controller="ArtColorLink" asp-action="Index">ArtColorLink</a> -
+                <a asp-area="" asp-controller="ArtMediumLink" asp-action="Index">ArtMediumLink</a> -
+                <a asp-area="" asp-controller="ArtStyleLink" asp-action="Index">ArtStyleLink</a>
             </div>
         </div>
     </footer>
@@ -81,4 +89,4 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+</>
