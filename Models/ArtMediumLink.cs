@@ -7,7 +7,7 @@
         public int ArtMediumID { get; set; } // Foreign key for ArtMedium
 
         // Navigation properties
-        public Art Art { get; set; }
-        public ArtMedium ArtMedium { get; set; }
+        public Art? Art { get; set; }
+        public ArtMedium? ArtMedium { get; set; }
     }
 }

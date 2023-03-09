@@ -26,11 +26,11 @@ namespace Kirtland_Artist_Guild.Models
         public double Shipping { get; set; }
         
         // Navigation property for one-to-many relationship
-        public ICollection<ArtImage> ArtImages { get; set; }
+        public ICollection<ArtImage>? ArtImages { get; set; }
 
         // Navigation properties to linking entities for many-to-many relationship
-        public ICollection<ArtMediumLink> ArtMediumLinks { get; set; }
-        public ICollection<ArtColorLink> ArtColorLinks { get; set; }
-        public ICollection<ArtStyleLink> ArtStyleLinks { get; set; }
+        public ICollection<ArtMediumLink>? ArtMediumLinks { get; set; }
+        public ICollection<ArtColorLink>? ArtColorLinks { get; set; }
+        public ICollection<ArtStyleLink>? ArtStyleLinks { get; set; }
     }
 }
