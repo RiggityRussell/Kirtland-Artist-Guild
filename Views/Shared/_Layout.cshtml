@@ -12,10 +12,10 @@
 </head>
 <body>
     <header>
-        <div class="slider-container">
-            <img class="slider-image" src="/media/Art1.jpg" alt="Slider Image">
-            <img class="slider-image" src="/media/Art2.jpg" alt="Slider Image">
-            <img class="slider-image" src="/media/Art3.jpg" alt="Slider Image">
+        <div @*class="slider-container"*@>
+            @*<img class="slider-image" src="/media/Art1.jpg" alt="Slider Image">
+            <img class="slider-image" src="/media/Art2.jpg" alt="Slider Image">*@
+            <img class="header_img" src="/media/webpage media illustration.jpg" alt="Slider Image">
          </div>
  <a class="text-decoration-none text-reset" asp-area="" asp-controller="Home" asp-action="Index">
             <h1 class="KAG_title text-warning">Kirtland Artist Guild</h1>
@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
 
             <div class="container-fluid">
-                <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Kirtland Artist Guild</a>
+               @* <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Kirtland Artist Guild</a>*@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -52,7 +52,7 @@
                             <a class="nav-link text-warning" asp-area="" asp-controller="Home" asp-action="Exhibitions">Exhibitions</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    @*<partial name="_LoginPartial" />*@
                 </div>
             </div>
         </nav>
