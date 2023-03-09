@@ -1,16 +1,17 @@
 ﻿using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Kirtland_Artist_Guild.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly StoreContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(StoreContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -33,9 +34,14 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public IActionResult Artistic_Style()
+        public async Task<IActionResult> Artistic_Style()
         {
-            return View();
+            ArtisticStyleViewModel model = new ArtisticStyleViewModel();
+            model.ArtColors = await _context.ArtColors.ToListAsync();
+            model.ArtMediums = await _context.ArtMediums.ToListAsync();
+            model.ArtStyles = await _context.ArtStyles.ToListAsync();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
