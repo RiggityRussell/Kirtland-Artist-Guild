@@ -7,7 +7,7 @@
         public int ArtStyleID { get; set; } // Foreign key for ArtStyle
 
         // Navigation properties
-        public Art Art { get; set; }
-        public ArtStyle ArtStyle { get; set; }
+        public Art? Art { get; set; }
+        public ArtStyle? ArtStyle { get; set; }
     }
 }
