@@ -41,6 +41,9 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtMediums = await _context.ArtMediums.ToListAsync();
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
 
+            model.Arts = await _context.Arts.ToListAsync();
+            model.ArtImages = await _context.ArtImages.ToListAsync();
+
             return View(model);
         }
 
