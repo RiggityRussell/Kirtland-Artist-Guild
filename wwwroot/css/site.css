@@ -24,7 +24,18 @@ body {
     text-align:center
 }
 
-.slider-container {
+.header_img {
+    width: 100vw; /* 100% of the viewport width */
+    height: auto;
+    object-fit: contain;
+    display: block;
+    max-width: none; /* Remove the maximum width */
+    max-height: 300px;
+}
+
+
+
+/*.slider-container {
     position: relative;
     height: 300px;
     overflow: hidden;
@@ -42,7 +53,7 @@ body {
 
 .slider-image.active {
     opacity: 1;
-}
+}*/
 
 
 .social-icons {

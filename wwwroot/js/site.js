@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-$(document).ready(function () {
+/*$(document).ready(function () {
     var images = $('.slider-image');
     var imageIndex = 0;
 
@@ -19,5 +19,5 @@ $(document).ready(function () {
 
     // Loop through images every 5 seconds
     setInterval(nextImage, 5000);
-});
+});*/
 
