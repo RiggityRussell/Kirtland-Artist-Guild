@@ -18,9 +18,11 @@ body {
     margin-bottom: 60px;
 }
 
+
 .KAG_title {
     font-family: 'Cinzel Decorative', cursive;
-    text-align:center
+    text-align:center;
+    margin-top:25px;
 }
 
 .header_img {
@@ -31,7 +33,6 @@ body {
     max-width: none; /* Remove the maximum width */
     max-height: 300px;
 }
-
 
 
 /*.slider-container {
@@ -53,7 +54,6 @@ body {
 .slider-image.active {
     opacity: 1;
 }*/
-
 
 .social-icons {
     list-style: none;
