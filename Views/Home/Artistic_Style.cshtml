@@ -17,7 +17,14 @@
     <ul class="dropdown-menu">
         @foreach(var artmedium in Model.ArtMediums)
         {
-            <li><a class="dropdown-item" href="#">@artmedium.Name</a></li>
+            @if (artmedium.ID == (int)ViewData["CurrentMediumFilter"])
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=@ViewData["CurrentColorFilter"]&MediumFilter=0&StyleFilter=@ViewData["CurrentStyleFilter"]" style="color:red">@artmedium.Name</a></li>
+            }
+            else
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=@ViewData["CurrentColorFilter"]&MediumFilter=@artmedium.ID&StyleFilter=@ViewData["CurrentStyleFilter"]">@artmedium.Name</a></li>
+            }
         }
     </ul>
     @*Button 1 ends*@
@@ -29,7 +36,14 @@
     <ul class="dropdown-menu">
         @foreach (var artcolor in Model.ArtColors)
         {
-            <li><a class="dropdown-item" href="#">@artcolor.Name</a></li>
+            @if(artcolor.ID == (int)ViewData["CurrentColorFilter"])
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=0&MediumFilter=@ViewData["CurrentMediumFilter"]&StyleFilter=@ViewData["CurrentStyleFilter"]" style="color:red">@artcolor.Name</a></li>
+            }
+            else
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=@artcolor.ID&MediumFilter=@ViewData["CurrentMediumFilter"]&StyleFilter=@ViewData["CurrentStyleFilter"]">@artcolor.Name</a></li>
+            }
         }
     </ul>
     @*Button 2 ends*@
@@ -41,11 +55,25 @@
     <ul class="dropdown-menu">
         @foreach (var artstyle in Model.ArtStyles)
         {
-            <li><a class="dropdown-item" href="#">@artstyle.Name</a></li>
+            @if (artstyle.ID == (int)ViewData["CurrentStyleFilter"])
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=@ViewData["CurrentColorFilter"]&MediumFilter=@ViewData["CurrentMediumFilter"]&StyleFilter=0" style="color:red">@artstyle.Name</a></li>
+            }
+            else
+            {
+                <li><a class="dropdown-item" href="?ColorFilter=@ViewData["CurrentColorFilter"]&MediumFilter=@ViewData["CurrentMediumFilter"]&StyleFilter=@artstyle.ID">@artstyle.Name</a></li>
+            }
         }
     </ul>
     @*Button 3 ends*@
 
+</div>
+
+<div>
+    @foreach (var art in Model.Arts)
+    {
+        <div>@art.Name</div>
+    }
 </div>
 
 <div class="row row-cols-1 row-cols-md-5 g-3">

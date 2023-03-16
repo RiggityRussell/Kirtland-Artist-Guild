@@ -34,15 +34,41 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Artistic_Style()
+        public async Task<IActionResult> Artistic_Style(int colorFilter = 0, int mediumFilter = 0, int styleFilter = 0)
         {
             ArtisticStyleViewModel model = new ArtisticStyleViewModel();
+            ViewData["CurrentColorFilter"] = colorFilter;
+            ViewData["CurrentMediumFilter"] = mediumFilter;
+            ViewData["CurrentStyleFilter"] = styleFilter;
+
             model.ArtColors = await _context.ArtColors.ToListAsync();
             model.ArtMediums = await _context.ArtMediums.ToListAsync();
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
-
-            model.Arts = await _context.Arts.ToListAsync();
             model.ArtImages = await _context.ArtImages.ToListAsync();
+            var arts = from a in _context.Arts select a;
+
+
+            /*if (colorFilter == 0) { 
+                model.Arts = await _context.Arts.ToListAsync(); 
+            }
+            else { 
+                model.Arts = await _context.Arts.Where(a => a.ArtColorLinks.Any(c => c.ArtColorID == colorFilter)).ToListAsync();                
+            }*/
+
+            if (colorFilter != 0)
+            {
+                arts = arts.Where(a => a.ArtColorLinks.Any(c => c.ArtColorID == colorFilter));
+            }
+            if (mediumFilter != 0)
+            {
+                arts = arts.Where(a => a.ArtMediumLinks.Any(c => c.ArtMediumID == mediumFilter));
+            }
+            if (styleFilter != 0)
+            {
+                arts = arts.Where(a => a.ArtStyleLinks.Any(c => c.ArtStyleID == styleFilter));
+            }
+
+            model.Arts = await arts.ToListAsync();
 
             return View(model);
         }
