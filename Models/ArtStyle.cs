@@ -13,3 +13,5 @@ namespace Kirtland_Artist_Guild.Models
         public ICollection<ArtStyleLink>? ArtStyleLinks { get; set; }
     }
 }
+
+
