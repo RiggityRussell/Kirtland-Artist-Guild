@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-warning" asp-area="" asp-controller="Home" asp-action="Exhibitions">Exhibitions</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" asp-area="" asp-controller="Art" asp-action="Index">Test Art</a>
+                        </li>
                     </ul>
                     @*<partial name="_LoginPartial" />*@
                 </div>
@@ -64,6 +67,7 @@
                     <li><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
                 </ul>
                 &copy; 2023 - Kirtland Artist Guild 
+                <partial name="_LoginPartial" />
                 <br />Backend: 
                 <a asp-area="" asp-controller="Art" asp-action="Index">Art</a> -
                 <a asp-area="" asp-controller="ArtColor" asp-action="Index">ArtColor</a> -
