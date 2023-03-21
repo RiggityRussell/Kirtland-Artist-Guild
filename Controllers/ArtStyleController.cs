@@ -18,6 +18,16 @@ namespace Kirtland_Artist_Guild.Controllers
             _context = context;
         }
 
+        public ActionResult Index(int page = 1)
+        {
+            var viewModel = new MyViewModel
+            {
+                Page = page,
+                // Set other properties for the view here
+            };
+            return View(viewModel);
+        }
+
         // GET: ArtStyle
         public async Task<IActionResult> Index()
         {

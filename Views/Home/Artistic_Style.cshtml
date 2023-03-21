@@ -3,15 +3,22 @@
     ViewData["Title"] = "Artistic Style";
 }
 
+<head>
+    <meta charset="UTF-8">
+    <title>Artistic Stlye</title>
+    <link rel="stylesheet" href="~/css/Artistic_Style.css">
+</head>
+
 <div class="text-center">
     <h1 class="display-4">Artistic Style</h1>
     <p></p>
 </div>
 
-<div class="dropdown">@*This holds all three dropdown filters*@
+<div class="dropdown d-flex justify-content-center">
+    @*This holds all three dropdown filters*@
     
     @*Button 1 begins*@
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="btn btn-secondary dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Filter By Medium
     </a>
     <ul class="dropdown-menu">
@@ -30,7 +37,7 @@
     @*Button 1 ends*@
 
     @*Button 2 begins*@
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="btn btn-secondary dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Filter by Color
     </a>
     <ul class="dropdown-menu">
@@ -49,7 +56,7 @@
     @*Button 2 ends*@
 
     @*Button 3 begins*@
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="btn btn-secondary dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Filter By Style
     </a>
     <ul class="dropdown-menu">
@@ -76,11 +83,37 @@
     }
 </div>
 
-<div class="row row-cols-1 row-cols-md-5 g-3">
-    @for (int i = 1; i <= 20; i++)
-    {
-        <div class="col">
-            <img src="/media/Art1.jpg" alt="Image @i" class="img-fluid">
-        </div>
-    }
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
+        @for (int i = 1; i <= 20; i++)
+        {
+            <div class="col">
+                <div class="image-container">
+                    <a href="@Url.Action("Index")">
+                        <img src="/media/Art1.jpg" alt="Image @i" class="img-fluid border border-1 border-warning">
+                        <div class="image-info">
+                            Information about image @i
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+@*<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
+        @for (int i = 1; i <= 20; i++)
+        {
+            <div class="col">
+                <div class="image-container">
+                    <img src="/media/Art1.jpg" alt="Image @i" class="img-fluid border border-1 border-warning">
+                    <div class="image-info">
+                        Information about image @i
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>*@
