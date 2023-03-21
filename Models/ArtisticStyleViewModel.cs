@@ -11,3 +11,9 @@
         public List<ArtImage> ArtImages { get; set; }
     }
 }
+
+public class MyViewModel
+{
+    public int Page { get; set; }
+    // Other properties for the view can be added here
+}
