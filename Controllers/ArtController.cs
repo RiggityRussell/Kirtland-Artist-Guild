@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 
-namespace Kirtland_Artist_Guild.Controllers
+namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-    public class ArtController : Controller
+     public class ArtController : Controller
     {
         private readonly StoreContext _context;
 
@@ -21,7 +21,7 @@ namespace Kirtland_Artist_Guild.Controllers
         // GET: Art
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Arts.ToListAsync());
+            return View(await _context.Arts.ToListAsync());
         }
 
         // GET: Art/Details/5
@@ -147,14 +147,14 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 _context.Arts.Remove(art);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArtExists(int id)
         {
-          return _context.Arts.Any(e => e.ID == id);
+            return _context.Arts.Any(e => e.ID == id);
         }
     }
 }

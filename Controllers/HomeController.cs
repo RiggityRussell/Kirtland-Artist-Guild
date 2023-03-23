@@ -1,10 +1,12 @@
 ﻿using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Kirtland_Artist_Guild.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly StoreContext _context;

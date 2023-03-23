@@ -69,8 +69,8 @@ namespace Kirtland_Artist_Guild.Models
                 );
 
             modelBuilder.Entity<Art>().HasData(
-                new Art { ID = 1, UserID = 1, Name = "The Last Supper", Description = "Neat photo", Available = true, Price = 9.99, Shipping = 3.50 },
-                new Art { ID = 2, UserID = 1, Name = "Poker Dogs", Description = "Neat photo", Available = true, Price = 5.99, Shipping = 3.50 }
+                new Art { ID = 1, UserID = "1", Name = "The Last Supper", Description = "Neat photo", Available = true, Price = 9.99, Shipping = 3.50 },
+                new Art { ID = 2, UserID = "1", Name = "Poker Dogs", Description = "Neat photo", Available = true, Price = 5.99, Shipping = 3.50 }
                 );
 
             modelBuilder.Entity<ArtImage>().HasData(

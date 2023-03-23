@@ -17,7 +17,7 @@ namespace Kirtland_Artist_Guild.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -51,8 +51,9 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.Property<double>("Shipping")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -63,23 +64,23 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 8, 18, 48, 44, 305, DateTimeKind.Local).AddTicks(2612),
+                            Created = new DateTime(2023, 3, 22, 17, 15, 32, 472, DateTimeKind.Local).AddTicks(936),
                             Description = "Neat photo",
                             Name = "The Last Supper",
                             Price = 9.9900000000000002,
                             Shipping = 3.5,
-                            UserID = 1
+                            UserID = "1"
                         },
                         new
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 8, 18, 48, 44, 305, DateTimeKind.Local).AddTicks(2656),
+                            Created = new DateTime(2023, 3, 22, 17, 15, 32, 472, DateTimeKind.Local).AddTicks(971),
                             Description = "Neat photo",
                             Name = "Poker Dogs",
                             Price = 5.9900000000000002,
                             Shipping = 3.5,
-                            UserID = 1
+                            UserID = "1"
                         });
                 });
 
