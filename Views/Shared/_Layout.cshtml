@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var current = ViewContext.RouteData.Values["area"]?.ToString() ?? ViewContext.RouteData.Values["controller"]!.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-H13xV37CgDJ8jFQnCgzoP/z7nkKgU/G8YjWz0tT+L7Vp9ZkJ1io7VItcH0jK7Vg24lJgb0t2KjIH/R/veI2X9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    @RenderSection("styles", required: false);
 </head>
 <body>
     <header>
@@ -19,9 +23,9 @@
             <img class="slider-image" src="/media/Art2.jpg" alt="Slider Image">*@
             <img class="header_img" src="/media/webpage media illustration.jpg" alt="Slider Image">
          </div>
- <a class="KAG text-decoration-none text-reset" asp-area="" asp-controller="Home" asp-action="Index">
+        <a class="KAG text-decoration-none text-reset" asp-area="" asp-controller="Home" asp-action="Index">
             <h1 class="KAG_title text-warning">Kirtland Artist Guild</h1>
-</a>
+        </a>
         <div class="container-fluid border-bottom border-top border-warning box-shadow w-100">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
                @* <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Kirtland Artist Guild</a>*@
@@ -43,11 +47,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-warning" asp-area="" asp-controller="Home" asp-action="Exhibitions">Exhibitions</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" asp-area="" asp-controller="Art" asp-action="Index">Test Art</a>
-                        </li>
                     </ul>
-                    @*<partial name="_LoginPartial" />*@
                 </div>
         </nav>
        </div>
@@ -66,17 +66,8 @@
                     <li><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
                 </ul>
-                &copy; 2023 - Kirtland Artist Guild 
                 <partial name="_LoginPartial" />
-                <br />Backend: 
-                <a asp-area="" asp-controller="Art" asp-action="Index">Art</a> -
-                <a asp-area="" asp-controller="ArtColor" asp-action="Index">ArtColor</a> -
-                <a asp-area="" asp-controller="ArtMedium" asp-action="Index">ArtMedium</a> -
-                <a asp-area="" asp-controller="ArtStyle" asp-action="Index">ArtStyle</a> -
-                <a asp-area="" asp-controller="ArtImage" asp-action="Index">ArtImage</a> -
-                <a asp-area="" asp-controller="ArtColorLink" asp-action="Index">ArtColorLink</a> -
-                <a asp-area="" asp-controller="ArtMediumLink" asp-action="Index">ArtMediumLink</a> -
-                <a asp-area="" asp-controller="ArtStyleLink" asp-action="Index">ArtStyleLink</a>
+                &copy; 2023 - Kirtland Artist Guild 
             </div>
         </div>
     </footer>
@@ -85,4 +76,4 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</>
+</html>
