@@ -8,6 +8,12 @@
 
 <ul class="nav nav-tabs mt-2 mb-3">
     <li class="nav-item">
+        <a asp-action="Index" asp-controller="Account"
+           class="nav-link @Nav.Active("Account", current)">
+            Manage Account
+        </a>
+    </li>
+    <li class="nav-item">
         <a asp-action="Index" asp-controller="User"
            class="nav-link @Nav.Active("User", current)">
             Manage Users
@@ -16,31 +22,31 @@
     <li class="nav-item">
         <a asp-action="Index" asp-controller="Art"
            class="nav-link @Nav.Active("Art", current)">
-            Manage Art
+            Art
         </a>
     </li>
     <li class="nav-item">
         <a asp-action="Index" asp-controller="ArtImage"
            class="nav-link @Nav.Active("ArtImage", current)">
-            Manage Images
+            Images
         </a>
     </li>
     <li class="nav-item">
         <a asp-action="Index" asp-controller="ArtColor"
            class="nav-link @Nav.Active("ArtColor", current)">
-            Manage Colors
+            Colors
         </a>
     </li>
     <li class="nav-item">
         <a asp-action="Index" asp-controller="ArtMedium"
            class="nav-link @Nav.Active("ArtMedium", current)">
-            Manage Mediums
+            Mediums
         </a>
     </li>
     <li class="nav-item">
         <a asp-action="Index" asp-controller="ArtStyle"
            class="nav-link @Nav.Active("ArtStyle", current)">
-            Manage Styles
+            Styles
         </a>
     </li>
     <li class="nav-item">

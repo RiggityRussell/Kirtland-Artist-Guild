@@ -10,5 +10,21 @@ namespace Kirtland_Artist_Guild.Models
 
         [NotMapped]
         public IList<string> RoleNames { get; set; }
+
+        [DataType(DataType.Text)]
+        public string? firstName { get; set; }
+
+        [DataType(DataType.Text)]
+        public string? lastName { get; set; }
+
+        [DataType(DataType.Text)]
+        public string? artistMedium { get; set; }
+
+        [DataType(DataType.Text)]
+        public string? quote { get; set; }
+
+        [DataType(DataType.Text)]
+        public string? bio { get; set; }
+
     }
 }
