@@ -2,12 +2,9 @@
 @{
     ViewData["Title"] = "Artistic Style";
 }
-
-<head>
-    <meta charset="UTF-8">
-    <title>Artistic Stlye</title>
+@section styles {
     <link rel="stylesheet" href="~/css/Artistic_Style.css">
-</head>
+}
 
 <div class="text-center">
     <h1 class="display-4">Artistic Style</h1>
@@ -76,15 +73,36 @@
 
 </div>
 
-<div>
-    @foreach (var art in Model.Arts)
-    {
-        <div>@art.Name</div>
-    }
+<p></p>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
+        @foreach (var art in Model.Arts)
+        {            
+            var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/uploads/" };
+            
+            @foreach (var image in Model.ArtImages)
+            {
+                @if (image.ArtID == art.ID)
+                {
+                    picture = image;
+                }
+            }
+            <div class="col">
+                <div class="image-container">
+                    <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
+                        <img src="@("/media" + @picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
+                        <div class="image-info">
+                            @art.Name
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        <p></p>
+    </div>
 </div>
 
-
-<div class="container">
+@*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
         @for (int i = 1; i <= 20; i++)
         {
@@ -100,7 +118,7 @@
             </div>
         }
     </div>
-</div>
+</div>*@
 
 @*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">

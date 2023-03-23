@@ -1,10 +1,12 @@
 ﻿using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Kirtland_Artist_Guild.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly StoreContext _context;
@@ -46,14 +48,6 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
             model.ArtImages = await _context.ArtImages.ToListAsync();
             var arts = from a in _context.Arts select a;
-
-
-            /*if (colorFilter == 0) { 
-                model.Arts = await _context.Arts.ToListAsync(); 
-            }
-            else { 
-                model.Arts = await _context.Arts.Where(a => a.ArtColorLinks.Any(c => c.ArtColorID == colorFilter)).ToListAsync();                
-            }*/
 
             if (colorFilter != 0)
             {
