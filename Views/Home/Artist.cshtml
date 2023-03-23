@@ -1,0 +1,52 @@
+﻿@model Kirtland_Artist_Guild.Models.User
+@{
+    ViewData["Title"] = "Artist";
+}
+
+<h1 class="KAG_title text-warning"></h1>@*Link to dbo.AspNetUsers - User ID - User Name*@
+<h4 class="text-center"></h4>@*Link to dbo.AspNetUsers - User ID - artistmedium*@
+
+
+<div class="container py-2 mt-5">
+    <div class="row ms-auto">
+        <div class="col-sm-5">
+            <div class="card bg-transparent">
+                <div class="card-body">
+                    <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="card bg-transparent">
+                <div class="card-body">
+                    <p>
+                        @* @Html.Raw(Model.********PUTNAMEOFTHINGHERE**********.Replace(Environment.NewLine, "<br/>")) *@
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h2 class="text-center mt-3"></h2>@*UserID - User.quote*@
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-2">
+            <img src="/media/uploads/Frost on a Dahlia.jpg" alt="Image" class="img-fluid border border-warning">
+        </div>
+        <div class="col-md-2">
+            <img src="/media/uploads/Grandpas Lake.jpg" alt="Image" class="img-fluid border border-warning">
+        </div>
+        <div class="col-md-2">
+            <img src="/media/uploads/Mackinac horses Peters.jpg" alt="Image" class="img-fluid border border-warning">
+        </div>
+        <div class="col-md-2">
+            <img src="/media/uploads/Wedding Dress.jpg" alt="Image" class="img-fluid border border-warning">
+        </div>
+        <div class="col-md-2">
+            <img src="/media/uploads/Wind Dancer.jpg" alt="Image" class="img-fluid border border-warning">
+        </div>
+    </div>
+</div>
