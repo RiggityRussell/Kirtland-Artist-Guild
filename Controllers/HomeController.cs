@@ -49,14 +49,6 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtImages = await _context.ArtImages.ToListAsync();
             var arts = from a in _context.Arts select a;
 
-
-            /*if (colorFilter == 0) { 
-                model.Arts = await _context.Arts.ToListAsync(); 
-            }
-            else { 
-                model.Arts = await _context.Arts.Where(a => a.ArtColorLinks.Any(c => c.ArtColorID == colorFilter)).ToListAsync();                
-            }*/
-
             if (colorFilter != 0)
             {
                 arts = arts.Where(a => a.ArtColorLinks.Any(c => c.ArtColorID == colorFilter));

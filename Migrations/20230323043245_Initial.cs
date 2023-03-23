@@ -41,7 +41,7 @@ namespace Kirtland_Artist_Guild.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Available = table.Column<bool>(type: "bit", nullable: false),
@@ -245,8 +245,8 @@ namespace Kirtland_Artist_Guild.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -290,8 +290,8 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -352,8 +352,11 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: new[] { "ID", "Available", "Created", "Description", "Name", "Price", "Shipping", "UserID" },
                 values: new object[,]
                 {
-                    { 1, true, new DateTime(2023, 3, 21, 20, 30, 48, 854, DateTimeKind.Local).AddTicks(3636), "Neat photo", "The Last Supper", 9.9900000000000002, 3.5, 1 },
-                    { 2, true, new DateTime(2023, 3, 21, 20, 30, 48, 854, DateTimeKind.Local).AddTicks(3674), "Neat photo", "Poker Dogs", 5.9900000000000002, 3.5, 1 }
+                    { 1, true, new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4253), "Prints only", "Grandpas Lake", 119.98999999999999, 3.5, "1" },
+                    { 2, true, new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4285), "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ", "Wind Dancer", 1115.99, 53.5, "1" },
+                    { 3, true, new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4288), "Prints and notecards", "Mackinac Horses", 499.99000000000001, 9.9900000000000002, "1" },
+                    { 4, true, new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4290), "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ", "Wedding Dress", 199.99000000000001, 9.9900000000000002, "1" },
+                    { 5, false, new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4292), "Prints and notecards", "Frost on a Dahlia", 219.99000000000001, 0.0, "1" }
                 });
 
             migrationBuilder.InsertData(
@@ -361,8 +364,11 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: new[] { "ArtColorID", "ArtID" },
                 values: new object[,]
                 {
-                    { 3, 1 },
-                    { 2, 2 }
+                    { 2, 1 },
+                    { 4, 2 },
+                    { 1, 3 },
+                    { 5, 4 },
+                    { 2, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -370,9 +376,11 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: new[] { "ID", "ArtID", "FileName", "Source" },
                 values: new object[,]
                 {
-                    { 1, 1, "supper_front.jpg", "/uploads/" },
-                    { 2, 1, "supper_back.jpg", "/uploads/" },
-                    { 3, 2, "dogs.jpg", "/uploads/" }
+                    { 1, 1, "Grandpas Lake.jpg", "/uploads/" },
+                    { 2, 2, "Wind Dancer.jpg", "/uploads/" },
+                    { 3, 3, "Mackinac horses Peters.jpg", "/uploads/" },
+                    { 4, 4, "Wedding Dress.jpg", "/uploads/" },
+                    { 5, 5, "Frost on a Dahlia.jpg", "/uploads/" }
                 });
 
             migrationBuilder.InsertData(
@@ -380,8 +388,12 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: new[] { "ArtID", "ArtMediumID" },
                 values: new object[,]
                 {
-                    { 1, 2 },
-                    { 2, 2 }
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 2 },
+                    { 3, 3 },
+                    { 4, 6 },
+                    { 5, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -389,8 +401,11 @@ namespace Kirtland_Artist_Guild.Migrations
                 columns: new[] { "ArtID", "ArtStyleID" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 2, 2 }
+                    { 1, 9 },
+                    { 2, 1 },
+                    { 3, 1 },
+                    { 4, 1 },
+                    { 5, 8 }
                 });
 
             migrationBuilder.CreateIndex(

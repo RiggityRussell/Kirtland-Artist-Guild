@@ -6,88 +6,91 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-     public class ArtController : Controller
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
+    public class ArtMediumController : Controller
     {
         private readonly StoreContext _context;
 
-        public ArtController(StoreContext context)
+        public ArtMediumController(StoreContext context)
         {
             _context = context;
         }
 
-        // GET: Art
+        // GET: ArtMedium
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Arts.ToListAsync());
+            return View(await _context.ArtMediums.ToListAsync());
         }
 
-        // GET: Art/Details/5
+        // GET: ArtMedium/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Arts == null)
+            if (id == null || _context.ArtMediums == null)
             {
                 return NotFound();
             }
 
-            var art = await _context.Arts
+            var artMedium = await _context.ArtMediums
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (art == null)
+            if (artMedium == null)
             {
                 return NotFound();
             }
 
-            return View(art);
+            return View(artMedium);
         }
 
-        // GET: Art/Create
+        // GET: ArtMedium/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Art/Create
+        // POST: ArtMedium/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserID,Name,Description,Available,Created,Price,Shipping")] Art art)
+        public async Task<IActionResult> Create([Bind("ID,Name")] ArtMedium artMedium)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(art);
+                _context.Add(artMedium);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(art);
+            return View(artMedium);
         }
 
-        // GET: Art/Edit/5
+        // GET: ArtMedium/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Arts == null)
+            if (id == null || _context.ArtMediums == null)
             {
                 return NotFound();
             }
 
-            var art = await _context.Arts.FindAsync(id);
-            if (art == null)
+            var artMedium = await _context.ArtMediums.FindAsync(id);
+            if (artMedium == null)
             {
                 return NotFound();
             }
-            return View(art);
+            return View(artMedium);
         }
 
-        // POST: Art/Edit/5
+        // POST: ArtMedium/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,Name,Description,Available,Created,Price,Shipping")] Art art)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] ArtMedium artMedium)
         {
-            if (id != art.ID)
+            if (id != artMedium.ID)
             {
                 return NotFound();
             }
@@ -96,12 +99,12 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(art);
+                    _context.Update(artMedium);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArtExists(art.ID))
+                    if (!ArtMediumExists(artMedium.ID))
                     {
                         return NotFound();
                     }
@@ -112,49 +115,49 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(art);
+            return View(artMedium);
         }
 
-        // GET: Art/Delete/5
+        // GET: ArtMedium/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Arts == null)
+            if (id == null || _context.ArtMediums == null)
             {
                 return NotFound();
             }
 
-            var art = await _context.Arts
+            var artMedium = await _context.ArtMediums
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (art == null)
+            if (artMedium == null)
             {
                 return NotFound();
             }
 
-            return View(art);
+            return View(artMedium);
         }
 
-        // POST: Art/Delete/5
+        // POST: ArtMedium/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Arts == null)
+            if (_context.ArtMediums == null)
             {
-                return Problem("Entity set 'StoreContext.Arts'  is null.");
+                return Problem("Entity set 'StoreContext.ArtMediums'  is null.");
             }
-            var art = await _context.Arts.FindAsync(id);
-            if (art != null)
+            var artMedium = await _context.ArtMediums.FindAsync(id);
+            if (artMedium != null)
             {
-                _context.Arts.Remove(art);
+                _context.ArtMediums.Remove(artMedium);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArtExists(int id)
+        private bool ArtMediumExists(int id)
         {
-            return _context.Arts.Any(e => e.ID == id);
+            return _context.ArtMediums.Any(e => e.ID == id);
         }
     }
 }

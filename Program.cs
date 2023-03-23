@@ -77,10 +77,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    await ConfigureIdentity.CreateAdminUserAsync(scope.ServiceProvider);
+}
+
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=User}/{action=Index}");
+    pattern: "Admin/{controller=Art}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

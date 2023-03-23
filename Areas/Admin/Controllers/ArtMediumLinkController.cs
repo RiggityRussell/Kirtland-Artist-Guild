@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Kirtland_Artist_Guild.Controllers
+namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class ArtMediumLinkController : Controller
     {
         private readonly StoreContext _context;
@@ -160,14 +163,14 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 _context.ArtMediumLinks.Remove(artMediumLink);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArtMediumLinkExists(int id)
         {
-          return _context.ArtMediumLinks.Any(e => e.ArtID == id);
+            return _context.ArtMediumLinks.Any(e => e.ArtID == id);
         }
     }
 }

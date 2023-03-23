@@ -8,15 +8,57 @@
 
 <ul class="nav nav-tabs mt-2 mb-3">
     <li class="nav-item">
+        <a asp-action="Index" asp-controller="User"
+           class="nav-link @Nav.Active("User", current)">
+            Manage Users
+        </a>
+    </li>
+    <li class="nav-item">
         <a asp-action="Index" asp-controller="Art"
            class="nav-link @Nav.Active("Art", current)">
             Manage Art
         </a>
     </li>
     <li class="nav-item">
-        <a asp-action="Index" asp-controller="User"
-           class="nav-link @Nav.Active("User", current)">
-            Manage Users
+        <a asp-action="Index" asp-controller="ArtImage"
+           class="nav-link @Nav.Active("ArtImage", current)">
+            Manage Images
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtColor"
+           class="nav-link @Nav.Active("ArtColor", current)">
+            Manage Colors
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtMedium"
+           class="nav-link @Nav.Active("ArtMedium", current)">
+            Manage Mediums
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtStyle"
+           class="nav-link @Nav.Active("ArtStyle", current)">
+            Manage Styles
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtColorLink"
+           class="nav-link @Nav.Active("ArtColorLink", current)">
+            Color Links
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtMediumLink"
+           class="nav-link @Nav.Active("ArtMediumLink", current)">
+            Medium Links
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="ArtStyleLink"
+           class="nav-link @Nav.Active("ArtStyleLink", current)">
+            Style Links
         </a>
     </li>
 </ul>
