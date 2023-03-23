@@ -36,6 +36,11 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
+        public IActionResult Artist()
+        {
+            return View();
+        }
+
         public IActionResult ExampleArtist()
         {
             return View();

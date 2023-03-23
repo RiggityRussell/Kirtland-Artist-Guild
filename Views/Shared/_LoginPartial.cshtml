@@ -6,7 +6,7 @@
     {
         <a class="col-sm-auto text-warning" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
         <a class="col-sm-auto btn btn-sm btn-outline-light" asp-area="Admin" asp-controller="Art" asp-action="Index"><i class="fa fa-cog"></i>&nbsp;Admin</a>
-        <form method="post" class="col-sm-auto form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
+        <form method="post" class="col-sm-auto form-inline" asp-area="Identity" asp-page="/Account/Logout" >
             <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
         </form>
     }
