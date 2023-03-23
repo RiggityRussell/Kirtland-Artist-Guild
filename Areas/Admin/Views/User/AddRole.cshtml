@@ -1,0 +1,26 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+@{
+    ViewBag.Title = "Add Role";
+}
+<h2>Add Role</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form method="post" asp-action="AddRole">
+    <div class="row mb-2">
+        <label class="col-form-label col-md-2">Name:</label>
+        <div class="col-md-4">
+            <input type="text" asp-for="Name"
+                   class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Name"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>

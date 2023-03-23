@@ -1,0 +1,26 @@
+﻿@{
+    // nested layout view
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // use current controller to determine if tab is active
+    var current = ViewContext.RouteData.Values["controller"]!.ToString() ?? "";
+}
+
+<ul class="nav nav-tabs mt-2 mb-3">
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="Art"
+           class="nav-link @Nav.Active("Art", current)">
+            Manage Art
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="User"
+           class="nav-link @Nav.Active("User", current)">
+            Manage Users
+        </a>
+    </li>
+</ul>
+
+@RenderBody()
+
+@section scripts { @RenderSection("scripts", required: false) }

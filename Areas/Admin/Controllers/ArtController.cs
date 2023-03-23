@@ -9,7 +9,8 @@ using Kirtland_Artist_Guild.Models;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-     public class ArtController : Controller
+    [Area("Admin")]
+    public class ArtController : Controller
     {
         private readonly StoreContext _context;
 

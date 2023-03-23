@@ -7,7 +7,7 @@ namespace Kirtland_Artist_Guild.Models
     {
         public int ID { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [Required(ErrorMessage = "Please enter a name.")]
         [StringLength(50, ErrorMessage = "Name is too long.")]

@@ -11,9 +11,9 @@ builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<StoreContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<StoreContext>()
+    .AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 
 /*builder.Services.AddAuthorization(options =>
@@ -76,6 +76,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=User}/{action=Index}");
 
 app.MapControllerRoute(
     name: "default",
