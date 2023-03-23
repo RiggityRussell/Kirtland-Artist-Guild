@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -65,7 +65,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username };
+                var user = new User { UserName = model.Username, EmailConfirmed = true };
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -99,8 +99,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             IdentityRole adminRole = await roleManager.FindByNameAsync("Admin");
             if (adminRole == null)
             {
-                TempData["message"] = "Admin role does not exist. "
-                    + "Click 'Create Admin Role' button to create it.";
+                TempData["message"] = "Admin role does not exist.";
             }
             else
             {
@@ -125,7 +124,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             IdentityRole artistRole = await roleManager.FindByNameAsync("Artist");
             if (artistRole == null)
             {
-                TempData["message"] = "Artist role does not exist. ";
+                TempData["message"] = "Artist role does not exist.";
             }
             else
             {

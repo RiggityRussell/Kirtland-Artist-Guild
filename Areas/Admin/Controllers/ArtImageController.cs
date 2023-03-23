@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Kirtland_Artist_Guild.Controllers
+namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Artist")]
+    [Area("Admin")]
     public class ArtImageController : Controller
     {
         private readonly StoreContext _context;
@@ -154,14 +157,14 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 _context.ArtImages.Remove(artImage);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArtImageExists(int id)
         {
-          return _context.ArtImages.Any(e => e.ID == id);
+            return _context.ArtImages.Any(e => e.ID == id);
         }
     }
 }

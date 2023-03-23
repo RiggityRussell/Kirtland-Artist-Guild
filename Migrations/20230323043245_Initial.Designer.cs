@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kirtland_Artist_Guild.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230322003049_Initial")]
+    [Migration("20230323043245_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,8 +53,9 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.Property<double>("Shipping")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -65,23 +66,56 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 21, 20, 30, 48, 854, DateTimeKind.Local).AddTicks(3636),
-                            Description = "Neat photo",
-                            Name = "The Last Supper",
-                            Price = 9.9900000000000002,
+                            Created = new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4253),
+                            Description = "Prints only",
+                            Name = "Grandpas Lake",
+                            Price = 119.98999999999999,
                             Shipping = 3.5,
-                            UserID = 1
+                            UserID = "1"
                         },
                         new
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 21, 20, 30, 48, 854, DateTimeKind.Local).AddTicks(3674),
-                            Description = "Neat photo",
-                            Name = "Poker Dogs",
-                            Price = 5.9900000000000002,
-                            Shipping = 3.5,
-                            UserID = 1
+                            Created = new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4285),
+                            Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ",
+                            Name = "Wind Dancer",
+                            Price = 1115.99,
+                            Shipping = 53.5,
+                            UserID = "1"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Available = true,
+                            Created = new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4288),
+                            Description = "Prints and notecards",
+                            Name = "Mackinac Horses",
+                            Price = 499.99000000000001,
+                            Shipping = 9.9900000000000002,
+                            UserID = "1"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Available = true,
+                            Created = new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4290),
+                            Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ",
+                            Name = "Wedding Dress",
+                            Price = 199.99000000000001,
+                            Shipping = 9.9900000000000002,
+                            UserID = "1"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Available = false,
+                            Created = new DateTime(2023, 3, 23, 0, 32, 44, 751, DateTimeKind.Local).AddTicks(4292),
+                            Description = "Prints and notecards",
+                            Name = "Frost on a Dahlia",
+                            Price = 219.99000000000001,
+                            Shipping = 0.0,
+                            UserID = "1"
                         });
                 });
 
@@ -147,11 +181,26 @@ namespace Kirtland_Artist_Guild.Migrations
                         new
                         {
                             ArtID = 1,
-                            ArtColorID = 3
+                            ArtColorID = 2
                         },
                         new
                         {
                             ArtID = 2,
+                            ArtColorID = 4
+                        },
+                        new
+                        {
+                            ArtID = 3,
+                            ArtColorID = 1
+                        },
+                        new
+                        {
+                            ArtID = 4,
+                            ArtColorID = 5
+                        },
+                        new
+                        {
+                            ArtID = 5,
                             ArtColorID = 2
                         });
                 });
@@ -186,21 +235,35 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 1,
                             ArtID = 1,
-                            FileName = "supper_front.jpg",
+                            FileName = "Grandpas Lake.jpg",
                             Source = "/uploads/"
                         },
                         new
                         {
                             ID = 2,
-                            ArtID = 1,
-                            FileName = "supper_back.jpg",
+                            ArtID = 2,
+                            FileName = "Wind Dancer.jpg",
                             Source = "/uploads/"
                         },
                         new
                         {
                             ID = 3,
-                            ArtID = 2,
-                            FileName = "dogs.jpg",
+                            ArtID = 3,
+                            FileName = "Mackinac horses Peters.jpg",
+                            Source = "/uploads/"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            ArtID = 4,
+                            FileName = "Wedding Dress.jpg",
+                            Source = "/uploads/"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            ArtID = 5,
+                            FileName = "Frost on a Dahlia.jpg",
                             Source = "/uploads/"
                         });
                 });
@@ -277,12 +340,32 @@ namespace Kirtland_Artist_Guild.Migrations
                         new
                         {
                             ArtID = 1,
-                            ArtMediumID = 2
+                            ArtMediumID = 1
                         },
                         new
                         {
                             ArtID = 2,
+                            ArtMediumID = 1
+                        },
+                        new
+                        {
+                            ArtID = 3,
+                            ArtMediumID = 3
+                        },
+                        new
+                        {
+                            ArtID = 3,
                             ArtMediumID = 2
+                        },
+                        new
+                        {
+                            ArtID = 4,
+                            ArtMediumID = 6
+                        },
+                        new
+                        {
+                            ArtID = 5,
+                            ArtMediumID = 1
                         });
                 });
 
@@ -368,12 +451,27 @@ namespace Kirtland_Artist_Guild.Migrations
                         new
                         {
                             ArtID = 1,
-                            ArtStyleID = 1
+                            ArtStyleID = 9
                         },
                         new
                         {
                             ArtID = 2,
-                            ArtStyleID = 2
+                            ArtStyleID = 1
+                        },
+                        new
+                        {
+                            ArtID = 3,
+                            ArtStyleID = 1
+                        },
+                        new
+                        {
+                            ArtID = 4,
+                            ArtStyleID = 1
+                        },
+                        new
+                        {
+                            ArtID = 5,
+                            ArtStyleID = 8
                         });
                 });
 
@@ -522,12 +620,10 @@ namespace Kirtland_Artist_Guild.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -564,12 +660,10 @@ namespace Kirtland_Artist_Guild.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

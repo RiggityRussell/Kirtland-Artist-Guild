@@ -6,97 +6,100 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Kirtland_Artist_Guild.Controllers
+namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-    public class ArtStyleLinkController : Controller
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
+    public class ArtColorLinkController : Controller
     {
         private readonly StoreContext _context;
 
-        public ArtStyleLinkController(StoreContext context)
+        public ArtColorLinkController(StoreContext context)
         {
             _context = context;
         }
 
-        // GET: ArtStyleLink
+        // GET: ArtColorLink
         public async Task<IActionResult> Index()
         {
-            var storeContext = _context.ArtStyleLinks.Include(a => a.Art).Include(a => a.ArtStyle);
+            var storeContext = _context.ArtColorLinks.Include(a => a.Art).Include(a => a.ArtColor);
             return View(await storeContext.ToListAsync());
         }
 
-        // GET: ArtStyleLink/Details/5
+        // GET: ArtColorLink/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.ArtStyleLinks == null)
+            if (id == null || _context.ArtColorLinks == null)
             {
                 return NotFound();
             }
 
-            var artStyleLink = await _context.ArtStyleLinks
+            var artColorLink = await _context.ArtColorLinks
                 .Include(a => a.Art)
-                .Include(a => a.ArtStyle)
+                .Include(a => a.ArtColor)
                 .FirstOrDefaultAsync(m => m.ArtID == id);
-            if (artStyleLink == null)
+            if (artColorLink == null)
             {
                 return NotFound();
             }
 
-            return View(artStyleLink);
+            return View(artColorLink);
         }
 
-        // GET: ArtStyleLink/Create
+        // GET: ArtColorLink/Create
         public IActionResult Create()
         {
             ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name");
-            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name");
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
             return View();
         }
 
-        // POST: ArtStyleLink/Create
+        // POST: ArtColorLink/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArtID,ArtStyleID")] ArtStyleLink artStyleLink)
+        public async Task<IActionResult> Create([Bind("ArtID,ArtColorID")] ArtColorLink artColorLink)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(artStyleLink);
+                _context.Add(artColorLink);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
-            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
-            return View(artStyleLink);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artColorLink.ArtID);
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name", artColorLink.ArtColorID);
+            return View(artColorLink);
         }
 
-        // GET: ArtStyleLink/Edit/5
+        // GET: ArtColorLink/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.ArtStyleLinks == null)
+            if (id == null || _context.ArtColorLinks == null)
             {
                 return NotFound();
             }
 
-            var artStyleLink = await _context.ArtStyleLinks.FindAsync(id);
-            if (artStyleLink == null)
+            var artColorLink = await _context.ArtColorLinks.FindAsync(id);
+            if (artColorLink == null)
             {
                 return NotFound();
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
-            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
-            return View(artStyleLink);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artColorLink.ArtID);
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name", artColorLink.ArtColorID);
+            return View(artColorLink);
         }
 
-        // POST: ArtStyleLink/Edit/5
+        // POST: ArtColorLink/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArtID,ArtStyleID")] ArtStyleLink artStyleLink)
+        public async Task<IActionResult> Edit(int id, [Bind("ArtID,ArtColorID")] ArtColorLink artColorLink)
         {
-            if (id != artStyleLink.ArtID)
+            if (id != artColorLink.ArtID)
             {
                 return NotFound();
             }
@@ -105,12 +108,12 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 try
                 {
-                    _context.Update(artStyleLink);
+                    _context.Update(artColorLink);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArtStyleLinkExists(artStyleLink.ArtID))
+                    if (!ArtColorLinkExists(artColorLink.ArtID))
                     {
                         return NotFound();
                     }
@@ -121,53 +124,53 @@ namespace Kirtland_Artist_Guild.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artStyleLink.ArtID);
-            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
-            return View(artStyleLink);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artColorLink.ArtID);
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name", artColorLink.ArtColorID);
+            return View(artColorLink);
         }
 
-        // GET: ArtStyleLink/Delete/5
+        // GET: ArtColorLink/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.ArtStyleLinks == null)
+            if (id == null || _context.ArtColorLinks == null)
             {
                 return NotFound();
             }
 
-            var artStyleLink = await _context.ArtStyleLinks
+            var artColorLink = await _context.ArtColorLinks
                 .Include(a => a.Art)
-                .Include(a => a.ArtStyle)
+                .Include(a => a.ArtColor)
                 .FirstOrDefaultAsync(m => m.ArtID == id);
-            if (artStyleLink == null)
+            if (artColorLink == null)
             {
                 return NotFound();
             }
 
-            return View(artStyleLink);
+            return View(artColorLink);
         }
 
-        // POST: ArtStyleLink/Delete/5
+        // POST: ArtColorLink/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.ArtStyleLinks == null)
+            if (_context.ArtColorLinks == null)
             {
-                return Problem("Entity set 'StoreContext.ArtStyleLinks'  is null.");
+                return Problem("Entity set 'StoreContext.ArtColorLinks'  is null.");
             }
-            var artStyleLink = await _context.ArtStyleLinks.FindAsync(id);
-            if (artStyleLink != null)
+            var artColorLink = await _context.ArtColorLinks.FindAsync(id);
+            if (artColorLink != null)
             {
-                _context.ArtStyleLinks.Remove(artStyleLink);
+                _context.ArtColorLinks.Remove(artColorLink);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArtStyleLinkExists(int id)
+        private bool ArtColorLinkExists(int id)
         {
-          return _context.ArtStyleLinks.Any(e => e.ArtID == id);
+            return _context.ArtColorLinks.Any(e => e.ArtID == id);
         }
     }
 }

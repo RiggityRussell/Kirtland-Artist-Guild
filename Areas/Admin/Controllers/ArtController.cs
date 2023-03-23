@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Artist")]
     [Area("Admin")]
     public class ArtController : Controller
     {

@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Kirtland_Artist_Guild.Controllers
+namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class ArtStyleController : Controller
     {
         private readonly StoreContext _context;
@@ -18,20 +21,10 @@ namespace Kirtland_Artist_Guild.Controllers
             _context = context;
         }
 
-        public ActionResult Index(int page = 1)
-        {
-            var viewModel = new MyViewModel
-            {
-                Page = page,
-                // Set other properties for the view here
-            };
-            return View(viewModel);
-        }
-
         // GET: ArtStyle
         public async Task<IActionResult> Index()
         {
-              return View(await _context.ArtStyles.ToListAsync());
+            return View(await _context.ArtStyles.ToListAsync());
         }
 
         // GET: ArtStyle/Details/5
@@ -157,14 +150,14 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 _context.ArtStyles.Remove(artStyle);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArtStyleExists(int id)
         {
-          return _context.ArtStyles.Any(e => e.ID == id);
+            return _context.ArtStyles.Any(e => e.ID == id);
         }
     }
 }
