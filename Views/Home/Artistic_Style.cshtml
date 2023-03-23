@@ -75,11 +75,11 @@
 
 <p></p>
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
+    <div class="row masonry-grid">
         @foreach (var art in Model.Arts)
-        {            
+        {
             var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/uploads/" };
-            
+
             @foreach (var image in Model.ArtImages)
             {
                 @if (image.ArtID == art.ID)
@@ -87,21 +87,31 @@
                     picture = image;
                 }
             }
-            <div class="col">
+            <div class="col-md-4 col-lg-3 masonry-item mt-4">
                 <div class="image-container">
                     <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
                         <img src="@("/media" + @picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
                         <div class="image-info">
-                            @art.Name
+                            @art.Name <br>
+                            @art.UserID
                         </div>
                     </a>
                 </div>
             </div>
         }
-        <p></p>
     </div>
 </div>
-
+@section scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+<script>
+    var masonryGrid = document.querySelector('.masonry-grid');
+    var masonry = new Masonry(masonryGrid, {
+        itemSelector: '.masonry-item',
+        columnWidth: '.col-md-4',
+        percentPosition: true
+    });
+</script>
+}
 @*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
         @for (int i = 1; i <= 20; i++)
