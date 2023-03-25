@@ -18,7 +18,10 @@ namespace Kirtland_Artist_Guild.Models
             {
                 await roleManager.CreateAsync(new IdentityRole(roleName));
             }
-
+            if (await roleManager.FindByNameAsync("Artist") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Artist"));
+            }
             // if username doesn't exist, create it and add to role
             if (await userManager.FindByNameAsync(username) == null)
             {

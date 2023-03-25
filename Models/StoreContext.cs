@@ -69,11 +69,11 @@ namespace Kirtland_Artist_Guild.Models
                 );
 
             modelBuilder.Entity<Art>().HasData(
-                new Art { ID = 1, UserID = "1", Name = "Grandpas Lake", Description = "Prints only", Available = true, Price = 119.99, Shipping = 3.50 },
-                new Art { ID = 2, UserID = "1", Name = "Wind Dancer", Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ", Available = true, Price = 1115.99, Shipping = 53.50 },
-                new Art { ID = 3, UserID = "1", Name = "Mackinac Horses", Description = "Prints and notecards", Available = true, Price = 499.99, Shipping = 9.99 },
-                new Art { ID = 4, UserID = "1", Name = "Wedding Dress", Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ", Available = true, Price = 199.99, Shipping = 9.99 },
-                new Art { ID = 5, UserID = "1", Name = "Frost on a Dahlia", Description = "Prints and notecards", Available = false, Price = 219.99, Shipping = 0.00 }
+                new Art { ID = 1, Name = "Grandpas Lake", Description = "Prints only", Available = true, Price = 119.99, Shipping = 3.50 },
+                new Art { ID = 2, Name = "Wind Dancer", Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ", Available = true, Price = 1115.99, Shipping = 53.50 },
+                new Art { ID = 3, Name = "Mackinac Horses", Description = "Prints and notecards", Available = true, Price = 499.99, Shipping = 9.99 },
+                new Art { ID = 4, Name = "Wedding Dress", Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ", Available = true, Price = 199.99, Shipping = 9.99 },
+                new Art { ID = 5, Name = "Frost on a Dahlia", Description = "Prints and notecards", Available = false, Price = 219.99, Shipping = 0.00 }
                 );
 
             modelBuilder.Entity<ArtImage>().HasData(

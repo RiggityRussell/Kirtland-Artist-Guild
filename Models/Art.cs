@@ -5,9 +5,7 @@ namespace Kirtland_Artist_Guild.Models
 {
     public class Art
     {
-        public int ID { get; set; }
-
-        public string UserID { get; set; }
+        public int ID { get; set; }        
 
         [Required(ErrorMessage = "Please enter a name.")]
         [StringLength(50, ErrorMessage = "Name is too long.")]
@@ -24,9 +22,12 @@ namespace Kirtland_Artist_Guild.Models
         public double Price { get; set; }
 
         public double Shipping { get; set; }
-        
+
+        public string? UserID { get; set; } // Foreign key for one-to-many relationship
+
         // Navigation property for one-to-many relationship
         public ICollection<ArtImage>? ArtImages { get; set; }
+        public User? User { get; set; }
 
         // Navigation properties to linking entities for many-to-many relationship
         public ICollection<ArtMediumLink>? ArtMediumLinks { get; set; }
