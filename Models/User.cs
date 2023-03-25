@@ -26,5 +26,7 @@ namespace Kirtland_Artist_Guild.Models
         [DataType(DataType.Text)]
         public string? bio { get; set; }
 
+        public ICollection<Art>? Art { get; set; } // Naviation property for one-to-many relationship
+
     }
 }
