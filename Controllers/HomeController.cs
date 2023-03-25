@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 
 namespace Kirtland_Artist_Guild.Controllers
 {
@@ -10,10 +11,12 @@ namespace Kirtland_Artist_Guild.Controllers
     public class HomeController : Controller
     {
         private readonly StoreContext _context;
+        private UserManager<User> userManager;
 
-        public HomeController(StoreContext context)
+        public HomeController(StoreContext context, UserManager<User> userMngr)
         {
             _context = context;
+            userManager = userMngr;
         }
 
         public IActionResult Index()
@@ -21,9 +24,19 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public IActionResult Artists()
+        public async Task<IActionResult> Artists()
         {
-            return View();
+            List<User> users = new List<User>();
+            foreach (User user in userManager.Users) 
+            {
+                user.RoleNames = await userManager.GetRolesAsync(user);
+                users.Add(user);
+            }
+            ArtistsViewModel model = new ArtistsViewModel
+            {
+                Users = users
+            };
+            return View(model);
         }
 
         public IActionResult About_Us()
@@ -36,9 +49,27 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public IActionResult Artist()
+        public async Task<IActionResult> Artist(string? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ArtistViewModel model = new ArtistViewModel();
+
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+            model.User = user;
+
+            var arts = from a in _context.Arts.Where(u => u.UserID == id) select a;             
+            model.Arts = await arts.ToListAsync();
+            model.ArtImages = await _context.ArtImages.ToListAsync();
+
+            return View(model);
         }
 
         public IActionResult ExampleArtist()
@@ -61,7 +92,7 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtMediums = await _context.ArtMediums.ToListAsync();
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
             model.ArtImages = await _context.ArtImages.ToListAsync();
-            var arts = from a in _context.Arts select a;
+            var arts = from a in _context.Arts.Include(u => u.User) select a;
 
             if (colorFilter != 0)
             {
