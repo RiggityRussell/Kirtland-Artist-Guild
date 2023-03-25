@@ -52,7 +52,7 @@
     <div class="row mb-2">
         <label asp-for="bio" class="col-form-label col-md-2">Bio:</label>
         <div class="col-md-4">
-            <input asp-for="bio" class="form-control" />
+            <textarea asp-for="bio" class="form-control" rows="10" type="text"></textarea>
         </div>
         <div class="col">
             <span asp-validation-for="bio" class="text-danger"></span>

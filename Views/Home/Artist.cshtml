@@ -1,10 +1,13 @@
-﻿@model Kirtland_Artist_Guild.Models.User
+﻿@model ArtistViewModel
 @{
     ViewData["Title"] = "Artist";
 }
+@section styles {
+    <link rel="stylesheet" href="~/css/Artistic_Style.css">
+}
 
-<h1 class="KAG_title text-warning"></h1>@*Link to dbo.AspNetUsers - User ID - User Name*@
-<h4 class="text-center"></h4>@*Link to dbo.AspNetUsers - User ID - artistmedium*@
+<h1 class="KAG_title text-warning">@Model.User.firstName @Model.User.lastName</h1>@*Link to dbo.AspNetUsers - User ID - User Name*@
+<h4 class="text-center">@Model.User.artistMedium</h4>@*Link to dbo.AspNetUsers - User ID - artistmedium*@
 
 
 <div class="container py-2 mt-5">
@@ -20,7 +23,10 @@
             <div class="card bg-transparent">
                 <div class="card-body">
                     <p>
-                        @* @Html.Raw(Model.********PUTNAMEOFTHINGHERE**********.Replace(Environment.NewLine, "<br/>")) *@
+                        @if (Model.User.bio != null)
+                        {
+                            @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
+                        }
                     </p>
                 </div>
             </div>
@@ -29,9 +35,9 @@
 </div>
 
 
-<h2 class="text-center mt-3"></h2>@*UserID - User.quote*@
+<h2 class="text-center mt-3">@Model.User.quote</h2>@*UserID - User.quote*@
 
-<div class="container">
+@*<div class="container">
     <div class="row mt-3">
         <div class="col-md-2">
             <img src="/media/uploads/Frost on a Dahlia.jpg" alt="Image" class="img-fluid border border-warning">
@@ -49,4 +55,43 @@
             <img src="/media/uploads/Wind Dancer.jpg" alt="Image" class="img-fluid border border-warning">
         </div>
     </div>
+</div>*@
+
+<div class="container">
+    <div class="row masonry-grid">
+        @foreach (var art in Model.Arts)
+        {
+            var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/uploads/" };
+
+            @foreach (var image in Model.ArtImages)
+            {
+                @if (image.ArtID == art.ID)
+                {
+                    picture = image;
+                }
+            }
+            <div class="col-md-4 col-lg-3 masonry-item mt-4">
+                <div class="image-container">
+                    <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
+                        <img src="@("/media" + @picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
+                        <div class="image-info">
+                            @art.Name <br>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script>
+        var masonryGrid = document.querySelector('.masonry-grid');
+        var masonry = new Masonry(masonryGrid, {
+            itemSelector: '.masonry-item',
+            columnWidth: '.col-md-4',
+            percentPosition: true
+        });
+    </script>
+}

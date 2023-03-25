@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ArtistsViewModel
+@{
     ViewData["Title"] = "Artists";
 }
 
@@ -7,6 +8,30 @@
     <p></p>
 </div>
 
+@if (Model.Users.Count() == 0)
+{
+    <div>There are no artist accounts.</div>
+}
+else
+{
+    @foreach (User user in Model.Users)
+    {
+        @foreach (string roleName in user.RoleNames) // Find more efficient way to check if user is artist
+        {
+            @if (roleName == "Artist")
+            {
+                @if (user.firstName != null)
+                {
+                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.Id">@user.firstName @user.lastName</a></div>
+                }
+                else
+                {
+                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.Id">@user.UserName</a></div>
+                }
+            }
+        }        
+    }
+}
 
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">  
