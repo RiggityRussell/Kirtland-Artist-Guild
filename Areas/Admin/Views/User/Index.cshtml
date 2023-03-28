@@ -31,7 +31,7 @@
                     <td>
                         <form method="post" asp-action="Delete"
                       asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-danger">
                                 Delete User
                             </button>
                         </form>
@@ -39,13 +39,14 @@
                     <td>
                         <form method="post" asp-action="AddToArtist"
                       asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-secondary mb-2">
                                 Add To Artist
-                            </button>
+                            </button> |  
+                            
                         </form>
                         <form method="post" asp-action="RemoveFromArtist"
                       asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-primary">
+                           <button type="submit" class="btn btn-secondary">
                                 Remove From Artist
                             </button>
                         </form>
@@ -53,13 +54,13 @@
                     <td>
                         <form method="post" asp-action="AddToAdmin"
                       asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-secondary mb-2">
                                 Add To Admin
-                            </button>
+                            </button> |
                         </form>
                         <form method="post" asp-action="RemoveFromAdmin"
                       asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-secondary">
                                 Remove From Admin
                             </button>
                         </form>
