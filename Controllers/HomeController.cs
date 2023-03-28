@@ -80,6 +80,10 @@ namespace Kirtland_Artist_Guild.Controllers
         {
             return View();
         }
+        public IActionResult Imagetest()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Artistic_Style(int colorFilter = 0, int mediumFilter = 0, int styleFilter = 0)
         {
