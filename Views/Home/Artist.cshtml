@@ -15,7 +15,7 @@
         <div class="col-sm-5">
             <div class="card bg-transparent">
                 <div class="card-body">
-                    <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
+                    <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning"> @*UserID - Photo1*@
                 </div>
             </div>
         </div>
@@ -24,11 +24,31 @@
                 <div class="card-body">
                     <p>
                         @if (Model.User.bio != null)
-                        {
-                            @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
-                        }
+                            {
+                                @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
+                            }
                     </p>
                 </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card-body">
+                <img src="/media/18192305_10154566768788181_5492323451090578123_o.jpg" alt="Image" class="img-fluid border border-warning"> @*UserID - Photo1*@
+                @* HERE WE WILL CHECK IF THERE IS THE OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
+                @if (Model.User. != null)
+                {
+                <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
+                *@
+            </div>
+        </div> 
+        <div class="col-sm-5">
+            <div class="card-body"> 
+                <img src="/media/full body with drawing.jpg" alt="Image" class="img-fluid border border-warning"> @*UserID - Photo1*@
+                @* HERE WE WILL CHECK IF THERE IS THE SECOND OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
+                @if (Model.User. != null)
+                {
+                <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
+                *@
             </div>
         </div>
     </div>

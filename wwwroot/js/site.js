@@ -20,4 +20,3 @@
     // Loop through images every 5 seconds
     setInterval(nextImage, 5000);
 });*/
-
