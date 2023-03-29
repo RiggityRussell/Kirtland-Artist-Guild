@@ -110,5 +110,10 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        public IActionResult ProfileImageIndex()
+        {
+            return View();
+        }
     }
 }
