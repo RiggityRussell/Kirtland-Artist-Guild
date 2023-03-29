@@ -2,6 +2,6 @@
 {
     public class ArtistImageViewModel
     {
-        public IFormFile ArtistImage { get; set; }
+        public IFormFile ArtistImage { get; set; } = default!;
     }
 }

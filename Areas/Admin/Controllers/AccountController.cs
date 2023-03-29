@@ -161,6 +161,10 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string uploadFileName = UploadedFile(model);
+                if (uploadFileName == null)
+                {
+                    return NotFound();
+                }
 
                 string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
                 string fileName = Path.GetFileName(uploadFileName);

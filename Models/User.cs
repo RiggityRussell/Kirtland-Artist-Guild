@@ -6,10 +6,10 @@ namespace Kirtland_Artist_Guild.Models
 {
     public class User : IdentityUser
     {
-        // Inherits all IdentifyUser properties
+        // Inherits all IdentityUser properties
 
         [NotMapped]
-        public IList<string> RoleNames { get; set; }
+        public IList<string> RoleNames { get; set; } = new List<string>();
 
         [DataType(DataType.Text)]
         public string? firstName { get; set; }

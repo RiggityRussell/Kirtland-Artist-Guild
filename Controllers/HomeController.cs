@@ -49,7 +49,7 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Artist(string? id)
+        public async Task<IActionResult> Artist(string? id) // View by username
         {
             if (id == null)
             {
@@ -58,16 +58,23 @@ namespace Kirtland_Artist_Guild.Controllers
 
             ArtistViewModel model = new ArtistViewModel();
 
-            var user = await userManager.FindByIdAsync(id);
+            var user = await userManager.FindByNameAsync(id);
             if (user == null) 
             {
                 return NotFound();
             }
             model.User = user;
 
-            var arts = from a in _context.Arts.Where(u => u.UserID == id) select a;             
+            var arts = from a in _context.Arts.Where(u => u.UserID == user.Id) select a;             
             model.Arts = await arts.ToListAsync();
+
+            var artistImages = from a in _context.ArtistImages.Where(u => u.UserID == user.Id) select a;
+            model.ArtistImages = await artistImages.ToListAsync();
+
             model.ArtImages = await _context.ArtImages.ToListAsync();
+            
+
+            
 
             return View(model);
         }

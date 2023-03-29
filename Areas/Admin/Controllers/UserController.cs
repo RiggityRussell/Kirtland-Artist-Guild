@@ -65,7 +65,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username, EmailConfirmed = true };
+                var user = new User { UserName = model.Username, EmailConfirmed = true, lastName = model.LastName, firstName = model.FirstName };
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
