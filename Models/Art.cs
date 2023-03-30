@@ -33,5 +33,12 @@ namespace Kirtland_Artist_Guild.Models
         public ICollection<ArtMediumLink>? ArtMediumLinks { get; set; }
         public ICollection<ArtColorLink>? ArtColorLinks { get; set; }
         public ICollection<ArtStyleLink>? ArtStyleLinks { get; set; }
+
+        //ATTEMPTING TO GET ART AND ARTIMAGE TOGETHER
+       /* [Required]
+        public string FileName { get; set; } = string.Empty;
+
+        [Required]
+        public string Source { get; set; } = string.Empty;*/
     }
 }
