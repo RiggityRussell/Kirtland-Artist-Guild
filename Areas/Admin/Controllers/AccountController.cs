@@ -126,24 +126,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return View(await storeContext.ToListAsync());
         }
 
-        // GET: ArtistImage/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.ArtistImages == null)
-            {
-                return NotFound();
-            }
-
-            var artistImage = await _context.ArtistImages
-                .Include(a => a.User)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (artistImage == null)
-            {
-                return NotFound();
-            }
-
-            return View(artistImage);
-        }
+      
 
         // GET: ArtistImage/Create
         public IActionResult Create()
@@ -183,58 +166,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: ArtistImage/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.ArtistImages == null)
-            {
-                return NotFound();
-            }
-
-            var artistImage = await _context.ArtistImages.FindAsync(id);
-            if (artistImage == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", artistImage.UserID);
-            return View(artistImage);
-        }
-
-        // POST: ArtistImage/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,FileName,Source")] ArtistImage artistImage)
-        {
-            if (id != artistImage.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(artistImage);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ArtistImageExists(artistImage.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(ProfileImageIndex));
-            }
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", artistImage.UserID);
-            return View(artistImage);
-        }
 
         // GET: ArtistImage/Delete/5
         public async Task<IActionResult> Delete(int? id)
