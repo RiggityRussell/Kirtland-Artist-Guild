@@ -21,8 +21,6 @@ namespace Kirtland_Artist_Guild.Models
 
         public double Price { get; set; }
 
-        public double Shipping { get; set; }
-
         public string? UserID { get; set; } // Foreign key for one-to-many relationship
 
         // Navigation property for one-to-many relationship

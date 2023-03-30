@@ -72,9 +72,6 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtistImages = await artistImages.ToListAsync();
 
             model.ArtImages = await _context.ArtImages.ToListAsync();
-            
-
-            
 
             return View(model);
         }
