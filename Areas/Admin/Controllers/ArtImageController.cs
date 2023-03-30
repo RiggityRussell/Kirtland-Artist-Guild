@@ -67,6 +67,10 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string uploadFileName = UploadedFile(model);
+                if (uploadFileName == null)
+                {
+                    return NotFound();
+                }
 
                 string uploadFolder = "/uploads/";
                 string fileName = Path.GetFileName(uploadFileName);
@@ -89,7 +93,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 
         private string UploadedFile(ArtImageViewModel model)
         {
-            string uniqueFileName = null;
+            string? uniqueFileName = null;
 
             if (model.ArtImage != null)
             {

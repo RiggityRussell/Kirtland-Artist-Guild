@@ -88,7 +88,7 @@ using (var scope = scopeFactory.CreateScope())
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Art}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Account}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
