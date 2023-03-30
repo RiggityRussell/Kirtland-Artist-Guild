@@ -9,10 +9,10 @@ namespace Kirtland_Artist_Guild.Models
 
         [Required(ErrorMessage = "Please enter a name.")]
         [StringLength(50, ErrorMessage = "Name is too long.")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please enter a description.")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         public bool Available { get; set; }

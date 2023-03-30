@@ -10,6 +10,7 @@ namespace Kirtland_Artist_Guild.Models
 
         public DbSet<Art> Arts { get; set; }
         public DbSet<ArtImage> ArtImages { get; set; }
+        public DbSet<ArtistImage> ArtistImages { get; set; }
 
         public DbSet<ArtStyle> ArtStyles { get; set; }
         public DbSet<ArtColor> ArtColors { get; set; }
