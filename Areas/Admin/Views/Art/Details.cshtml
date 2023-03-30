@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
                     <br />
-                    <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))@Html.DisplayFor(model => model.Description)</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
                     <p><b>@Html.DisplayNameFor(model => model.Available)</b>: @Html.DisplayFor(model => model.Available)</p>
                     <p><b>@Html.DisplayNameFor(model => model.Price)</b>: &#36 @Html.DisplayFor(model => model.Price)</p>
                     <p><b>@Html.DisplayNameFor(model => model.Shipping)</b>: @Html.DisplayFor(model => model.Shipping)</p>
