@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
@@ -15,10 +16,12 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
     public class ArtController : Controller
     {
         private readonly StoreContext _context;
+        private UserManager<User> userManager;
 
-        public ArtController(StoreContext context)
+        public ArtController(StoreContext context, UserManager<User> userMngr)
         {
             _context = context;
+            userManager = userMngr;
         }
 
         // GET: Art
@@ -56,8 +59,9 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserID,Name,Description,Available,Created,Price,Shipping")] Art art)
+        public async Task<IActionResult> Create([Bind("ID,UserID,Name,Description,Available,Created,Price")] Art art)
         {
+            art.UserID = userManager.GetUserId(User);
             if (ModelState.IsValid)
             {
                 _context.Add(art);
@@ -88,7 +92,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,Name,Description,Available,Created,Price,Shipping")] Art art)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,Name,Description,Available,Created,Price")] Art art)
         {
             if (id != art.ID)
             {

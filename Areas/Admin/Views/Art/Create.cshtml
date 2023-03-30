@@ -12,11 +12,6 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label asp-for="UserID" class="control-label"></label>
-                        <input asp-for="UserID" class="form-control" />
-                        <span asp-validation-for="UserID" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
                         <input asp-for="Name" class="form-control" />
                         <span asp-validation-for="Name" class="text-danger"></span>
@@ -34,19 +29,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="Created" class="control-label"></label>
-                        <input asp-for="Created" class="form-control" />
-                        <span asp-validation-for="Created" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Price" class="control-label"></label>
                         <input asp-for="Price" class="form-control" />
                         <span asp-validation-for="Price" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Shipping" class="control-label"></label>
-                        <input asp-for="Shipping" class="form-control" />
-                        <span asp-validation-for="Shipping" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-2">
                         <input type="submit" value="Create" class="btn btn-secondary" />
