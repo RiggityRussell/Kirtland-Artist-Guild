@@ -34,11 +34,11 @@ else
 }
 
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">  
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
         <div class="col">
-            <div>
+            <div class="d-flex align-items-center">
                 <a asp-area="" asp-controller="Home" asp-action="ExampleArtist">
-                    <img src="/media/duck.jpg" alt="" class="img-fluid border border-1 border-warning">
+                    <img src="/media/duck.jpg" alt="" class="img-fluid border border-1 border-warning h-100">
                 </a>
                 <div>
                     <p class="fw-bold mt-1">Gaye Lee</p>
@@ -48,9 +48,9 @@ else
         </div>
 
         <div class="col">
-            <div>
+            <div class="d-flex align-items-center">
                 <a asp-area="" asp-controller="Home" asp-action="ExampleArtist2">
-                    <img src="/media/dandelion.jpg" alt="" class="img-fluid border border-1 border-warning">
+                    <img src="/media/dandelion.jpg" alt="" class="img-fluid border border-1 border-warning h-100">
                 </a>
                 <div>
                     <p class="fw-bold mt-1">Brenda Mikula</p>
@@ -60,3 +60,4 @@ else
         </div>
     </div>
 </div>
+
