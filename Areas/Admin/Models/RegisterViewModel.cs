@@ -18,5 +18,13 @@ namespace Kirtland_Artist_Guild.Models
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a first name.")]
+        [StringLength(255)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a last name.")]
+        [StringLength(255)]
+        public string LastName { get; set; } = string.Empty;
     }
 }

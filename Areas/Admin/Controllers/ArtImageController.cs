@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
@@ -15,10 +17,14 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
     public class ArtImageController : Controller
     {
         private readonly StoreContext _context;
+        private readonly IWebHostEnvironment _env;
+        private UserManager<User> userManager;
 
-        public ArtImageController(StoreContext context)
+        public ArtImageController(StoreContext context, IWebHostEnvironment env, UserManager<User> userMngr)
         {
             _context = context;
+            _env = env;
+            userManager = userMngr;
         }
 
         // GET: ArtImage
@@ -59,16 +65,53 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ArtID,FileName,Source")] ArtImage artImage)
+        public async Task<IActionResult> Create(ArtImageViewModel model)
         {
             if (ModelState.IsValid)
             {
+                string uploadFileName = UploadedFile(model);
+                if (uploadFileName == null)
+                {
+                    return NotFound();
+                }
+
+                string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
+                string fileName = Path.GetFileName(uploadFileName);
+
+                ArtImage artImage = new ArtImage
+                {
+                    Source = uploadFolder,
+                    FileName = fileName,
+                    ArtID = model.ArtID                    
+                };
+
                 _context.Add(artImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", artImage.ArtID);
-            return View(artImage);
+            ViewData["ArtID"] = new SelectList(_context.Arts, "ID", "Name", model.ArtID);
+            return View();
+        }
+
+        private string UploadedFile(ArtImageViewModel model)
+        {
+            string? uploadFileName = null;
+
+            if (model.ArtImage != null)
+            {
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "media/uploads/" + userManager.GetUserId(User));
+                uploadFileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ArtImage.FileName);
+                string filePath = Path.Combine(uploadsFolder, uploadFileName);
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ArtImage.CopyTo(fileStream);
+                }
+            }
+            return uploadFileName;
         }
 
         // GET: ArtImage/Edit/5

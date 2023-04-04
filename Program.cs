@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,7 +88,7 @@ using (var scope = scopeFactory.CreateScope())
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Art}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Account}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

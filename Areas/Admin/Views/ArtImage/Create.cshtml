@@ -1,4 +1,4 @@
-﻿@model Kirtland_Artist_Guild.Models.ArtImage
+﻿@model Kirtland_Artist_Guild.Models.ArtImageViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -41,4 +41,12 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">  
+        // Add the following code if you want the name of the file appear on select  
+        $(".custom-file-input").on("change", function () {  
+            var fileName = $(this).val().split("\\").pop();  
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
+        });  
+    </script> 
 }

@@ -22,11 +22,11 @@ else
             {
                 @if (user.firstName != null)
                 {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.Id">@user.firstName @user.lastName</a></div>
+                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.firstName @user.lastName</a></div>
                 }
                 else
                 {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.Id">@user.UserName</a></div>
+                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.UserName</a></div>
                 }
             }
         }        

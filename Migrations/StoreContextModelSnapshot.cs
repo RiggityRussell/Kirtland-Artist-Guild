@@ -48,9 +48,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double>("Shipping")
-                        .HasColumnType("float");
-
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
@@ -65,51 +62,46 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 25, 0, 32, 22, 124, DateTimeKind.Local).AddTicks(6361),
+                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9132),
                             Description = "Prints only",
                             Name = "Grandpas Lake",
-                            Price = 119.98999999999999,
-                            Shipping = 3.5
+                            Price = 119.98999999999999
                         },
                         new
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 25, 0, 32, 22, 124, DateTimeKind.Local).AddTicks(6395),
+                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9165),
                             Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ",
                             Name = "Wind Dancer",
-                            Price = 1115.99,
-                            Shipping = 53.5
+                            Price = 1115.99
                         },
                         new
                         {
                             ID = 3,
                             Available = true,
-                            Created = new DateTime(2023, 3, 25, 0, 32, 22, 124, DateTimeKind.Local).AddTicks(6398),
+                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9168),
                             Description = "Prints and notecards",
                             Name = "Mackinac Horses",
-                            Price = 499.99000000000001,
-                            Shipping = 9.9900000000000002
+                            Price = 499.99000000000001
                         },
                         new
                         {
                             ID = 4,
                             Available = true,
-                            Created = new DateTime(2023, 3, 25, 0, 32, 22, 124, DateTimeKind.Local).AddTicks(6400),
+                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9170),
                             Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ",
                             Name = "Wedding Dress",
-                            Price = 199.99000000000001,
-                            Shipping = 9.9900000000000002
+                            Price = 199.99000000000001
                         },
                         new
                         {
                             ID = 5,
                             Available = false,
-                            Created = new DateTime(2023, 3, 25, 0, 32, 22, 124, DateTimeKind.Local).AddTicks(6402),
+                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9172),
                             Description = "Prints and notecards",
                             Name = "Frost on a Dahlia",
-                            Price = 219.99000000000001,
-                            Shipping = 0.0
+                            Price = 219.99000000000001
                         });
                 });
 
@@ -260,6 +252,33 @@ namespace Kirtland_Artist_Guild.Migrations
                             FileName = "Frost on a Dahlia.jpg",
                             Source = "/uploads/"
                         });
+                });
+
+            modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtistImage", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("ArtistImages");
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtMedium", b =>
@@ -721,6 +740,17 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.Navigation("Art");
                 });
 
+            modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtistImage", b =>
+                {
+                    b.HasOne("Kirtland_Artist_Guild.Models.User", "User")
+                        .WithMany("ArtistImages")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtMediumLink", b =>
                 {
                     b.HasOne("Kirtland_Artist_Guild.Models.Art", "Art")
@@ -839,6 +869,8 @@ namespace Kirtland_Artist_Guild.Migrations
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.User", b =>
                 {
                     b.Navigation("Art");
+
+                    b.Navigation("ArtistImages");
                 });
 #pragma warning restore 612, 618
         }
