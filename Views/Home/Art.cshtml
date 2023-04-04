@@ -1,0 +1,33 @@
+﻿@model Kirtland_Artist_Guild.Models.Art
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container py-2 ">
+    <div class="row" data-masonry='{"percentPosition": true }'>
+        <div class="col-sm-8 col-md-8 py-3">
+            <div class="card bg-transparent">
+                <div class="card-body">
+                    <img src="/media/Art1.jpg" alt="Image" class="img-fluid border border-warning">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 py-3">
+            <div class="card bg-transparent">
+                <div class="card-body">
+                    <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
+                    <br />
+                    <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Available)</b>: @Html.DisplayFor(model => model.Available)</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Price)</b>: &#36 @Html.DisplayFor(model => model.Price)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
