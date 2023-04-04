@@ -8,38 +8,53 @@
     <h1 class="KAG_title text-warning">Add Art</h1>
     <main role="main" class="pb-3 border border-warning" style="padding:10px; color:white;">
         <div style="margin-bottom:10px">
-            <form asp-action="Create" class="row">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea asp-for="Description" class="form-control" rows="6" type="text"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check mt-2">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Available" /> @Html.DisplayNameFor(model => model.Available)
-                        </label>
-                    </div>
+    <form asp-action="Create" class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="6" type="text"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="Available" />
+                    <label class="form-check-label" asp-for="Available">Available</label>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Price" class="control-label"></label>
-                        <input asp-for="Price" class="form-control" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="submit" value="Create" class="btn btn-secondary" />
-                    </div>
-                </div>
-            </form>
-
+            </div>
         </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Created" class="control-label"></label>
+                <input asp-for="Created" class="form-control" />
+                <span asp-validation-for="Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
+            </div>
+        </div>
+    </form>
+</div>
     </main>
 </div >
 <br />
