@@ -78,26 +78,29 @@
     <div class="row masonry-grid">
         @foreach (var art in Model.Arts)
         {
-            var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/uploads/" };
+            if (art.User != null)
+            {             
+                var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" };
 
-            @foreach (var image in Model.ArtImages)
-            {
-                @if (image.ArtID == art.ID)
+                @foreach (var image in Model.ArtImages)
                 {
-                    picture = image;
+                    @if (image.ArtID == art.ID)
+                    {
+                        picture = image;
+                    }
                 }
-            }
-            <div class="col-md-4 col-lg-3 masonry-item mt-4">
-                <div class="image-container">
-                    <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
-                        <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
-                        <div class="image-info">
-                            @art.Name <br>
-                            @art.User.firstName @art.User.lastName
-                        </div>
-                    </a>
+                <div class="col-md-4 col-lg-3 masonry-item mt-4">
+                    <div class="image-container">
+                        <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
+                            <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
+                            <div class="image-info">
+                                @art.Name <br>
+                                @art.User.firstName @art.User.lastName
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>
