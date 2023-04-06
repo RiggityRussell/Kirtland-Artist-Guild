@@ -20,14 +20,11 @@
 
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                           <div class="carousel-item active">
-                                <img class="d-block w-100" src="/media/duck.jpg" alt="First slide">
-                            </div>
                             @foreach (var artistImage in Model.ArtistImages)
                             {
-                            <div class="carousel-item">
+                           @* <div class="carousel-item">*@
                                 <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Slide">
-                            </div>
+                            @*</div>*@
                             }
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -57,7 +54,7 @@
         </div>
         <div class="col-sm-5">
             <div class="card-body">
-                <img src="/media/18192305_10154566768788181_5492323451090578123_o.jpg" alt="Image" class="img-fluid border border-warning"> @*UserID - Photo1*@
+                @*<img src="/media/18192305_10154566768788181_5492323451090578123_o.jpg" alt="Image" class="img-fluid border border-warning">*@ @*UserID - Photo1*@
                 @* HERE WE WILL CHECK IF THERE IS THE OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
                 @if (Model.User. != null)
                 {
@@ -67,7 +64,7 @@
         </div> 
         <div class="col-sm-5">
             <div class="card-body"> 
-                <img src="/media/full body with drawing.jpg" alt="Image" class="img-fluid border border-warning"> @*UserID - Photo1*@
+                @*<img src="/media/full body with drawing.jpg" alt="Image" class="img-fluid border border-warning">*@ @*UserID - Photo1*@
                 @* HERE WE WILL CHECK IF THERE IS THE SECOND OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
                 @if (Model.User. != null)
                 {
@@ -116,7 +113,7 @@
             }
             <div class="col-md-4 col-lg-3 masonry-item mt-4">
                 <div class="image-container">
-                    <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
+                    <a HomeController="Art" Art()="Index">
                         <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
                         <div class="image-info">
                             @art.Name <br>
