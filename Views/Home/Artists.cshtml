@@ -22,7 +22,16 @@ else
             {
                 @if (user.firstName != null)
                 {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.firstName @user.lastName</a></div>
+
+                    
+                    <div>
+
+                        <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
+                            <img src="" alt="Image" class="img-fluid border border-warning">
+                        </a>
+                        @user.firstName @user.lastName
+                        <p>@user.artistMedium</p>
+                    </div>
                 }
                 else
                 {
@@ -33,7 +42,7 @@ else
     }
 }
 
-<div class="container">
+@*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
         <div class="col">
             <div class="d-flex align-items-center">
@@ -59,5 +68,5 @@ else
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
