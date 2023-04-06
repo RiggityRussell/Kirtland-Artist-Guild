@@ -22,7 +22,16 @@ else
             {
                 @if (user.firstName != null)
                 {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.firstName @user.lastName</a></div>
+
+                    
+                    <div>
+
+                        <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
+                            <img src="" alt="Image" class="img-fluid border border-warning">
+                        </a>
+                        @user.firstName @user.lastName
+                        <p>@user.artistMedium</p>
+                    </div>
                 }
                 else
                 {
