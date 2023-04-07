@@ -14,9 +14,6 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserID) @*Replace with User Name*@
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
@@ -28,15 +25,21 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
+                <th>
+                    Colors
+                </th>
+                <th>
+                    Mediums
+                </th>
+                <th>
+                    Styles
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
     @foreach (var item in Model) {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserID) @*Replace with User Name*@
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -50,8 +53,44 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-secondary btn-sm mb-1">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary btn-sm mb-1">Details</a> |
+                    @if (item.ArtColorLinks != null) 
+                    { 
+                        @foreach (var color in item.ArtColorLinks)
+                        {
+                            @if (color.ArtColor != null) 
+                            {
+                                <div><a class="btn btn-sm btn-outline-light mb-1 disabled" aria-disabled="true">@color.ArtColor.Name</a></div>
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @if (item.ArtMediumLinks != null)
+                    {
+                        @foreach (var medium in item.ArtMediumLinks)
+                        {
+                            @if (medium.ArtMedium != null)
+                            {
+                                    <div><a class="btn btn-sm btn-outline-light mb-1 disabled" aria-disabled="true">@medium.ArtMedium.Name</a></div>
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @if (item.ArtStyleLinks != null)
+                    {
+                        @foreach (var style in item.ArtStyleLinks)
+                        {
+                            @if (style.ArtStyle != null)
+                            {
+                                    <div><a class="btn btn-sm btn-outline-light mb-1 disabled" aria-disabled="true">@style.ArtStyle.Name</a></div>
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-secondary btn-sm mb-1">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary btn-sm mb-1">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-secondary btn-sm mb-1">Delete</a>
                 </td>
             </tr>
