@@ -3,5 +3,6 @@
     public class ArtistsViewModel
     {
         public IEnumerable<User> Users { get; set; } = null!;
+        public IEnumerable<ArtistImage> ArtistImages { get; set; } = null!;
     }
 }
