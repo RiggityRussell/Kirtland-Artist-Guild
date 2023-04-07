@@ -37,7 +37,12 @@ namespace Kirtland_Artist_Guild.Controllers
                 users.Add(user);
 
             }
-            artistImages = await _context.ArtistImages.ToListAsync();
+            foreach (ArtistImage artistImage in artistImages)
+            {
+                artistImages = await _context.ArtistImages.ToListAsync();
+                artistImages.Add(artistImage);
+            }
+            
 
 
             ArtistsViewModel model = new ArtistsViewModel
