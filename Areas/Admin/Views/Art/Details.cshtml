@@ -21,6 +21,26 @@
                     <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
                     <p><b>@Html.DisplayNameFor(model => model.Available)</b>: @Html.DisplayFor(model => model.Available)</p>
                     <p><b>@Html.DisplayNameFor(model => model.Price)</b>: &#36 @Html.DisplayFor(model => model.Price)</p>
+                    <p><b>Colors:</b> 
+                        @foreach (var color in Model.ArtColorLinks)
+                        {
+                            <div>@color.ArtColor.Name</div>
+                        }    
+                    </p>
+                    <p>
+                        <b>Mediums:</b>
+                        @foreach (var medium in Model.ArtMediumLinks)
+                        {
+                            <div>@medium.ArtMedium.Name</div>
+                        }
+                    </p>
+                    <p>
+                        <b>Styles:</b>
+                        @foreach (var style in Model.ArtStyleLinks)
+                        {
+                            <div>@style.ArtStyle.Name</div>
+                        }
+                    </p>
                 </div>
             </div>
         </div>

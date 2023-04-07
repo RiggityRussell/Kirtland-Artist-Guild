@@ -6,7 +6,6 @@
 
 <h1>Edit</h1>
 
-<h4>Art</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,6 +33,31 @@
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="border border-warning">
+                Colors:
+                @foreach (var color in Model.ArtColorLinks)
+                {
+                    <br/>@color.ArtColor.Name
+                }
+            </div>
+            <div class="border border-warning">
+                Mediums:
+                @foreach (var medium in Model.ArtMediumLinks)
+                {
+                    <br />
+
+                    @medium.ArtMedium.Name
+                }
+            </div>
+            <div class="border border-warning">
+                Styles:
+                @foreach (var style in Model.ArtStyleLinks)
+                {
+                    <br />
+
+                    @style.ArtStyle.Name
+                }
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -27,7 +27,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // GET: Art
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Arts.ToListAsync());
+            return View(await _context.Arts.Where(a => a.UserID == userManager.GetUserId(User)).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(m => m.ArtMediumLinks).ThenInclude(n => n.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).ToListAsync());
         }
 
         // GET: Art/Details/5
@@ -38,8 +38,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var art = await _context.Arts
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var art = await _context.Arts.Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
                 return NotFound();
@@ -79,7 +78,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var art = await _context.Arts.FindAsync(id);
+            var art = await _context.Arts.Where(a => a.ID == id).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
                 return NotFound();
