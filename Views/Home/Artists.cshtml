@@ -14,33 +14,37 @@
 }
 else
 {
-    @foreach (User user in Model.Users)
-    {
-        @foreach (string roleName in user.RoleNames) // Find more efficient way to check if user is artist
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4 ms-4 me-4">
+        @foreach (User user in Model.Users)
         {
-            @if (roleName == "Artist")
+            @foreach (string roleName in user.RoleNames) // Find more efficient way to check if user is artist
             {
-                @if (user.firstName != null)
+                @if (roleName == "Artist")
                 {
-
-                    
-                    <div>
-
-                        <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
-                            <img src="" alt="Image" class="img-fluid border border-warning">
-                        </a>
-                        @user.firstName @user.lastName
-                        <p>@user.artistMedium</p>
-                    </div>
-                }
-                else
-                {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.UserName</a></div>
+                    @if (user.firstName != null)
+                    {
+                        <div class="col mb-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
+                                    <img src="~/media/turtle.jpg" alt="Image" class="img-fluid border border-warning" style="max-height: 300px;">
+                                </a>
+                                <div class="text-center">
+                                    <div>@user.firstName @user.lastName</div>
+                                    <div>@user.artistMedium</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col mb-3"><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.UserName</a></div>
+                    }
                 }
             }
-        }        
-    }
+        }
+    </div>
 }
+
 
 @*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">

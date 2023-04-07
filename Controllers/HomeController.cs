@@ -27,14 +27,14 @@ namespace Kirtland_Artist_Guild.Controllers
         public async Task<IActionResult> Artists()
         {
             List<User> users = new List<User>();
-            foreach (User user in userManager.Users) 
+            foreach (User user in userManager.Users)
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
             }
             ArtistsViewModel model = new ArtistsViewModel
             {
-                Users = users
+                Users = users.OrderBy(u => u.firstName).ToList()
             };
             return View(model);
         }
