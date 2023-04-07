@@ -8,40 +8,49 @@
     <p></p>
 </div>
 
-@if (Model.Users.Count() == 0)
-{
-    <div>There are no artist accounts.</div>
-}
-else
-{
-    @foreach (User user in Model.Users)
-    {
-        @foreach (string roleName in user.RoleNames) // Find more efficient way to check if user is artist
+
+
+<div class="container">
+    <div class="row masonry-grid">
+        @if (Model.Users.Count() == 0)
         {
-            @if (roleName == "Artist")
+            <div>There are no artist accounts.</div>
+        }
+        else
+        {
+            @foreach (User user in Model.Users)
             {
-                @if (user.firstName != null)
+                @foreach (string roleName in user.RoleNames) // Find more efficient way to check if user is artist
                 {
+                    @if (roleName == "Artist")
+                    {
+                      
+                        @if (user.firstName != null)
+                        {
+                            <div class="col-md-4 col-lg-3 masonry-item mt-4 ">
 
-                    
-                    <div>
+                                <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
+                                    <div class="image-container">
+                                    <img src="" alt="Image" class="img-fluid border border-warning border-1 h-100">
+                                    </div>
+                                </a>
+                                <div class="image-info">
+                                    <p class="fw-bold mt-1">@user.firstName @user.lastName</p>
+                                    <p class="fst-italic">@user.artistMedium</p>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.UserName</a></div>
+                        }
 
-                        <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
-                            <img src="" alt="Image" class="img-fluid border border-warning">
-                        </a>
-                        @user.firstName @user.lastName
-                        <p>@user.artistMedium</p>
-                    </div>
-                }
-                else
-                {
-                    <div><a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">@user.UserName</a></div>
-                }
+                    }
+                }        
             }
-        }        
-    }
-}
-
+        }
+    </div>
+</div>
 @*<div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
         <div class="col">
@@ -50,7 +59,7 @@ else
                     <img src="/media/duck.jpg" alt="" class="img-fluid border border-1 border-warning h-100">
                 </a>
                 <div>
-                    <p class="fw-bold mt-1">Gaye Lee</p>
+                    <p >Gaye Lee</p>
                     <p class="fst-italic">Drawing, Painting, Mixed Media & Prints</p>
                 </div>
             </div>
@@ -63,7 +72,7 @@ else
                 </a>
                 <div>
                     <p class="fw-bold mt-1">Brenda Mikula</p>
-                    <p class="fst-italic">Watercolor Artist</p>
+                    <p >Watercolor Artist</p>
                 </div>
             </div>
         </div>

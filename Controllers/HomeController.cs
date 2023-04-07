@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using System.Dynamic;
 
 namespace Kirtland_Artist_Guild.Controllers
 {
@@ -26,16 +27,26 @@ namespace Kirtland_Artist_Guild.Controllers
 
         public async Task<IActionResult> Artists()
         {
-            List<User> users = new List<User>();
+
+            List<User> users = new List<User>();   
+            List<ArtistImage> artistImages = new List<ArtistImage>();
+           
             foreach (User user in userManager.Users) 
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
+
             }
+            artistImages = await _context.ArtistImages.ToListAsync();
+
+
             ArtistsViewModel model = new ArtistsViewModel
             {
-                Users = users
+                Users = users,
+                ArtistImages = artistImages 
+
             };
+
             return View(model);
         }
 
@@ -74,15 +85,6 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtImages = await _context.ArtImages.ToListAsync();
 
             return View(model);
-        }
-
-        public IActionResult ExampleArtist()
-        {
-            return View();
-        }
-        public IActionResult ExampleArtist2()
-        {
-            return View();
         }
 
         public IActionResult Art()

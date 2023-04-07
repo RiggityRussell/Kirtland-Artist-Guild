@@ -17,6 +17,20 @@
             <div class="card bg-transparent">
                 <div class="card-body">
                     <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
+                    @* should have if statements, THIS NEEDS TO BE IMPLEMENTED STILL
+                    
+                    @if (Art.Color != null)
+                    <p><b>@Html.DisplayNameFor(model => model.Color)</b>: @Html.DisplayFor(model => model.Color)</p>
+
+
+                    if (Art.Medium != null)
+                    <p><b>@Html.DisplayNameFor(model => model.Medium)</b>: @Html.DisplayFor(model => model.Medium)<p>
+
+                    if (Art.Style != null)
+                    <p><b>@Html.DisplayNameFor(model => model.Style)</b>: @Html.DisplayFor(model => model.Medium)<p>
+                    *@
+
+                    
                     <br />
                     <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
                     <p><b>@Html.DisplayNameFor(model => model.Available)</b>: @Html.DisplayFor(model => model.Available)</p>
