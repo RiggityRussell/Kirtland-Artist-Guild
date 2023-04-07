@@ -15,25 +15,10 @@
         <div class="col-sm-5">
             <div class="card bg-transparent">
                 <div class="card-body">
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @foreach (var artistImage in Model.ArtistImages)
-                            {
-                            @*<div class="carousel-item">*@
-                                <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Slide">
-                            @*</div>*@
-                            }
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                    
+                    @foreach (var artistImage in Model.ArtistImages)
+                    {
+                        <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Profile">
+                    }
                 </div>
             </div>
         </div>
@@ -73,27 +58,7 @@
 </div>
 
 
-<h2 class="text-center mt-3">@Model.User.quote</h2>@*UserID - User.quote*@
-
-@*<div class="container">
-    <div class="row mt-3">
-        <div class="col-md-2">
-            <img src="/media/uploads/Frost on a Dahlia.jpg" alt="Image" class="img-fluid border border-warning">
-        </div>
-        <div class="col-md-2">
-            <img src="/media/uploads/Grandpas Lake.jpg" alt="Image" class="img-fluid border border-warning">
-        </div>
-        <div class="col-md-2">
-            <img src="/media/uploads/Mackinac horses Peters.jpg" alt="Image" class="img-fluid border border-warning">
-        </div>
-        <div class="col-md-2">
-            <img src="/media/uploads/Wedding Dress.jpg" alt="Image" class="img-fluid border border-warning">
-        </div>
-        <div class="col-md-2">
-            <img src="/media/uploads/Wind Dancer.jpg" alt="Image" class="img-fluid border border-warning">
-        </div>
-    </div>
-</div>*@
+<h2 class="text-center mt-3">@Model.User.quote</h2>
 
 <div class="container">
     <div class="row masonry-grid">
