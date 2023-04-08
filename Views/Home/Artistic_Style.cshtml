@@ -82,7 +82,7 @@
             {             
                 var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" };
 
-                @foreach (var image in Model.ArtImages)
+                @foreach (var image in Model.ArtImages) @* This needs to be moved to controller and made more efficient. Create a new model combining art and a single image?*@
                 {
                     @if (image.ArtID == art.ID)
                     {
@@ -91,7 +91,7 @@
                 }
                 <div class="col-md-4 col-lg-3 masonry-item mt-4">
                     <div class="image-container">
-                        <a asp-area="Admin" asp-controller="Art" asp-action="Details" asp-route-id="@art.ID">
+                        <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
                             <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
                             <div class="image-info">
                                 @art.Name <br>
