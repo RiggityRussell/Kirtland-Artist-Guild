@@ -35,8 +35,8 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
-
             }
+            users.Sort((x, y) => x.lastName.CompareTo(y.lastName)); // Sort artists by last name
             artistImages = await _context.ArtistImages.ToListAsync();
 
             ArtistsViewModel model = new ArtistsViewModel
@@ -76,6 +76,7 @@ namespace Kirtland_Artist_Guild.Controllers
 
             var arts = from a in _context.Arts.Where(u => u.UserID == user.Id) select a;             
             model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
 
             var artistImages = from a in _context.ArtistImages.Where(u => u.UserID == user.Id) select a;
             model.ArtistImages = await artistImages.ToListAsync();
@@ -91,7 +92,6 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 return NotFound();
             }
-
             var art = await _context.Arts.Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
@@ -139,6 +139,7 @@ namespace Kirtland_Artist_Guild.Controllers
             }
 
             model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x,y) => x.Created.CompareTo(y.Created)); // Sort art by created date
 
             return View(model);
         }

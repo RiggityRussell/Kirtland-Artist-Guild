@@ -37,14 +37,24 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             var art = await _context.Arts.Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
                 return NotFound();
             }
+            var images = await _context.ArtImages.Where(i => i.ArtID == id).ToListAsync();
+            if (images.Count == 0)
+            {
+                images.Add(new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" });
+            }
 
-            return View(art);
+            ArtViewModel model = new ArtViewModel
+            {
+                Art = art,
+                ArtImages = images
+            };
+
+            return View(model);
         }
 
         // GET: Art/Create
@@ -156,6 +166,45 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ArtColorLinkCreate(int? artid)
+        {
+            if (artid == null)
+            {
+                return NotFound();
+            }
+            ViewData["art"] = artid;
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArtColorLinkCreate([Bind("ArtID,ArtColorID")] ArtColorLink artColorLink)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(artColorLink);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Edit), new { id = artColorLink.ArtID });
+            }
+            ViewData["art"] = artColorLink.ArtID;
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name", artColorLink.ArtColorID);
+            return View(artColorLink);
+        }
+
+        public async Task<IActionResult> ArtColorLinkDelete(int? artid, int? artcolorid)
+        {
+            if (artid == null || artcolorid == null || _context.Arts == null)
+            {
+                return NotFound();
+            }
+            var art = _context.Arts.Include(a => a.ArtColorLinks).Single(a => a.ID == artid);
+            art.ArtColorLinks.Remove(art.ArtColorLinks.Where(c => c.ArtColorID == artcolorid).FirstOrDefault());
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit), new { id = artid });
         }
 
         private bool ArtExists(int id)

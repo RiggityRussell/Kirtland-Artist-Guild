@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Kirtland_Artist_Guild.Models.ArtistImage>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Profile Photos";
 }
 
 
@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                Image
+                Photo
             </th>
             <th>
                 
@@ -27,11 +24,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.firstName) @Html.DisplayFor(modelItem => item.User.lastName)
-                </td>
                 <td class="w-50">
-                    <img src="@(@item.Source + @item.FileName)" class="img-fluid border border-1 border-warning">
+                    <img src="@(@item.Source + @item.FileName)" class="img-fluid border border-1 border-warning" style="max-height: 400px">
                 </td>
                 <td>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm mb-1">Delete</a>
