@@ -34,35 +34,59 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="border border-warning">
-                Colors:
-                @foreach (var color in Model.ArtColorLinks)
-                {
-                    <br/>@color.ArtColor.Name
-                }
-            </div>
-            <div class="border border-warning">
-                Mediums:
-                @foreach (var medium in Model.ArtMediumLinks)
-                {
-                    <br />
-
-                    @medium.ArtMedium.Name
-                }
-            </div>
-            <div class="border border-warning">
-                Styles:
-                @foreach (var style in Model.ArtStyleLinks)
-                {
-                    <br />
-
-                    @style.ArtStyle.Name
-                }
-            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Colors</th>
+                    <th><a class="btn btn-secondary btn-sm" asp-action="ArtColorLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var color in Model.ArtColorLinks)
+            {
+                <tr>
+                    <td>@color.ArtColor.Name</td>
+                    <td><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Mediums</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var medium in Model.ArtMediumLinks)
+                {
+                    <tr>
+                        <td>@medium.ArtMedium.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Styles</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var style in Model.ArtStyleLinks)
+            {
+                <tr>
+                    <td>@style.ArtStyle.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
     </div>
 </div>
 

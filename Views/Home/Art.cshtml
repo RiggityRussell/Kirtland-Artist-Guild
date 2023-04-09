@@ -1,4 +1,4 @@
-﻿@model Kirtland_Artist_Guild.Models.Art
+﻿@model Kirtland_Artist_Guild.Models.ArtViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -9,18 +9,65 @@
         <div class="col-sm-8 col-md-8 py-3">
             <div class="card bg-transparent">
                 <div class="card-body">
-                    <img src="" alt="Image" class="img-fluid border border-warning">
+                    <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @for (var i = 0; i < Model.ArtImages.Count; i++)
+                            {
+                                @if (i == 0)
+                                {
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100 img-fluid border border-warning" src="@(Model.ArtImages[i].Source + Model.ArtImages[i].FileName)" alt="Image">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100 img-fluid border border-warning" src="@(Model.ArtImages[i].Source + Model.ArtImages[i].FileName)" alt="Image">
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 col-md-4 py-3">
             <div class="card bg-transparent">
                 <div class="card-body">
-                    <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
+                    <h3 class="card-title">@Html.DisplayFor(model => model.Art.Name)</h3>
                     <br />
-                    <p><b>@Html.DisplayNameFor(model => model.Description)</b>: @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
-                    <p><b>@Html.DisplayNameFor(model => model.Available)</b>: @Html.DisplayFor(model => model.Available)</p>
-                    <p><b>@Html.DisplayNameFor(model => model.Price)</b>: &#36 @Html.DisplayFor(model => model.Price)</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Art.Description)</b>: @Html.Raw(Model.Art.Description.Replace(Environment.NewLine, "<br/>"))</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Art.Available)</b>: @Html.DisplayFor(model => model.Art.Available)</p>
+                    <p><b>@Html.DisplayNameFor(model => model.Art.Price)</b>: &#36 @Html.DisplayFor(model => model.Art.Price)</p>
+                    <p> 
+                        <b>Colors:</b> @* This ugly, please make me pretty*@
+                        @foreach (var color in Model.Art.ArtColorLinks)
+                        {
+                            <div>@color.ArtColor.Name</div>
+                        }
+                    </p>
+                    <p>
+                        <b>Mediums:</b>
+                        @foreach (var medium in Model.Art.ArtMediumLinks)
+                        {
+                            <div>@medium.ArtMedium.Name</div>
+                        }
+                    </p>
+                    <p>
+                        <b>Styles:</b>
+                        @foreach (var style in Model.Art.ArtStyleLinks)
+                        {
+                            <div>@style.ArtStyle.Name</div>
+                        }
+                    </p>
                 </div>
             </div>
         </div>

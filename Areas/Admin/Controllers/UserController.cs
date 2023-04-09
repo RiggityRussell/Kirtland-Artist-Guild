@@ -26,6 +26,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
             }
+            users.Sort((x,y) => x.UserName.CompareTo(y.UserName)); // Sort users by username
             UserViewModel model = new UserViewModel
             {
                 Users = users,
