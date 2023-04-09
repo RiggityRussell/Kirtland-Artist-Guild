@@ -122,7 +122,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // GET: ArtistImage
         public async Task<IActionResult> ProfileImageIndex()
         {
-            var storeContext = _context.ArtistImages.Include(a => a.User);
+            var storeContext = _context.ArtistImages.Where(i => i.UserID == userManager.GetUserId(User)).Include(a => a.User);
             return View(await storeContext.ToListAsync());
         }
 
