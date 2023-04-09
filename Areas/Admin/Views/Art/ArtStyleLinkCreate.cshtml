@@ -1,0 +1,33 @@
+﻿@model Kirtland_Artist_Guild.Models.ArtStyleLink
+
+@{
+    ViewData["Title"] = "Add Style";
+}
+
+<h1>Add Style</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ArtStyleLinkCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ArtID" />
+            <div class="form-group">
+                <select asp-for="ArtStyleID" class="form-control" asp-items="ViewBag.ArtStyleID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@ViewBag.art">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
