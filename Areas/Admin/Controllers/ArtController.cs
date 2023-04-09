@@ -168,6 +168,9 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+
+        //ARTCOLOR LINK
         public IActionResult ArtColorLinkCreate(int? artid)
         {
             if (artid == null)
@@ -206,6 +209,89 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Edit), new { id = artid });
         }
+
+
+        //ARTMEDIUMLINK
+        public IActionResult ArtMediumLinkCreate(int? artid)
+        {
+            if (artid == null)
+            {
+                return NotFound();
+            }
+            ViewData["art"] = artid;
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums, "ID", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArtMediumLinkCreate([Bind("ArtID,ArtMediumID")] ArtMediumLink artMediumLink)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(artMediumLink);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Edit), new { id = artMediumLink.ArtID });
+            }
+            ViewData["art"] = artMediumLink.ArtID;
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums, "ID", "Name", artMediumLink.ArtMediumID);
+            return View(artMediumLink);
+        }
+
+        public async Task<IActionResult> ArtMediumLinkDelete(int? artid, int? artmediumid)
+        {
+            if (artid == null || artmediumid == null || _context.Arts == null)
+            {
+                return NotFound();
+            }
+            var art = _context.Arts.Include(a => a.ArtMediumLinks).Single(a => a.ID == artid);
+            art.ArtMediumLinks.Remove(art.ArtMediumLinks.Where(c => c.ArtMediumID == artmediumid).FirstOrDefault());
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit), new { id = artid });
+        }
+
+        //ARTSTYLELINK
+        public IActionResult ArtStyleLinkCreate(int? artid)
+        {
+            if (artid == null)
+            {
+                return NotFound();
+            }
+            ViewData["art"] = artid;
+            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArtStyleLinkCreate([Bind("ArtID,ArtStyleID")] ArtStyleLink artStyleLink)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(artStyleLink);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Edit), new { id = artStyleLink.ArtID });
+            }
+            ViewData["art"] = artStyleLink.ArtID;
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
+            return View(artStyleLink);
+        }
+
+        public async Task<IActionResult> ArtStyleLinkDelete(int? artid, int? artstyleid)
+        {
+            if (artid == null || artstyleid == null || _context.Arts == null)
+            {
+                return NotFound();
+            }
+            var art = _context.Arts.Include(a => a.ArtStyleLinks).Single(a => a.ID == artid);
+            art.ArtStyleLinks.Remove(art.ArtStyleLinks.Where(c => c.ArtStyleID == artstyleid).FirstOrDefault());
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit), new { id = artid });
+        }
+
+
 
         private bool ArtExists(int id)
         {
