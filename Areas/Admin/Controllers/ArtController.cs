@@ -204,7 +204,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             var art = _context.Arts.Include(a => a.ArtColorLinks).Single(a => a.ID == artid);
-            art.ArtColorLinks.Remove(art.ArtColorLinks.Where(c => c.ArtColorID == artcolorid).FirstOrDefault());
+            if (art.UserID != userManager.GetUserId(User)) { return NotFound(); }
+            if (art.ArtColorLinks != null) { art.ArtColorLinks.Remove(art.ArtColorLinks.Where(c => c.ArtColorID == artcolorid).FirstOrDefault()); }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Edit), new { id = artid });
@@ -245,7 +246,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             var art = _context.Arts.Include(a => a.ArtMediumLinks).Single(a => a.ID == artid);
-            art.ArtMediumLinks.Remove(art.ArtMediumLinks.Where(c => c.ArtMediumID == artmediumid).FirstOrDefault());
+            if (art.UserID != userManager.GetUserId(User)) { return NotFound(); }
+            if (art.ArtMediumLinks != null) { art.ArtMediumLinks.Remove(art.ArtMediumLinks.Where(c => c.ArtMediumID == artmediumid).FirstOrDefault()); }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Edit), new { id = artid });
@@ -285,13 +287,12 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             var art = _context.Arts.Include(a => a.ArtStyleLinks).Single(a => a.ID == artid);
-            art.ArtStyleLinks.Remove(art.ArtStyleLinks.Where(c => c.ArtStyleID == artstyleid).FirstOrDefault());
+            if (art.UserID != userManager.GetUserId(User)) { return NotFound(); }
+            if (art.ArtStyleLinks != null) { art.ArtStyleLinks.Remove(art.ArtStyleLinks.Where(c => c.ArtStyleID == artstyleid).FirstOrDefault()); }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Edit), new { id = artid });
         }
-
-
 
         private bool ArtExists(int id)
         {
