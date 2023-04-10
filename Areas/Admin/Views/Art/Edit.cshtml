@@ -44,7 +44,7 @@
             <thead>
                 <tr>
                     <th class="text-warning">Colors</th>
-                    <th><a class="btn btn-secondary btn-sm" asp-action="ArtColorLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtColorLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
             {
                 <tr>
                     <td>@color.ArtColor.Name</td>
-                    <td><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
+                    <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
                 </tr>
             }
             </tbody>
@@ -61,7 +61,7 @@
             <thead>
                 <tr>
                     <th class="text-warning">Mediums</th>
-                    <th><a class="btn btn-secondary btn-sm" asp-action="ArtMediumLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtMediumLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
 
                 </tr>
             </thead>
@@ -70,7 +70,7 @@
                 {
                     <tr>
                         <td>@medium.ArtMedium.Name</td>
-                        <td><a class="btn btn-danger btn-sm" asp-action="ArtMediumLinkDelete" asp-route-artid="@medium.ArtID" asp-route-artcolorid="@medium.ArtMediumID">Remove</a></td>
+                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtMediumLinkDelete" asp-route-artid="@medium.ArtID" asp-route-artmediumid="@medium.ArtMediumID">Remove</a></td>
                     </tr>
                 }
             </tbody>
@@ -79,7 +79,7 @@
             <thead>
                 <tr>
                     <th class="text-warning">Styles</th>
-                    <th><a class="btn btn-secondary btn-sm" asp-action="ArtStyleLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtStyleLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@
             {
                 <tr>
                     <td>@style.ArtStyle.Name</td>
-                    <td><a class="btn btn-danger btn-sm" asp-action="ArtStyleLinkDelete" asp-route-artid="@style.ArtID" asp-route-artcolorid="@style.ArtStyleID">Remove</a></td>
+                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtStyleLinkDelete" asp-route-artid="@style.ArtID" asp-route-artstyleid="@style.ArtStyleID">Remove</a></td>
                 </tr>
             }
             </tbody>
