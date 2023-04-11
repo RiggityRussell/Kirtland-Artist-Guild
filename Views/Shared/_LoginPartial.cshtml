@@ -4,7 +4,7 @@
 <div class="row justify-content-sm-center">
     @if (SignInManager.IsSignedIn(User))
     {
-        <a class="col-sm-auto text-warning" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
+        <div class="col-sm-auto text-warning">@User.Identity?.Name</div>
         <a class="col-sm-auto btn btn-sm btn-outline-light" asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-cog"></i>&nbsp;Admin</a>
         <form method="post" class="col-sm-auto form-inline" asp-area="Identity" asp-page="/Account/Logout" >
             <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>

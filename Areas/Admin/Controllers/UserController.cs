@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -34,9 +35,25 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             };
             return View(model);
         }
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             User user = await userManager.FindByIdAsync(id);
             if (user != null)
@@ -52,7 +69,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                     TempData["message"] = errorMessage;
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
