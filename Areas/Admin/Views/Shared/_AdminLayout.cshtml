@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
     // nested layout view
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -25,6 +28,8 @@
             Art Images
         </a>
     </li>
+    @if (User.IsInRole("Admin"))
+    {        
     <li class="nav-item">
         <a asp-action="Index" asp-controller="User"
            class="nav-link @Nav.Active("User", current)">
@@ -49,6 +54,7 @@
             Art Styles
         </a>
     </li>
+    }
 </ul>
 
 @RenderBody()

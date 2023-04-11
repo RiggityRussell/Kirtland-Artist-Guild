@@ -118,15 +118,12 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return View(model);
         }
 
-
         // GET: ArtistImage
         public async Task<IActionResult> ProfileImageIndex()
         {
             var storeContext = _context.ArtistImages.Where(i => i.UserID == userManager.GetUserId(User)).Include(a => a.User);
             return View(await storeContext.ToListAsync());
-        }
-
-      
+        }      
 
         // GET: ArtistImage/Create
         public IActionResult Create()
@@ -165,7 +162,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             return View();
         }
-
 
         // GET: ArtistImage/Delete/5
         public async Task<IActionResult> Delete(int? id)
