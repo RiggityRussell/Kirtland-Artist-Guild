@@ -88,7 +88,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var art = await _context.Arts.Where(a => a.ID == id).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
+            var art = await _context.Arts.Where(a => a.ID == id).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).Include(i => i.ArtImages).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
                 return NotFound();
@@ -168,9 +168,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
-        //ARTCOLOR LINK
+        // ARTCOLORLINK
         public IActionResult ArtColorLinkCreate(int? artid)
         {
             if (artid == null)
@@ -211,8 +209,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return RedirectToAction(nameof(Edit), new { id = artid });
         }
 
-
-        //ARTMEDIUMLINK
+        // ARTMEDIUMLINK
         public IActionResult ArtMediumLinkCreate(int? artid)
         {
             if (artid == null)
@@ -253,7 +250,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return RedirectToAction(nameof(Edit), new { id = artid });
         }
 
-        //ARTSTYLELINK
+        // ARTSTYLELINK
         public IActionResult ArtStyleLinkCreate(int? artid)
         {
             if (artid == null)
@@ -279,7 +276,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             ViewData["ArtMediumID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
             return View(artStyleLink);
         }
-
         public async Task<IActionResult> ArtStyleLinkDelete(int? artid, int? artstyleid)
         {
             if (artid == null || artstyleid == null || _context.Arts == null)

@@ -75,11 +75,7 @@
                         }
                     </td>
                     <td>
-                        <form method="post" asp-action="Delete" asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-danger">
-                                Delete User
-                            </button>
-                        </form>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger"> Delete User</a>
                     </td>
                 </tr>
             }
