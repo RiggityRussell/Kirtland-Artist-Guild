@@ -27,24 +27,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return View(await _context.ArtMediums.ToListAsync());
         }
 
-        // GET: ArtMedium/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.ArtMediums == null)
-            {
-                return NotFound();
-            }
-
-            var artMedium = await _context.ArtMediums
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (artMedium == null)
-            {
-                return NotFound();
-            }
-
-            return View(artMedium);
-        }
-
         // GET: ArtMedium/Create
         public IActionResult Create()
         {

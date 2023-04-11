@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<Kirtland_Artist_Guild.Models.ArtStyle>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Art Styles";
 }
 
 <p>
     <a asp-action="Create" class="btn btn-secondary">Create New</a>
 </p>
-<table class="table table-dark">
+<table class="table table-dark table-striped table-hover">
     <thead>
         <tr>
-            <th class="text-warning">
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th class="text-warning"></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,6 @@
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-secondary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-secondary">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-secondary">Delete</a>
             </td>
         </tr>
