@@ -35,21 +35,14 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
-
             }
-            foreach (ArtistImage artistImage in artistImages)
-            {
-                artistImages = await _context.ArtistImages.ToListAsync();
-                artistImages.Add(artistImage);
-            }
-            
-
+           /* users.Sort((x, y) => x.lastName.CompareTo(y.lastName)); // Sort artists by last name*/
+            artistImages = await _context.ArtistImages.ToListAsync();
 
             ArtistsViewModel model = new ArtistsViewModel
             {
                 Users = users,
-                /*ArtistImages = artistImages 
-*/
+                ArtistImages = artistImages 
             };
 
             return View(model);
@@ -83,6 +76,7 @@ namespace Kirtland_Artist_Guild.Controllers
 
             var arts = from a in _context.Arts.Where(u => u.UserID == user.Id) select a;             
             model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
 
             var artistImages = from a in _context.ArtistImages.Where(u => u.UserID == user.Id) select a;
             model.ArtistImages = await artistImages.ToListAsync();
@@ -92,9 +86,30 @@ namespace Kirtland_Artist_Guild.Controllers
             return View(model);
         }
 
-        public IActionResult Art()
+        public async Task<IActionResult> Art(int? id)
         {
-            return View();
+            if (id == null || _context.Arts == null)
+            {
+                return NotFound();
+            }
+            var art = await _context.Arts.Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
+            if (art == null)
+            {
+                return NotFound();
+            }
+            var images = await _context.ArtImages.Where(i => i.ArtID == id).ToListAsync();
+            if (images.Count == 0)
+            {
+                images.Add(new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" } );
+            }
+
+            ArtViewModel model = new ArtViewModel
+            {
+                Art = art,
+                ArtImages = images
+            };
+
+            return View(model);
         }
 
         public async Task<IActionResult> Artistic_Style(int colorFilter = 0, int mediumFilter = 0, int styleFilter = 0)
@@ -124,6 +139,7 @@ namespace Kirtland_Artist_Guild.Controllers
             }
 
             model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x,y) => x.Created.CompareTo(y.Created)); // Sort art by created date
 
             return View(model);
         }

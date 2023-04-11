@@ -27,7 +27,21 @@ else
                         <div class="col mb-3">
                             <div class="d-flex flex-column align-items-center">
                                 <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
-                                    <img src="~/media/turtle.jpg" alt="Image" class="img-fluid border border-warning" style="max-height: 300px;">
+                                    @foreach (var artistImage in Model.ArtistImages)
+                                    {
+                                        if (user.Id == artistImage.UserID)
+                                        {
+                                            <img src="@(@artistImage.Source + @artistImage.FileName)" alt="Image" class="img-fluid border border-warning" style="max-height: 300px;">
+                                        }
+                                        //Need to find a comparison for else if, to show a temp image if there is not an image for someone yet.
+                                       @* 
+                                        else
+                                        {
+                                            <img src="~/media/TempImage.jpg" alt="Temp image"class="img-fluid border border-warning" style="max-height: 300px;"></img>
+                                        }*@
+                                    }
+
+                                   
                                 </a>
                                 <div class="text-center">
                                     <div class="fw-bold mt-1">@user.firstName @user.lastName</div>

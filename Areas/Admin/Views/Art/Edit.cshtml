@@ -34,40 +34,66 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="border border-warning">
-                Colors:
-                @foreach (var color in Model.ArtColorLinks)
-                {
-                    <br/>@color.ArtColor.Name
-                }
-            </div>
-            <div class="border border-warning">
-                Mediums:
-                @foreach (var medium in Model.ArtMediumLinks)
-                {
-                    <br />
-
-                    @medium.ArtMedium.Name
-                }
-            </div>
-            <div class="border border-warning">
-                Styles:
-                @foreach (var style in Model.ArtStyleLinks)
-                {
-                    <br />
-
-                    @style.ArtStyle.Name
-                }
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
+    <div class="col-md-4">
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Colors</th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtColorLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var color in Model.ArtColorLinks)
+            {
+                <tr>
+                    <td>@color.ArtColor.Name</td>
+                    <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Mediums</th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtMediumLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var medium in Model.ArtMediumLinks)
+                {
+                    <tr>
+                        <td>@medium.ArtMedium.Name</td>
+                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtMediumLinkDelete" asp-route-artid="@medium.ArtID" asp-route-artmediumid="@medium.ArtMediumID">Remove</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th class="text-warning">Styles</th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtStyleLinkCreate" asp-route-artid="@Model.ID">Add</a></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var style in Model.ArtStyleLinks)
+            {
+                <tr>
+                    <td>@style.ArtStyle.Name</td>
+                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtStyleLinkDelete" asp-route-artid="@style.ArtID" asp-route-artstyleid="@style.ArtStyleID">Remove</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section Scripts {

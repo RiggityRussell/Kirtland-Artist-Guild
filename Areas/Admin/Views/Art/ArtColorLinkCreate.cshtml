@@ -1,0 +1,33 @@
+﻿@model Kirtland_Artist_Guild.Models.ArtColorLink
+
+@{
+    ViewData["Title"] = "Add Color";
+}
+
+<h1>Add Color</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ArtColorLinkCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ArtID" />
+            <div class="form-group">
+                <select asp-for="ArtColorID" class="form-control" asp-items="ViewBag.ArtColorID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@ViewBag.art">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

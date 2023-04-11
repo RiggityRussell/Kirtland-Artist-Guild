@@ -27,24 +27,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             return View(await _context.ArtColors.ToListAsync());
         }
 
-        // GET: ArtColor/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.ArtColors == null)
-            {
-                return NotFound();
-            }
-
-            var artColor = await _context.ArtColors
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (artColor == null)
-            {
-                return NotFound();
-            }
-
-            return View(artColor);
-        }
-
         // GET: ArtColor/Create
         public IActionResult Create()
         {

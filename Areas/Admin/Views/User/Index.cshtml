@@ -5,11 +5,19 @@
 
 <h1 class="mb-2">Manage Users</h1>
 
-<h5 class="mt-2"><a asp-action="Add">Add a User</a></h5>
+<h5 class="mt-2"><a asp-action="Add" class="btn btn-secondary">Add a User</a></h5>
 
 <table class="table table-bordered table-striped table-sm table-dark">
     <thead>
-        <tr><th>Username</th><th>Roles</th><th></th><th></th><th></th></tr>
+        <tr>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Roles</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
         @if (Model.Users.Count() == 0)
@@ -22,6 +30,8 @@
             {
                 <tr>
                     <td>@user.UserName</td>
+                    <td>@user.firstName</td>
+                    <td>@user.lastName</td>
                     <td>
                         @foreach (string roleName in user.RoleNames)
                         {
@@ -29,39 +39,45 @@
                         }
                     </td>
                     <td>
-                        <form method="post" asp-action="Delete"
-                      asp-route-id="@user.Id">
+                        @if (user.RoleNames.Contains("Artist"))
+                        {
+                            <form method="post" asp-action="RemoveFromArtist" asp-route-id="@user.Id">
+                                <button type="submit" class="btn btn-secondary">
+                                    Remove From Artist
+                                </button>
+                            </form>
+                        }
+                        else
+                        {                            
+                            <form method="post" asp-action="AddToArtist" asp-route-id="@user.Id">
+                                <button type="submit" class="btn btn-secondary mb-2">
+                                    Add To Artist
+                                </button>                              
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        @if (user.RoleNames.Contains("Admin"))
+                        {
+                            <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@user.Id">
+                                <button type="submit" class="btn btn-secondary">
+                                    Remove From Admin
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-action="AddToAdmin" asp-route-id="@user.Id">
+                                <button type="submit" class="btn btn-secondary mb-2">
+                                    Add To Admin
+                                </button>
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@user.Id">
                             <button type="submit" class="btn btn-danger">
                                 Delete User
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" asp-action="AddToArtist"
-                      asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-secondary mb-2">
-                                Add To Artist
-                            </button> |  
-                            
-                        </form>
-                        <form method="post" asp-action="RemoveFromArtist"
-                      asp-route-id="@user.Id">
-                           <button type="submit" class="btn btn-secondary">
-                                Remove From Artist
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" asp-action="AddToAdmin"
-                      asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-secondary mb-2">
-                                Add To Admin
-                            </button> |
-                        </form>
-                        <form method="post" asp-action="RemoveFromAdmin"
-                      asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-secondary">
-                                Remove From Admin
                             </button>
                         </form>
                     </td>
@@ -73,7 +89,7 @@
 
 <h1 class="mb-2">Manage Roles</h1>
 
-<h5 class="mt-2"><a asp-action="AddRole">Add a Role</a></h5>
+<h5 class="mt-2"><a asp-action="AddRole" class="btn btn-secondary">Add a Role</a></h5>
 
 @if (Model.Roles.Count() == 0)
 {
@@ -95,9 +111,8 @@ else
                 <tr>
                     <td>@role.Name</td>
                     <td>
-                        <form method="post" asp-action="DeleteRole"
-                      asp-route-id="@role.Id">
-                            <button type="submit" class="btn btn-primary">
+                        <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
+                            <button type="submit" class="btn btn-danger">
                                 Delete Role
                             </button>
                         </form>

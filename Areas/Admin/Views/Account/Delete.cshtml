@@ -4,15 +4,12 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>ArtistImage</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-8">
-            <img src="@(@Model.Source + @Model.FileName)" class="img-fluid border border-1 border-warning">
+            <img src="@(@Model.Source + @Model.FileName)" class="img-fluid border border-1 border-warning" style="max-height: 400px">
         </dt>
        
     </dl>
