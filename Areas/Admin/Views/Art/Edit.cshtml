@@ -5,7 +5,6 @@
 }
 
 <h1>Edit</h1>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,13 +48,19 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var color in Model.ArtColorLinks)
-            {
-                <tr>
-                    <td>@color.ArtColor.Name</td>
-                    <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
-                </tr>
-            }
+                @if (Model.ArtColorLinks != null)
+                { 
+                    @foreach (var color in Model.ArtColorLinks)
+                    {
+                        @if (color.ArtColor != null)
+                        {    
+                            <tr>
+                                <td>@color.ArtColor.Name</td>
+                                <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtColorLinkDelete" asp-route-artid="@color.ArtID" asp-route-artcolorid="@color.ArtColorID">Remove</a></td>
+                            </tr>
+                        }
+                    }
+                }
             </tbody>
         </table>
         <table class="table table-dark table-striped table-hover table-responsive-md">
@@ -67,12 +72,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var medium in Model.ArtMediumLinks)
+                @if (Model.ArtMediumLinks != null)
                 {
-                    <tr>
-                        <td>@medium.ArtMedium.Name</td>
-                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtMediumLinkDelete" asp-route-artid="@medium.ArtID" asp-route-artmediumid="@medium.ArtMediumID">Remove</a></td>
-                    </tr>
+                    @foreach (var medium in Model.ArtMediumLinks)
+                    {
+                        if (medium.ArtMedium != null)
+                        {
+                            <tr>
+                                <td>@medium.ArtMedium.Name</td>
+                                <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtMediumLinkDelete" asp-route-artid="@medium.ArtID" asp-route-artmediumid="@medium.ArtMediumID">Remove</a></td>
+                            </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>
@@ -84,13 +95,19 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var style in Model.ArtStyleLinks)
-            {
-                <tr>
-                    <td>@style.ArtStyle.Name</td>
-                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtStyleLinkDelete" asp-route-artid="@style.ArtID" asp-route-artstyleid="@style.ArtStyleID">Remove</a></td>
-                </tr>
-            }
+                @if (Model.ArtStyleLinks != null)
+                {                
+                    @foreach (var style in Model.ArtStyleLinks)
+                    {
+                        @if (style.ArtStyle != null)
+                        {
+                            <tr>
+                                <td>@style.ArtStyle.Name</td>
+                                    <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtStyleLinkDelete" asp-route-artid="@style.ArtID" asp-route-artstyleid="@style.ArtStyleID">Remove</a></td>
+                            </tr>
+                        }
+                    }
+                }
             </tbody>
         </table>
 
@@ -98,16 +115,19 @@
             <thead>
                 <tr>
                     <th>Images</th>
-                    <th class="text-end"><a class="btn btn-secondary btn-sm">Add</a></th>
+                    <th class="text-end"><a class="btn btn-secondary btn-sm" asp-action="ArtImageCreate" asp-route-artid="@Model.ID">Add</a></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var image in Model.ArtImages)
+                @if (Model.ArtImages != null)
                 {
-                    <tr>
-                        <td>@image.FileName</td>
-                        <td class="text-end"><a class="btn btn-danger btn-sm">Remove</a></td>
-                    </tr>
+                    @foreach (var image in Model.ArtImages)
+                    {
+                        <tr>
+                            <td><img class="w-100 img-fluid border border-warning" src="@(image.Source + image.FileName)"></td>
+                            <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ArtImageDelete" asp-route-artid="@image.ArtID" asp-route-artimageid="@image.ID">Remove</a></td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

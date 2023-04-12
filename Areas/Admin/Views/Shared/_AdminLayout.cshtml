@@ -22,12 +22,6 @@
             Manage Art
         </a>
     </li>
-    <li class="nav-item">
-        <a asp-action="Index" asp-controller="ArtImage"
-           class="nav-link @Nav.Active("ArtImage", current)">
-            Art Images
-        </a>
-    </li>
     @if (User.IsInRole("Admin"))
     {        
     <li class="nav-item">
