@@ -136,7 +136,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ArtColorExists(int id)
         {
             return _context.ArtColors.Any(e => e.ID == id);
