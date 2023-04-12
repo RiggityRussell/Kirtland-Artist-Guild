@@ -42,7 +42,7 @@
                         @if (user.RoleNames.Contains("Artist"))
                         {
                             <form method="post" asp-action="RemoveFromArtist" asp-route-id="@user.Id">
-                                <button type="submit" class="btn btn-secondary">
+                                <button type="submit" class="btn btn-sm btn-secondary">
                                     Remove From Artist
                                 </button>
                             </form>
@@ -50,7 +50,7 @@
                         else
                         {                            
                             <form method="post" asp-action="AddToArtist" asp-route-id="@user.Id">
-                                <button type="submit" class="btn btn-secondary mb-2">
+                                <button type="submit" class="btn btn-sm btn-secondary mb-2">
                                     Add To Artist
                                 </button>                              
                             </form>
@@ -60,7 +60,7 @@
                         @if (user.RoleNames.Contains("Admin"))
                         {
                             <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@user.Id">
-                                <button type="submit" class="btn btn-secondary">
+                                <button type="submit" class="btn btn-sm btn-secondary">
                                     Remove From Admin
                                 </button>
                             </form>
@@ -68,18 +68,14 @@
                         else
                         {
                             <form method="post" asp-action="AddToAdmin" asp-route-id="@user.Id">
-                                <button type="submit" class="btn btn-secondary mb-2">
+                                <button type="submit" class="btn btn-sm btn-secondary mb-2">
                                     Add To Admin
                                 </button>
                             </form>
                         }
                     </td>
                     <td>
-                        <form method="post" asp-action="Delete" asp-route-id="@user.Id">
-                            <button type="submit" class="btn btn-danger">
-                                Delete User
-                            </button>
-                        </form>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Delete User</a>
                     </td>
                 </tr>
             }
@@ -94,7 +90,7 @@
 @if (Model.Roles.Count() == 0)
 {
     <form method="post" asp-action="CreateAdminRole">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-sm btn-primary">
             Create Admin Role
         </button>
     </form>
@@ -112,9 +108,7 @@ else
                     <td>@role.Name</td>
                     <td>
                         <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
-                            <button type="submit" class="btn btn-danger">
-                                Delete Role
-                            </button>
+                            <button type="submit" class="btn btn-sm btn-danger">Delete Role</button>
                         </form>
                     </td>
                 </tr>
