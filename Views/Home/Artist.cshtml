@@ -17,7 +17,7 @@
                 <div class="card-body">
                     @foreach (var artistImage in Model.ArtistImages)
                     {
-                        <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Profile">
+                        <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Profile" onContextMenu="return false;">
                     }
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="col-md-4 col-lg-3 masonry-item mt-4">
                 <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
                     <div class="image-container">
-                        <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
+                        <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
                         <div class="image-info">
                             @art.Name <br>
                         </div>
