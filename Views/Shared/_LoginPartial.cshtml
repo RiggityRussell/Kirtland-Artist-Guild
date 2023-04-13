@@ -2,16 +2,32 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 <div class="row justify-content-sm-center">
+    <div class="col-sm-auto text-center mb-2">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="text-warning">@User.Identity?.Name</div>
+        }
+    </div>
+</div>
+<div class="row justify-content-sm-center">
     @if (SignInManager.IsSignedIn(User))
     {
-        <div class="col-sm-auto text-warning">@User.Identity?.Name</div>
-        <a class="col-sm-auto btn btn-sm btn-outline-light" asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-cog"></i>&nbsp;Admin</a>
-        <form method="post" class="col-sm-auto form-inline" asp-area="Identity" asp-page="/Account/Logout" >
-            <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
-        </form>
+        <div class="col-sm-auto">
+            <div class="btn-group" role="group" aria-label="Admin and Logout buttons">
+                <a class="btn btn-sm btn-outline-light" asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-cog"></i>&nbsp;Admin</a>
+                <div class="mx-1"></div>
+                <form method="post" class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
+                    <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
+                </form>
+            </div>
+        </div>
     }
     else
-    {        
-        <a class="col-sm-auto nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>        
+    {
+        <div class="col-sm-auto">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>
     }
 </div>
+
+

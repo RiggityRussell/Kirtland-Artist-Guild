@@ -39,7 +39,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var art = await _context.Arts.Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).FirstOrDefaultAsync(m => m.ID == id);
+            var art = await _context.Arts.Include(n => n.ArtMediumLinks).ThenInclude(o => o.ArtMedium).FirstOrDefaultAsync(m => m.ID == id);
             if (art == null)
             {
                 return NotFound();
@@ -55,6 +55,12 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 Art = art,
                 ArtImages = images
             };
+            var artist = await userManager.FindByIdAsync(art.UserID);
+            if (artist != null) 
+            { 
+                ViewData["artist"] = artist.UserName;
+                ViewData["artistName"] = artist.firstName + " " + artist.lastName;
+            }
 
             return View(model);
         }

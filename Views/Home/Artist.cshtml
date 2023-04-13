@@ -6,9 +6,8 @@
     <link rel="stylesheet" href="~/css/Artistic_Style.css">
 }
 
-<h1 class="KAG_title text-warning">@Model.User.firstName @Model.User.lastName</h1>@*Link to dbo.AspNetUsers - User ID - User Name*@
-<h4 class="text-center">@Model.User.artistMedium</h4>@*Link to dbo.AspNetUsers - User ID - artistmedium*@
-
+<h1 class="KAG_title text-warning">@Model.User.firstName @Model.User.lastName</h1>
+<h4 class="text-center">@Model.User.artistMedium</h4>
 
 <div class="container py-2 mt-5">
     <div class="row ms-auto">
@@ -57,7 +56,6 @@
     </div>
 </div>
 
-
 <h2 class="text-center mt-3">@Model.User.quote</h2>
 
 <div class="container">
@@ -78,7 +76,8 @@
                     <div class="image-container">
                         <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
                         <div class="image-info">
-                            @art.Name <br>
+                            @art.User.firstName @art.User.lastName<br>
+                            @art.Name 
                         </div>
                     </div>
                 </a>
