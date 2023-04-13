@@ -92,18 +92,53 @@
                 <div class="col-md-4 col-lg-3 masonry-item mt-4">
                     <div class="image-container">
                         <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
-
                             <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
-                            <div class="image-info" style="width:100%">
-                                @if (art.User.firstName != null && art.User.lastName != null) 
-                                {
-                                    <div>@art.User.firstName @art.User.lastName</div> @art.Price
-                                }
-                                @if (art.Name != null)
-                                {
-                                    @art.Name 
-                                }                                                                
-
+                            <div class="image-info">
+                                <table style="width:100%">
+                                    <tr>                                         
+                                        @if (art.User.firstName != null && art.User.lastName != null) 
+                                        {
+                                            <td style="text-align:left">  
+                                                @art.User.firstName @art.User.lastName
+                                            </td>
+                                        }                                                                              
+                                        @if (art.Available == true)
+                                        {
+                                            <td style="text-align:right">
+                                                &#36 @art.Price
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="text-align:right">
+                                                SOLD
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                        @if (art.Name != null)
+                                        {
+                                            @art.Name 
+                                        }
+                                        </td>
+                                        @if (art.ArtMediumLinks != null)
+                                        {
+                                            <td style="text-align:right">
+                                            @foreach (var medium in art.ArtMediumLinks)
+                                            {
+                                                @if (medium.ArtMedium != null)
+                                                {   
+                                                    @if (medium.ArtMedium.Name != null)
+                                                    {
+                                                        <i>@medium.ArtMedium.Name</i>                                                        
+                                                    }
+                                                }
+                                            }
+                                            </td>
+                                        }
+                                    </tr>
+                                </table>
                             </div>
                         </a>
                     </div>
@@ -113,13 +148,19 @@
     </div>
 </div>
 @section scripts {
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
-<script>
-    var masonryGrid = document.querySelector('.masonry-grid');
-    var masonry = new Masonry(masonryGrid, {
-        itemSelector: '.masonry-item',
-        columnWidth: '.col-md-4',
-        percentPosition: true
-    });
-</script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+
+    <script>
+        var masonryGrid = document.querySelector('.masonry-grid');
+        var masonry = new Masonry(masonryGrid, {
+            itemSelector: '.masonry-item',
+            columnWidth: '.col-md-4',
+            percentPosition: true
+        });
+        imagesLoaded(masonryGrid).on('progress', function() {
+            // layout Masonry after each image loads
+            msnry.layout();
+        });
+    </script>
 }

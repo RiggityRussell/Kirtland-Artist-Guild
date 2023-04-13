@@ -129,7 +129,7 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtMediums = await _context.ArtMediums.ToListAsync();
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
             model.ArtImages = await _context.ArtImages.ToListAsync();
-            var arts = from a in _context.Arts.Include(u => u.User) select a;
+            var arts = from a in _context.Arts.Include(u => u.User).Include(m => m.ArtMediumLinks).ThenInclude(l => l.ArtMedium) select a;
 
             if (colorFilter != 0)
             {
