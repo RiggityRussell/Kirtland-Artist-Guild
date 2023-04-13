@@ -18,10 +18,8 @@
 </head>
 <body>
     <header>
-        <div @*class="slider-container"*@>
-            @*<img class="slider-image" src="/media/Art1.jpg" alt="Slider Image">
-            <img class="slider-image" src="/media/Art2.jpg" alt="Slider Image">*@
-            <img class="header_img" src="/media/webpage media illustration.jpg" alt="Slider Image">
+        <div> 
+            <img class="header_img" src="/media/webpage media illustration.jpg" alt="Slider Image" onContextMenu="return false;">
         </div>
         <div class="text-center">
             <a class="KAG text-decoration-none text-reset" asp-area="" asp-controller="Home" asp-action="Index">
@@ -30,7 +28,6 @@
         </div>
         <div class="container-fluid border-bottom border-top border-warning box-shadow w-100">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
-                @* <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Kirtland Artist Guild</a>*@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
