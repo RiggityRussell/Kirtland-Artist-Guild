@@ -17,16 +17,17 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model) 
+        {
+            <tr>
                 <td style="max-width: 100px; word-wrap: break-word;">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
                 <td style="text-align: left;">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-secondary">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-secondary">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
