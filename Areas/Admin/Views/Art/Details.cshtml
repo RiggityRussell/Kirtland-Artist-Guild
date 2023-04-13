@@ -42,45 +42,38 @@
         <div class="col-sm-4 col-md-4 py-3">
             <div class="card bg-transparent">
                 <div class="card-body">
+
+                    <a class="text-warning" asp-area="" asp-controller="Home" asp-action="Artist" asp-route-id="@ViewData["artist"]">@ViewData["artistName"]</a>
+
                     <h3 class="card-title">@Html.DisplayFor(model => model.Art.Name)</h3>
-                    @* should have if statements, THIS NEEDS TO BE IMPLEMENTED STILL
-                    
-                    @if (Art.Color != null)
-                    <p><b>@Html.DisplayNameFor(model => model.Color)</b>: @Html.DisplayFor(model => model.Color)</p>
 
+                    @if (Model.Art.ArtMediumLinks != null)
+                    {
+                        <p>
+                            @foreach (var medium in Model.Art.ArtMediumLinks)
+                            {
+                                @if (medium.ArtMedium != null)
+                                {
+                                    <div>@medium.ArtMedium.Name</div>
+                                }
+                            }
+                        </p>
+                    }
 
-                    if (Art.Medium != null)
-                    <p><b>@Html.DisplayNameFor(model => model.Medium)</b>: @Html.DisplayFor(model => model.Medium)<p>
+                    @if (Model.Art.Available)
+                    {
+                        <p>&#36 @Html.DisplayFor(model => model.Art.Price)</p>
+                    }
+                    else
+                    {
+                        <p>SOLD</p>
+                    }
 
-                    if (Art.Style != null)
-                    <p><b>@Html.DisplayNameFor(model => model.Style)</b>: @Html.DisplayFor(model => model.Medium)<p>
-                    *@
-
-                    
-                    <br />
-                    <p><b>@Html.DisplayNameFor(model => model.Art.Description)</b>: @Html.Raw(Model.Art.Description.Replace(Environment.NewLine, "<br/>"))</p>
-                    <p><b>@Html.DisplayNameFor(model => model.Art.Available)</b>: @Html.DisplayFor(model => model.Art.Available)</p>
-                    <p><b>@Html.DisplayNameFor(model => model.Art.Price)</b>: &#36 @Html.DisplayFor(model => model.Art.Price)</p>
-                    <p><b>Colors:</b> 
-                        @foreach (var color in Model.Art.ArtColorLinks)
-                        {
-                            <div>@color.ArtColor.Name</div>
-                        }    
-                    </p>
-                    <p>
-                        <b>Mediums:</b>
-                        @foreach (var medium in Model.Art.ArtMediumLinks)
-                        {
-                            <div>@medium.ArtMedium.Name</div>
-                        }
-                    </p>
-                    <p>
-                        <b>Styles:</b>
-                        @foreach (var style in Model.Art.ArtStyleLinks)
-                        {
-                            <div>@style.ArtStyle.Name</div>
-                        }
-                    </p>
+                    @if (Model.Art.Description != null)
+                    {
+                        <p><b>@Html.DisplayNameFor(model => model.Art.Description)</b>:
+                            <br/>@Html.Raw(Model.Art.Description.Replace(Environment.NewLine, "<br/>"))</p>
+                    }      
                 </div>
             </div>
         </div>

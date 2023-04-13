@@ -20,9 +20,6 @@
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Available)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
                 <th>
@@ -47,12 +44,14 @@
                     <td style="max-width: 350px; word-wrap: break-word;">
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Available)
-                    </td>
-                    <td>
-                        $@Html.DisplayFor(modelItem => item.Price)
-                    </td>
+                    @if (item.Available)
+                    {
+                        <td>$@Html.DisplayFor(modelItem => item.Price)</td>
+                    }
+                    else
+                    {
+                        <td>SOLD</td>
+                    }
                     <td>
                         @if (item.ArtColorLinks != null)
                         {
