@@ -1,4 +1,4 @@
-﻿@model Kirtland_Artist_Guild.Models.ArtisticStyleViewModel
+@model Kirtland_Artist_Guild.Models.ArtisticStyleViewModel
 @{
     ViewData["Title"] = "Artistic Style";
 }
@@ -92,10 +92,18 @@
                 <div class="col-md-4 col-lg-3 masonry-item mt-4">
                     <div class="image-container">
                         <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
-                            <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning">
-                            <div class="image-info">
-                                @art.Name <br>
-                                @art.User.firstName @art.User.lastName
+
+                            <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
+                            <div class="image-info" style="width:100%">
+                                @if (art.User.firstName != null && art.User.lastName != null) 
+                                {
+                                    <div>@art.User.firstName @art.User.lastName</div> @art.Price
+                                }
+                                @if (art.Name != null)
+                                {
+                                    @art.Name 
+                                }                                                                
+
                             </div>
                         </a>
                     </div>
@@ -115,36 +123,3 @@
     });
 </script>
 }
-@*<div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
-        @for (int i = 1; i <= 20; i++)
-        {
-            <div class="col">
-                <div class="image-container">
-                    <a href="@Url.Action("Index")">
-                        <img src="/media/Art1.jpg" alt="Image @i" class="img-fluid border border-1 border-warning">
-                        <div class="image-info">
-                            Information about image @i
-                        </div>
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
-</div>*@
-
-@*<div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
-        @for (int i = 1; i <= 20; i++)
-        {
-            <div class="col">
-                <div class="image-container">
-                    <img src="/media/Art1.jpg" alt="Image @i" class="img-fluid border border-1 border-warning">
-                    <div class="image-info">
-                        Information about image @i
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>*@

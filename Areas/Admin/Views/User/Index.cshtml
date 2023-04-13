@@ -85,34 +85,19 @@
 
 <h1 class="mb-2">Manage Roles</h1>
 
-<h5 class="mt-2"><a asp-action="AddRole" class="btn btn-secondary">Add a Role</a></h5>
+<table class="table table-bordered table-striped table-sm table-dark">
+    <thead>
+        <tr>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>@role.Name</td>
 
-@if (Model.Roles.Count() == 0)
-{
-    <form method="post" asp-action="CreateAdminRole">
-        <button type="submit" class="btn btn-sm btn-primary">
-            Create Admin Role
-        </button>
-    </form>
-}
-else
-{
-    <table class="table table-bordered table-striped table-sm table-dark">
-        <thead>
-            <tr><th>Role</th><th></th></tr>
-        </thead>
-        <tbody>
-            @foreach (var role in Model.Roles)
-            {
-                <tr>
-                    <td>@role.Name</td>
-                    <td>
-                        <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete Role</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+            </tr>
+        }
+    </tbody>
+</table>
