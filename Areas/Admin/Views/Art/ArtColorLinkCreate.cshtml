@@ -13,6 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ArtID" />
             <div class="form-group">
+                <label class="mb-1">Select One:</label>
                 <select asp-for="ArtColorID" class="form-control" asp-items="ViewBag.ArtColorID"></select>
             </div>
             <div class="form-group mt-2">

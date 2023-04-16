@@ -137,6 +137,7 @@
 
 
 @section scripts {
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     <script>
         var masonryGrid = document.querySelector('.masonry-grid');
@@ -144,6 +145,10 @@
             itemSelector: '.masonry-item',
             columnWidth: '.col-md-4',
             percentPosition: true
+        });
+        imagesLoaded(masonryGrid).on('progress', function () {
+            // layout Masonry after each image loads
+            msnry.layout();
         });
     </script>
 }

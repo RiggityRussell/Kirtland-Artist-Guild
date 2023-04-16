@@ -10,10 +10,11 @@
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label>Choose Image:</label>
             <div class="form-group">
                 <div class="custom-file">
                     <input asp-for="ArtistImage" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose photo</label>
+                    @*<label class="custom-file-label" for="customFile"></label>*@
                 </div>
                 <span asp-validation-for="ArtistImage" class="text-danger"></span>
             </div>
