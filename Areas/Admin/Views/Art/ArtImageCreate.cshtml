@@ -14,7 +14,7 @@
             <input type="hidden" asp-for="ArtID" />
             <div class="form-group">
                 <div class="custom-file">
-                    <input asp-for="ArtImage" class="custom-file-input" id="customFile">
+                    <input asp-for="ArtImage" class="custom-file-input" id="customFile" accept=".png,.jpg,.jpeg">
                     <label class="custom-file-label" for="customFile">Choose image</label>
                 </div>
                 <span asp-validation-for="ArtImage" class="text-danger"></span>
