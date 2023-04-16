@@ -12,6 +12,7 @@
         <form asp-action="ArtImageCreate" class="mt-3" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ArtID" />
+            <label>Choose Image:</label>
             <div class="form-group">
                 <div class="custom-file">
                     <input asp-for="ArtImage" class="custom-file-input" id="customFile">
