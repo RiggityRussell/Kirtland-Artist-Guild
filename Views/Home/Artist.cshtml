@@ -9,57 +9,105 @@
 <h1 class="KAG_title text-warning">@Model.User.firstName @Model.User.lastName</h1>
 <h4 class="text-center">@Model.User.artistMedium</h4>
 
-<div class="container py-2 mt-5">
-    <div class="row ms-auto">
-        <div class="col-sm-5">
-            <div class="card bg-transparent">
-                <div class="card-body">
-                    @foreach (var artistImage in Model.ArtistImages)
+    <div class="container py-2 mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card bg-transparent">
+                    <div class="card-body">
+                    @if (Model.ArtistImages.Count > 0)
                     {
-                        <img class="d-block w-100" src="@(@artistImage.Source + @artistImage.FileName)" alt="Profile" onContextMenu="return false;">
+                        <img class="d-block w-100" src="@(@Model.ArtistImages[0].Source + @Model.ArtistImages[0].FileName)" alt="Profile" onContextMenu="return false;">
+                    }
+                    else
+                    {
+                        <img class="d-block w-100" src="~/media/default_user_image_1.png" alt="Default Profile Image" onContextMenu="return false;">
                     }
                 </div>
+
             </div>
+            <h2 class="text-center mt-3">@Model.User.quote</h2>
         </div>
-        <div class="col-sm-7">
-            <div class="card bg-transparent">
-                <div class="card-body">
-                    <p>
-                        @if (Model.User.bio != null)
-                            {
-                                @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
-                            }
-                    </p>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card bg-transparent">
+                        <div class="card-body">
+                            <p>
+                                @if (Model.User.bio != null)
+                                {
+                                    @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
+                                }
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="card-body">
-                @*UserID - Photo1*@
-                @* HERE WE WILL CHECK IF THERE IS THE OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
-                @if (Model.User. != null)
-                {
-                <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
-                *@
-            </div>
-        </div> 
-        <div class="col-sm-5">
-            <div class="card-body"> 
-                @*UserID - Photo1*@
-                @* HERE WE WILL CHECK IF THERE IS THE SECOND OPTIONAL PHOTO FOR DISPLAYING THE PERSON IN FRONT OF THE ART, AND IF NOT SHOW NOTHING,
-                @if (Model.User. != null)
-                {
-                <img src="/media/duck.jpg" alt="Image" class="img-fluid border border-warning">
-                *@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card bg-transparent h-100">
+                        <div class="card-body h-100">
+                            <div id="artistCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-bs-target="#artistCarousel" data-bs-slide-to="0" class="active"></li>
+                                    @for (int i = 1; i < Model.ArtistImages.Count; i++)
+                                    {
+                                        <li data-bs-target="#artistCarousel" data-bs-slide-to="@i"></li>
+                                    }
+                                </ol>
+                                <!-- Slides -->
+                                <div class="carousel-inner h-100">
+                                    @if (Model.ArtistImages.Count > 1)
+                                    {
+                                        <!-- First image -->
+                                        <div class="carousel-item active h-100">
+                                            <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@Model.ArtistImages[0].Source@Model.ArtistImages[0].FileName" alt="First slide">
+                                        </div>
+                                        <!-- Subsequent images -->
+                                        @foreach (var image in Model.ArtistImages.Skip(1))
+                                        {
+                                            <div class="carousel-item h-100">
+                                                <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@image.Source@image.FileName" alt="Slide">
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <!-- Default image -->
+                                        <div class="carousel-item active h-100">
+                                            <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="~/media/default_art_image_1.jpg" alt="Default slide">
+                                        </div>
+                                    }
+
+                                    <!-- Controls -->
+                                    <a class="carousel-control-prev" href="#artistCarousel" role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#artistCarousel" role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
+
+
+    </div>
 </div>
-
-<h2 class="text-center mt-3">@Model.User.quote</h2>
-
 <div class="container">
-    <div class="row masonry-grid">
+    <div class="text-center text-warning">
+        <h2>Artist Gallery</h2>
+    </div>
+    <div class="row masonry-grid border-top border-warning">
         @foreach (var art in Model.Arts)
         {
             var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" };
@@ -71,13 +119,14 @@
                     picture = image;
                 }
             }
-            <div class="col-md-4 col-lg-3 masonry-item mt-4">
+
+            <div class="col-md-4 col-lg-3 masonry-item mt-4 mb-4">
                 <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
                     <div class="image-container">
                         <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
                         <div class="image-info">
                             @art.User.firstName @art.User.lastName<br>
-                            @art.Name 
+                            @art.Name
                         </div>
                     </div>
                 </a>
@@ -86,7 +135,9 @@
     </div>
 </div>
 
+
 @section scripts {
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     <script>
         var masonryGrid = document.querySelector('.masonry-grid');
@@ -94,6 +145,10 @@
             itemSelector: '.masonry-item',
             columnWidth: '.col-md-4',
             percentPosition: true
+        });
+        imagesLoaded(masonryGrid).on('progress', function () {
+            // layout Masonry after each image loads
+            msnry.layout();
         });
     </script>
 }
