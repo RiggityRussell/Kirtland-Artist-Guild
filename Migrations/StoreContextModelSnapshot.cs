@@ -62,7 +62,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 1,
                             Available = true,
-                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9132),
+                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8726),
                             Description = "Prints only",
                             Name = "Grandpas Lake",
                             Price = 119.98999999999999
@@ -71,7 +71,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 2,
                             Available = true,
-                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9165),
+                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8763),
                             Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ",
                             Name = "Wind Dancer",
                             Price = 1115.99
@@ -80,7 +80,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 3,
                             Available = true,
-                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9168),
+                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8766),
                             Description = "Prints and notecards",
                             Name = "Mackinac Horses",
                             Price = 499.99000000000001
@@ -89,7 +89,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 4,
                             Available = true,
-                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9170),
+                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8768),
                             Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ",
                             Name = "Wedding Dress",
                             Price = 199.99000000000001
@@ -98,7 +98,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         {
                             ID = 5,
                             Available = false,
-                            Created = new DateTime(2023, 3, 30, 18, 12, 0, 355, DateTimeKind.Local).AddTicks(9172),
+                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8771),
                             Description = "Prints and notecards",
                             Name = "Frost on a Dahlia",
                             Price = 219.99000000000001
