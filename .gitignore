@@ -361,4 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/wwwroot/media/uploads/3152dff1-bf62-4dcb-a289-5d3abe266d54
+
+# Media upload folder
+/wwwroot/media/uploads/

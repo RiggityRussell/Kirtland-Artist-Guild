@@ -49,6 +49,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserID")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
@@ -56,53 +57,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Arts");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Available = true,
-                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8726),
-                            Description = "Prints only",
-                            Name = "Grandpas Lake",
-                            Price = 119.98999999999999
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Available = true,
-                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8763),
-                            Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ",
-                            Name = "Wind Dancer",
-                            Price = 1115.99
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Available = true,
-                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8766),
-                            Description = "Prints and notecards",
-                            Name = "Mackinac Horses",
-                            Price = 499.99000000000001
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Available = true,
-                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8768),
-                            Description = "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ",
-                            Name = "Wedding Dress",
-                            Price = 199.99000000000001
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Available = false,
-                            Created = new DateTime(2023, 4, 14, 20, 5, 52, 705, DateTimeKind.Local).AddTicks(8771),
-                            Description = "Prints and notecards",
-                            Name = "Frost on a Dahlia",
-                            Price = 219.99000000000001
-                        });
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtColor", b =>
@@ -162,33 +116,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasIndex("ArtColorID");
 
                     b.ToTable("ArtColorLinks");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtID = 1,
-                            ArtColorID = 2
-                        },
-                        new
-                        {
-                            ArtID = 2,
-                            ArtColorID = 4
-                        },
-                        new
-                        {
-                            ArtID = 3,
-                            ArtColorID = 1
-                        },
-                        new
-                        {
-                            ArtID = 4,
-                            ArtColorID = 5
-                        },
-                        new
-                        {
-                            ArtID = 5,
-                            ArtColorID = 2
-                        });
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtImage", b =>
@@ -215,43 +142,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasIndex("ArtID");
 
                     b.ToTable("ArtImages");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            ArtID = 1,
-                            FileName = "Grandpas Lake.jpg",
-                            Source = "/uploads/"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            ArtID = 2,
-                            FileName = "Wind Dancer.jpg",
-                            Source = "/uploads/"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            ArtID = 3,
-                            FileName = "Mackinac horses Peters.jpg",
-                            Source = "/uploads/"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            ArtID = 4,
-                            FileName = "Wedding Dress.jpg",
-                            Source = "/uploads/"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            ArtID = 5,
-                            FileName = "Frost on a Dahlia.jpg",
-                            Source = "/uploads/"
-                        });
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtistImage", b =>
@@ -348,38 +238,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasIndex("ArtMediumID");
 
                     b.ToTable("ArtMediumLinks");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtID = 1,
-                            ArtMediumID = 1
-                        },
-                        new
-                        {
-                            ArtID = 2,
-                            ArtMediumID = 1
-                        },
-                        new
-                        {
-                            ArtID = 3,
-                            ArtMediumID = 3
-                        },
-                        new
-                        {
-                            ArtID = 3,
-                            ArtMediumID = 2
-                        },
-                        new
-                        {
-                            ArtID = 4,
-                            ArtMediumID = 6
-                        },
-                        new
-                        {
-                            ArtID = 5,
-                            ArtMediumID = 1
-                        });
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.ArtStyle", b =>
@@ -459,33 +317,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasIndex("ArtStyleID");
 
                     b.ToTable("ArtStyleLinks");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtID = 1,
-                            ArtStyleID = 9
-                        },
-                        new
-                        {
-                            ArtID = 2,
-                            ArtStyleID = 1
-                        },
-                        new
-                        {
-                            ArtID = 3,
-                            ArtStyleID = 1
-                        },
-                        new
-                        {
-                            ArtID = 4,
-                            ArtStyleID = 1
-                        },
-                        new
-                        {
-                            ArtID = 5,
-                            ArtStyleID = 8
-                        });
                 });
 
             modelBuilder.Entity("Kirtland_Artist_Guild.Models.User", b =>
@@ -705,7 +536,9 @@ namespace Kirtland_Artist_Guild.Migrations
                 {
                     b.HasOne("Kirtland_Artist_Guild.Models.User", "User")
                         .WithMany("Art")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -715,7 +548,7 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasOne("Kirtland_Artist_Guild.Models.ArtColor", "ArtColor")
                         .WithMany("ArtColorLinks")
                         .HasForeignKey("ArtColorID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Kirtland_Artist_Guild.Models.Art", "Art")
@@ -762,7 +595,7 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasOne("Kirtland_Artist_Guild.Models.ArtMedium", "ArtMedium")
                         .WithMany("ArtMediumLinks")
                         .HasForeignKey("ArtMediumID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Art");
@@ -781,7 +614,7 @@ namespace Kirtland_Artist_Guild.Migrations
                     b.HasOne("Kirtland_Artist_Guild.Models.ArtStyle", "ArtStyle")
                         .WithMany("ArtStyleLinks")
                         .HasForeignKey("ArtStyleID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Art");
