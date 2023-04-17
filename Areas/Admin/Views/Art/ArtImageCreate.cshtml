@@ -15,13 +15,13 @@
             <label>Choose Image:</label>
             <div class="form-group">
                 <div class="custom-file">
-                    <input asp-for="ArtImage" class="custom-file-input" id="customFile">
-                   @* <label class="custom-file-label" for="customFile">Choose image</label>*@
+                    <input asp-for="ArtImage" class="custom-file-input" id="customFile" accept=".png,.jpg,.jpeg">
+                    <label class="custom-file-label" for="customFile">Choose image</label>
                 </div>
                 <span asp-validation-for="ArtImage" class="text-danger"></span>
             </div>
             <div class="form-group mt-4">
-                <input type="submit" value="Upload" class="btn btn-primary" /> |
+                <input type="submit" value="Upload" class="btn btn-primary"/> |
                 <a asp-action="Edit" asp-route-id="@ViewBag.art" class="btn btn-secondary">Back</a>
             </div>
         </form>

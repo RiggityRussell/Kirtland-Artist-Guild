@@ -68,12 +68,14 @@
                                 </ol>
                                 <!-- Slides -->
                                 <div class="carousel-inner h-100">
+
                                     <!-- First image -->
                                     <div class="carousel-item active h-100">
                                         <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="First slide">
                                     </div>
                                     <!-- Subsequent images -->
                                     @foreach (var image in Model.ArtistImages.Skip(2))
+
                                     {
                                         <div class="carousel-item h-100">
                                             <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@image.Source@image.FileName" alt="Slide">
