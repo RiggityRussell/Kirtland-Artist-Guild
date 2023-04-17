@@ -15,13 +15,14 @@
             <label>Choose Image:</label>
             <div class="form-group">
                 <div class="custom-file">
-                    <input asp-for="ArtImage" class="custom-file-input" id="customFile" accept=".png,.jpg,.jpeg">
+                    <input asp-for="ArtImage" class="custom-file-input" id="customFile"
+                           accept=".png,.jpg,.jpeg" data-val="true" data-val-accept="Invalid file type. Please select a PNG, JPG, or JPEG file.">
                     <label class="custom-file-label" for="customFile">Choose image</label>
                 </div>
                 <span asp-validation-for="ArtImage" class="text-danger"></span>
             </div>
             <div class="form-group mt-4">
-                <input type="submit" value="Upload" class="btn btn-primary"/> |
+                <input type="submit" value="Upload" class="btn btn-primary" /> |
                 <a asp-action="Edit" asp-route-id="@ViewBag.art" class="btn btn-secondary">Back</a>
             </div>
         </form>
@@ -39,5 +40,25 @@
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
+
+        // Add client-side validation for file type
+        $.validator.addMethod("accept", function (value, element, param) {
+            // Split the accepted file types into an array
+            var acceptedTypes = param.split(",");
+            // Get the file extension of the selected file
+            var extension = value.split('.').pop().toLowerCase();
+            // Check if the file extension is in the accepted file types
+            return ($.inArray(extension, acceptedTypes) !== -1);
+        }, "Invalid file type. Please select a PNG, JPG, or JPEG file.");
+
+        // Enable client-side validation on the form
+        $("form").validate({
+            rules: {
+                ArtImage: {
+                    accept: "png,jpg,jpeg"
+                }
+            }
+        });
     </script>
 }
+
