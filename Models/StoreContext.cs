@@ -27,16 +27,16 @@ namespace Kirtland_Artist_Guild.Models
 
             // Manually configure many-to-many relationships
             modelBuilder.Entity<ArtMediumLink>().HasKey(l => new { l.ArtID, l.ArtMediumID }); // Composite primary key for ArtMediumLink
-            modelBuilder.Entity<ArtMediumLink>().HasOne(l => l.Art).WithMany(a => a.ArtMediumLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtMediumLink
-            modelBuilder.Entity<ArtMediumLink>().HasOne(l => l.ArtMedium).WithMany(m => m.ArtMediumLinks).HasForeignKey(l => l.ArtMediumID).OnDelete(DeleteBehavior.Restrict); // One-to-many relationship between ArtMedium and ArtMediumLink. When an ArtMedium is deleted, do NOT delete dependent Art
+            modelBuilder.Entity<ArtMediumLink>().HasOne(l => l.Art).WithMany(a => a.ArtMediumLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtMediumLink.
+            modelBuilder.Entity<ArtMediumLink>().HasOne(l => l.ArtMedium).WithMany(m => m.ArtMediumLinks).HasForeignKey(l => l.ArtMediumID); // One-to-many relationship between ArtMedium and ArtMediumLink. 
 
             modelBuilder.Entity<ArtColorLink>().HasKey(l => new { l.ArtID, l.ArtColorID }); // Composite primary key for ArtColorLink
-            modelBuilder.Entity<ArtColorLink>().HasOne(l => l.Art).WithMany(a => a.ArtColorLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtColorLink
-            modelBuilder.Entity<ArtColorLink>().HasOne(l => l.ArtColor).WithMany(c => c.ArtColorLinks).HasForeignKey(l => l.ArtColorID).OnDelete(DeleteBehavior.Restrict); // One-to-many relationship between ArtColor and ArtColorLink. When an ArtColor is deleted, do NOT delete dependent Art
+            modelBuilder.Entity<ArtColorLink>().HasOne(l => l.Art).WithMany(a => a.ArtColorLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtColorLink.
+            modelBuilder.Entity<ArtColorLink>().HasOne(l => l.ArtColor).WithMany(c => c.ArtColorLinks).HasForeignKey(l => l.ArtColorID); // One-to-many relationship between ArtColor and ArtColorLink.
 
             modelBuilder.Entity<ArtStyleLink>().HasKey(l => new { l.ArtID, l.ArtStyleID }); // Composite primary key for ArtStyleLink
-            modelBuilder.Entity<ArtStyleLink>().HasOne(l => l.Art).WithMany(a => a.ArtStyleLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtStyleLink
-            modelBuilder.Entity<ArtStyleLink>().HasOne(l => l.ArtStyle).WithMany(s => s.ArtStyleLinks).HasForeignKey(l => l.ArtStyleID).OnDelete(DeleteBehavior.Restrict); // One-to-many relationship between ArtStyle and ArtStyleLink. When an ArtStyle is deleted, do NOT delete dependent Art
+            modelBuilder.Entity<ArtStyleLink>().HasOne(l => l.Art).WithMany(a => a.ArtStyleLinks).HasForeignKey(l => l.ArtID); // One-to-many relationship between Art and ArtStyleLink.
+            modelBuilder.Entity<ArtStyleLink>().HasOne(l => l.ArtStyle).WithMany(s => s.ArtStyleLinks).HasForeignKey(l => l.ArtStyleID); // One-to-many relationship between ArtStyle and ArtStyleLink.
 
             // Seed Data, move this to seperate file
             modelBuilder.Entity<ArtMedium>().HasData(
@@ -69,7 +69,7 @@ namespace Kirtland_Artist_Guild.Models
                 new ArtStyle { ID = 9, Name = "Landscape" }
                 );
 
-            modelBuilder.Entity<Art>().HasData(
+            /*modelBuilder.Entity<Art>().HasData(
                 new Art { ID = 1, Name = "Grandpas Lake", Description = "Prints only", Available = true, Price = 119.99 },
                 new Art { ID = 2, Name = "Wind Dancer", Description = "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ", Available = true, Price = 1115.99 },
                 new Art { ID = 3, Name = "Mackinac Horses", Description = "Prints and notecards", Available = true, Price = 499.99 },
@@ -108,7 +108,7 @@ namespace Kirtland_Artist_Guild.Models
                 new ArtStyleLink { ArtID = 3, ArtStyleID = 1 },
                 new ArtStyleLink { ArtID = 4, ArtStyleID = 1 },
                 new ArtStyleLink { ArtID = 5, ArtStyleID = 8 }
-                );
+                );*/
         }
     }
 }

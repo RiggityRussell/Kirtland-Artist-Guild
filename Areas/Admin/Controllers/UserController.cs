@@ -100,16 +100,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             return View(model);
         }
-        public IActionResult AddRole()
-        {
-            return View(new IdentityRole());
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddRole(IdentityRole role)
-        {
-            await roleManager.CreateAsync(role);
-            return RedirectToAction("Index");
-        }
 
         [HttpPost]
         public async Task<IActionResult> AddToAdmin(string id)
@@ -162,15 +152,6 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteRole(string id)
-        {
-            IdentityRole role = await roleManager.FindByIdAsync(id);
-            var result = await roleManager.DeleteAsync(role);
-            if (result.Succeeded) { }
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
         public async Task<IActionResult> CreateAdminRole()
         {
             var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
@@ -184,6 +165,50 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             var result = await roleManager.CreateAsync(new IdentityRole("Artist"));
             if (result.Succeeded) { }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var model = new AdminChangePasswordViewModel
+            {
+                Username = user.UserName ?? ""
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(AdminChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await userManager.FindByNameAsync(model.Username);
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    TempData["message"] = "Password changed successfully";
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(model);
         }
     }
 }

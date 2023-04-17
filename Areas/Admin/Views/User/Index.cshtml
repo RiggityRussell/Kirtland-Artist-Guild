@@ -16,6 +16,7 @@
             <th>Roles</th>
             <th></th>
             <th></th>
+            <td></td>
             <th></th>
         </tr>
     </thead>
@@ -29,9 +30,30 @@
             @foreach (User user in Model.Users)
             {
                 <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.firstName</td>
-                    <td>@user.lastName</td>
+                    @if (user.UserName != null)
+                    {
+                        <td>@user.UserName</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (user.firstName != null)
+                    {
+                        <td>@user.firstName</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (user.lastName != null)
+                    {
+                        <td>@user.lastName</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td>
                         @foreach (string roleName in user.RoleNames)
                         {
@@ -73,6 +95,9 @@
                                 </button>
                             </form>
                         }
+                    </td>
+                    <td>
+                        <a asp-action="ChangePassword" asp-route-id="@user.Id" class="btn btn-sm btn-secondary">Change password</a>
                     </td>
                     <td>
                         <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Delete User</a>
