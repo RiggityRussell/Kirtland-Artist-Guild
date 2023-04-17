@@ -7,21 +7,19 @@ namespace Kirtland_Artist_Guild.Models
     {
         public int ID { get; set; }        
 
-        [Required(ErrorMessage = "Please enter a name.")]
         [StringLength(50, ErrorMessage = "Name is too long.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Please enter a description.")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
-        public bool Available { get; set; }
+        public bool Available { get; set; } = false;
 
         public DateTime Created { get; set; } = DateTime.Now;
 
-        public double Price { get; set; }
+        public double Price { get; set; } = 0.00;
 
-        public string? UserID { get; set; } // Foreign key for one-to-many relationship
+        [Required]
+        public string UserID { get; set; } // Foreign key for one-to-many relationship
 
         // Navigation property for one-to-many relationship
         public ICollection<ArtImage>? ArtImages { get; set; }
@@ -31,12 +29,5 @@ namespace Kirtland_Artist_Guild.Models
         public ICollection<ArtMediumLink>? ArtMediumLinks { get; set; }
         public ICollection<ArtColorLink>? ArtColorLinks { get; set; }
         public ICollection<ArtStyleLink>? ArtStyleLinks { get; set; }
-
-        //ATTEMPTING TO GET ART AND ARTIMAGE TOGETHER
-       /* [Required]
-        public string FileName { get; set; } = string.Empty;
-
-        [Required]
-        public string Source { get; set; } = string.Empty;*/
     }
 }

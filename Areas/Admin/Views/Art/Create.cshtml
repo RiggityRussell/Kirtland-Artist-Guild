@@ -5,11 +5,12 @@
 }
 
 <div class="container">
-    <h1 class="KAG_title text-warning">Add Art</h1>
+    <h1>Add Art</h1>
     <main role="main" class="pb-3 border border-warning" style="padding:10px; color:white;">
         <div style="margin-bottom:10px">
     <form asp-action="Create" class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="UserID" />
         <div class="col-md-8">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
