@@ -8,15 +8,15 @@ namespace Kirtland_Artist_Guild.Models
         public int ID { get; set; }        
 
         [StringLength(50, ErrorMessage = "Name is too long.")]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         public bool Available { get; set; } = false;
 
         public DateTime Created { get; set; } = DateTime.Now;
 
-        public double Price { get; set; } = 0.00;
+        public double? Price { get; set; } = 0.00;
 
         [Required]
         public string UserID { get; set; } // Foreign key for one-to-many relationship
