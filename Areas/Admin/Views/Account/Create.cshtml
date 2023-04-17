@@ -13,8 +13,9 @@
             <label>Choose Image:</label>
             <div class="form-group">
                 <div class="custom-file">
-                    <input asp-for="ArtistImage" class="custom-file-input" id="customFile">
-                    @*<label class="custom-file-label" for="customFile"></label>*@
+                    <input asp-for="ArtistImage" class="custom-file-input" id="customFile"
+                           accept=".png,.jpg,.jpeg" data-val="true" data-val-accept="Invalid file type. Please select a PNG, JPG, or JPEG file.">
+                    <label class="custom-file-label" for="customFile">Choose image</label>
                 </div>
                 <span asp-validation-for="ArtistImage" class="text-danger"></span>
             </div>
@@ -22,14 +23,35 @@
                 <input type="submit" value="Upload" class="btn btn-primary" /> |
                 <a asp-action="ProfileImageIndex" class="btn btn-secondary">Back to List</a>
             </div>
-           
+
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script type="text/javascript">
+        // Add client-side validation for file type
+        $.validator.addMethod("accept", function (value, element, param) {
+            // Split the accepted file types into an array
+            var acceptedTypes = param.split(",");
+            // Get the file extension of the selected file
+            var extension = value.split('.').pop().toLowerCase();
+            // Check if the file extension is in the accepted file types
+            return ($.inArray(extension, acceptedTypes) !== -1);
+        }, "Invalid file type. Please select a PNG, JPG, or JPEG file.");
+
+        // Enable client-side validation on the form
+        $("form").validate({
+            rules: {
+                ArtistImage: {
+                    accept: "png,jpg,jpeg"
+                }
+            }
+        });
+
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
