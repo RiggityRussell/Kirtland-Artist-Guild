@@ -145,7 +145,7 @@ namespace Kirtland_Artist_Guild.Migrations
                     Available = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,7 +154,8 @@ namespace Kirtland_Artist_Guild.Migrations
                         name: "FK_Arts_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -257,7 +258,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         column: x => x.ArtColorID,
                         principalTable: "ArtColors",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ArtColorLinks_Arts_ArtID",
                         column: x => x.ArtID,
@@ -302,7 +303,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         column: x => x.ArtMediumID,
                         principalTable: "ArtMediums",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ArtMediumLinks_Arts_ArtID",
                         column: x => x.ArtID,
@@ -332,7 +333,7 @@ namespace Kirtland_Artist_Guild.Migrations
                         column: x => x.ArtStyleID,
                         principalTable: "ArtStyles",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -375,67 +376,6 @@ namespace Kirtland_Artist_Guild.Migrations
                     { 7, "Still Life" },
                     { 8, "Floral" },
                     { 9, "Landscape" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Arts",
-                columns: new[] { "ID", "Available", "Created", "Description", "Name", "Price", "UserID" },
-                values: new object[,]
-                {
-                    { 1, true, new DateTime(2023, 4, 14, 20, 2, 56, 219, DateTimeKind.Local).AddTicks(2561), "Prints only", "Grandpas Lake", 119.98999999999999, null },
-                    { 2, true, new DateTime(2023, 4, 14, 20, 2, 56, 219, DateTimeKind.Local).AddTicks(2601), "Prints and note cards. I have raised horses for over 30 years. When I finished this piece, I realized that I had rendered in this portrait a small part of each horse and pony I have raised.  I feel that this is a compilation of the beautiful souls of all my beloved horses.  ", "Wind Dancer", 1115.99, null },
-                    { 3, true, new DateTime(2023, 4, 14, 20, 2, 56, 219, DateTimeKind.Local).AddTicks(2604), "Prints and notecards", "Mackinac Horses", 499.99000000000001, null },
-                    { 4, true, new DateTime(2023, 4, 14, 20, 2, 56, 219, DateTimeKind.Local).AddTicks(2606), "Prints and notecards. The wood duck, its scientific name, Aix sponsa, can be loosely translated as \"a waterfowl in wedding dress\".  For good reason, its rich greens, blues and purples make it one of the most beautiful of all ducks in North America.  This duck was an absolute joy to work on!  I loved studying his behavior, habitat, courtship and of course his amazing color pattern to achieve my piece.  Although this was the first wood duck that I have done, my love of working with brilliant colors will have me drawing more of this stunning creature. ", "Wedding Dress", 199.99000000000001, null },
-                    { 5, false, new DateTime(2023, 4, 14, 20, 2, 56, 219, DateTimeKind.Local).AddTicks(2609), "Prints and notecards", "Frost on a Dahlia", 219.99000000000001, null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ArtColorLinks",
-                columns: new[] { "ArtColorID", "ArtID" },
-                values: new object[,]
-                {
-                    { 2, 1 },
-                    { 4, 2 },
-                    { 1, 3 },
-                    { 5, 4 },
-                    { 2, 5 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ArtImages",
-                columns: new[] { "ID", "ArtID", "FileName", "Source" },
-                values: new object[,]
-                {
-                    { 1, 1, "Grandpas Lake.jpg", "/uploads/" },
-                    { 2, 2, "Wind Dancer.jpg", "/uploads/" },
-                    { 3, 3, "Mackinac horses Peters.jpg", "/uploads/" },
-                    { 4, 4, "Wedding Dress.jpg", "/uploads/" },
-                    { 5, 5, "Frost on a Dahlia.jpg", "/uploads/" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ArtMediumLinks",
-                columns: new[] { "ArtID", "ArtMediumID" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 1 },
-                    { 3, 2 },
-                    { 3, 3 },
-                    { 4, 6 },
-                    { 5, 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ArtStyleLinks",
-                columns: new[] { "ArtID", "ArtStyleID" },
-                values: new object[,]
-                {
-                    { 1, 9 },
-                    { 2, 1 },
-                    { 3, 1 },
-                    { 4, 1 },
-                    { 5, 8 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -20,7 +20,8 @@
                     }
                     else
                     {
-                        <img class="d-block w-100" src="~/media/default_user_image_1.png" alt="Default Profile Image" onContextMenu="return false;">
+                        var defaultProfile = "/media/" + ViewData["defaultProfile"];
+                        <img class="d-block w-100" src="@defaultProfile" alt="Default Profile Image" onContextMenu="return false;">
                     }
                 </div>
 
@@ -44,43 +45,42 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
+                    @if (Model.ArtistImages.Count == 2)
+                    {
+                        <div class="card bg-transparent h-100">
+                            <div class="card-body h-100">
+                                <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="Profile">
+                            </div>
+                        </div>
+                    }
+                    @if (Model.ArtistImages.Count > 2)
+                    {
                     <div class="card bg-transparent h-100">
                         <div class="card-body h-100">
                             <div id="artistCarousel" class="carousel slide h-100" data-bs-ride="carousel">
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators">
                                     <li data-bs-target="#artistCarousel" data-bs-slide-to="0" class="active"></li>
-                                    @for (int i = 1; i < Model.ArtistImages.Count; i++)
+                                    @for (int i = 1; i < (Model.ArtistImages.Count - 1); i++)
                                     {
                                         <li data-bs-target="#artistCarousel" data-bs-slide-to="@i"></li>
                                     }
                                 </ol>
                                 <!-- Slides -->
                                 <div class="carousel-inner h-100">
-                                    @if (Model.ArtistImages.Count > 1)
-                                    {
-                                        <!-- First image -->
-                                        <div class="carousel-item active h-100">
-                                            <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@Model.ArtistImages[0].Source@Model.ArtistImages[0].FileName" alt="First slide">
-                                        </div>
-                                        <!-- Subsequent images -->
-                                        @foreach (var image in Model.ArtistImages)
-                                        {
-                                           
-                                            <div class="carousel-item h-100">
-                                                <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@image.Source@image.FileName" alt="Slide">
-                                            </div>
-                                        }
 
-                                    }
-                                    else
-                                    {
-                                        <!-- Default image -->
-                                        <div class="carousel-item active h-100">
-                                            <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="~/media/default_art_image_1.jpg" alt="Default slide">
-                                        </div>
-                                    }
+                                    <!-- First image -->
+                                    <div class="carousel-item active h-100">
+                                        <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="First slide">
+                                    </div>
+                                    <!-- Subsequent images -->
+                                    @foreach (var image in Model.ArtistImages.Skip(2))
 
+                                    {
+                                        <div class="carousel-item h-100">
+                                            <img class="d-block mx-auto img-fluid" style="max-height: 300px; max-width: 400px; object-fit: contain;" src="@image.Source@image.FileName" alt="Slide">
+                                        </div>
+                                    }                                
                                     <!-- Controls -->
                                     <a class="carousel-control-prev" href="#artistCarousel" role="button" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -91,20 +91,16 @@
                                         <span class="visually-hidden">Next</span>
                                     </a>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-    </div>
 </div>
+
 <div class="container">
     <div class="text-center text-warning">
         <h2>Artist Gallery</h2>
@@ -112,31 +108,75 @@
     <div class="row masonry-grid border-top border-warning">
         @foreach (var art in Model.Arts)
         {
-            var picture = new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" };
-
-            @foreach (var image in Model.ArtImages)
+            if (art.User != null)
             {
-                @if (image.ArtID == art.ID)
-                {
-                    picture = image;
-                }
-            }
+                var picture = new ArtImage { ArtID = art.ID, FileName = (string)ViewData["defaultArt"], ID = 0, Source = "/media/" };
 
-            <div class="col-md-4 col-lg-3 masonry-item mt-4 mb-4">
-                <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
-                    <div class="image-container">
-                        <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
-                        <div class="image-info">
-                            @art.User.firstName @art.User.lastName<br>
-                            @art.Name
+                @foreach (var image in Model.ArtImages)
+                {
+                    @if (image.ArtID == art.ID)
+                    {
+                        picture = image;
+                    }
+                }
+                <div class="col-md-4 col-lg-3 masonry-item mt-4 mb-4">
+                    <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
+                        <div class="image-container">
+                            <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
+                            <div class="image-info">
+                                <table style="width:100%">
+                                    <tr>
+                                        @if (art.User.firstName != null && art.User.lastName != null)
+                                        {
+                                            <td style="text-align:left">
+                                                @art.User.firstName @art.User.lastName
+                                            </td>
+                                        }
+                                        @if (art.Available == true)
+                                        {
+                                            <td style="text-align:right">
+                                                &#36 @art.Price
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="text-align:right">
+                                                SOLD
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">
+                                            @if (art.Name != null)
+                                            {
+                                                @art.Name
+                                            }
+                                        </td>
+                                        @if (art.ArtMediumLinks != null)
+                                        {
+                                            <td style="text-align:right">
+                                                @foreach (var medium in art.ArtMediumLinks)
+                                                {
+                                                    @if (medium.ArtMedium != null)
+                                                    {
+                                                        @if (medium.ArtMedium.Name != null)
+                                                        {
+                                                            <i>@medium.ArtMedium.Name</i>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            }
         }
     </div>
 </div>
-
 
 @section scripts {
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>

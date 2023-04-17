@@ -7,7 +7,7 @@ namespace Kirtland_Artist_Guild.Models
         public int ID { get; set; }
 
         [Required]
-        public string UserID { get; set; } = string.Empty; // Foreign key property for one-to-many 
+        public string UserID { get; set; } // Foreign key property for one-to-many 
         public User? User { get; set; } // Navigation property for one-to-many
 
         [Required]

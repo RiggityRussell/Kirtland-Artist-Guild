@@ -13,11 +13,13 @@ namespace Kirtland_Artist_Guild.Controllers
     {
         private readonly StoreContext _context;
         private UserManager<User> userManager;
+        private readonly IConfiguration Configuration;
 
-        public HomeController(StoreContext context, UserManager<User> userMngr)
+        public HomeController(StoreContext context, UserManager<User> userMngr, IConfiguration configuration)
         {
             _context = context;
             userManager = userMngr;
+            Configuration = configuration;
         }
 
         public IActionResult Index()
@@ -44,7 +46,7 @@ namespace Kirtland_Artist_Guild.Controllers
                 Users = users,
                 ArtistImages = artistImages 
             };
-
+            ViewData["defaultProfile"] = Configuration["DefaultImage:Profile"];
             return View(model);
         }
 
@@ -74,7 +76,7 @@ namespace Kirtland_Artist_Guild.Controllers
             }
             model.User = user;
 
-            var arts = from a in _context.Arts.Where(u => u.UserID == user.Id) select a;             
+            var arts = from a in _context.Arts.Where(u => u.UserID == user.Id).Include(m => m.ArtMediumLinks).ThenInclude(l => l.ArtMedium) select a;             
             model.Arts = await arts.ToListAsync();
             model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
 
@@ -82,6 +84,8 @@ namespace Kirtland_Artist_Guild.Controllers
             model.ArtistImages = await artistImages.ToListAsync();
 
             model.ArtImages = await _context.ArtImages.ToListAsync();
+            ViewData["defaultArt"] = Configuration["DefaultImage:Art"];
+            ViewData["defaultProfile"] = Configuration["DefaultImage:Profile"];
 
             return View(model);
         }
@@ -100,7 +104,8 @@ namespace Kirtland_Artist_Guild.Controllers
             var images = await _context.ArtImages.Where(i => i.ArtID == id).ToListAsync();
             if (images.Count == 0)
             {
-                images.Add(new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" } );
+                var defaultImage = Configuration["DefaultImage:Art"];
+                images.Add(new ArtImage { ArtID = art.ID, FileName = defaultImage, ID = 0, Source = "/media/" } );
             }
 
             ArtViewModel model = new ArtViewModel
@@ -124,6 +129,7 @@ namespace Kirtland_Artist_Guild.Controllers
             ViewData["CurrentColorFilter"] = colorFilter;
             ViewData["CurrentMediumFilter"] = mediumFilter;
             ViewData["CurrentStyleFilter"] = styleFilter;
+            ViewData["defaultArt"] = Configuration["DefaultImage:Art"];
 
             model.ArtColors = await _context.ArtColors.ToListAsync();
             model.ArtMediums = await _context.ArtMediums.ToListAsync();

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Configuration;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
@@ -18,12 +19,14 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         private readonly StoreContext _context;
         private readonly IWebHostEnvironment _env;
         private UserManager<User> userManager;
+        private readonly IConfiguration Configuration;
 
-        public ArtController(StoreContext context, UserManager<User> userMngr, IWebHostEnvironment env)
+        public ArtController(StoreContext context, UserManager<User> userMngr, IWebHostEnvironment env, IConfiguration configuration)
         {
             _context = context;
             userManager = userMngr;
             _env = env;
+            Configuration = configuration;
         }
 
         // GET: Art
@@ -47,7 +50,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             var images = await _context.ArtImages.Where(i => i.ArtID == id).ToListAsync();
             if (images.Count == 0)
             {
-                images.Add(new ArtImage { ArtID = art.ID, FileName = "sample.jpg", ID = 0, Source = "/media/" });
+                var defaultImage = Configuration["DefaultImage:Art"];
+                images.Add(new ArtImage { ArtID = art.ID, FileName = defaultImage, ID = 0, Source = "/media/" });
             }
 
             ArtViewModel model = new ArtViewModel
@@ -68,7 +72,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // GET: Art/Create
         public IActionResult Create()
         {
-            return View();
+            Art art = new Art() { UserID = userManager.GetUserId(User) };
+            return View(art);
         }
 
         // POST: Art/Create
@@ -185,6 +190,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             ViewData["art"] = artid;
             ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
+            
             return View();
         }
 
@@ -192,7 +198,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtColorLinkCreate([Bind("ArtID,ArtColorID")] ArtColorLink artColorLink)
         {
-            if (ModelState.IsValid)
+            var artcolor = _context.ArtColorLinks.Where(c => c.ArtID == artColorLink.ArtID);
+            artcolor = artcolor.Where(c => c.ArtColorID == artColorLink.ArtColorID);
+            if (artcolor.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artColorLink.ArtID });
+            }            
+            else if (ModelState.IsValid)
             {
                 _context.Add(artColorLink);
                 await _context.SaveChangesAsync();
@@ -233,7 +245,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtMediumLinkCreate([Bind("ArtID,ArtMediumID")] ArtMediumLink artMediumLink)
         {
-            if (ModelState.IsValid)
+            var artmedium = _context.ArtMediumLinks.Where(c => c.ArtID == artMediumLink.ArtID);
+            artmedium = artmedium.Where(c => c.ArtMediumID == artMediumLink.ArtMediumID);
+            if (artmedium.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artMediumLink.ArtID });
+            }
+            else if (ModelState.IsValid)
             {
                 _context.Add(artMediumLink);
                 await _context.SaveChangesAsync();
@@ -274,7 +292,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtStyleLinkCreate([Bind("ArtID,ArtStyleID")] ArtStyleLink artStyleLink)
         {
-            if (ModelState.IsValid)
+            var artstyle = _context.ArtStyleLinks.Where(c => c.ArtID == artStyleLink.ArtID);
+            artstyle = artstyle.Where(c => c.ArtStyleID == artStyleLink.ArtStyleID);
+            if (artstyle.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artStyleLink.ArtID });
+            }
+            else if (ModelState.IsValid)
             {
                 _context.Add(artStyleLink);
                 await _context.SaveChangesAsync();
