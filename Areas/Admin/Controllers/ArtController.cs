@@ -190,6 +190,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             ViewData["art"] = artid;
             ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
+            
             return View();
         }
 
@@ -197,7 +198,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtColorLinkCreate([Bind("ArtID,ArtColorID")] ArtColorLink artColorLink)
         {
-            if (ModelState.IsValid)
+            var artcolor = _context.ArtColorLinks.Where(c => c.ArtID == artColorLink.ArtID);
+            artcolor = artcolor.Where(c => c.ArtColorID == artColorLink.ArtColorID);
+            if (artcolor.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artColorLink.ArtID });
+            }            
+            else if (ModelState.IsValid)
             {
                 _context.Add(artColorLink);
                 await _context.SaveChangesAsync();
@@ -238,7 +245,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtMediumLinkCreate([Bind("ArtID,ArtMediumID")] ArtMediumLink artMediumLink)
         {
-            if (ModelState.IsValid)
+            var artmedium = _context.ArtMediumLinks.Where(c => c.ArtID == artMediumLink.ArtID);
+            artmedium = artmedium.Where(c => c.ArtMediumID == artMediumLink.ArtMediumID);
+            if (artmedium.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artMediumLink.ArtID });
+            }
+            else if (ModelState.IsValid)
             {
                 _context.Add(artMediumLink);
                 await _context.SaveChangesAsync();
@@ -279,7 +292,13 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArtStyleLinkCreate([Bind("ArtID,ArtStyleID")] ArtStyleLink artStyleLink)
         {
-            if (ModelState.IsValid)
+            var artstyle = _context.ArtStyleLinks.Where(c => c.ArtID == artStyleLink.ArtID);
+            artstyle = artstyle.Where(c => c.ArtStyleID == artStyleLink.ArtStyleID);
+            if (artstyle.ToList().Count != 0)
+            {
+                return RedirectToAction(nameof(Edit), new { id = artStyleLink.ArtID });
+            }
+            else if (ModelState.IsValid)
             {
                 _context.Add(artStyleLink);
                 await _context.SaveChangesAsync();
