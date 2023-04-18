@@ -84,7 +84,10 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 quote = user.quote ?? "",
                 bio = user.bio ?? "",
                 backgroundColor = user.backgroundColor ?? "",
-                fontColor = user.fontColor ?? ""
+                fontColor = user.fontColor ?? "",
+                email = user.Email ?? "",
+                website = user.website ?? "",
+                paypal = user.paypal ?? ""
             };
             return View(model);
         }
@@ -103,6 +106,9 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 user.bio = model.bio;
                 user.backgroundColor = model.backgroundColor;
                 user.fontColor = model.fontColor;
+                user.Email = model.email;
+                user.website = model.website;
+                user.paypal = model.paypal;
 
                 var result = await userManager.UpdateAsync(user);
 

@@ -22,7 +22,7 @@
             <span asp-validation-for="firstName" class="text-danger"></span>
         </div>
     </div>
-        <div class="row mb-2">
+    <div class="row mb-2">
         <label asp-for="lastName" class="col-form-label col-md-2">Last Name:</label>
         <div class="col-md-4">
             <input asp-for="lastName" class="form-control" />
@@ -59,9 +59,36 @@
         </div>
     </div>
     <div class="row mb-2">
+        <label asp-for="email" class="col-form-label col-md-2">Email:</label>
+        <div class="col-md-4">
+            <input asp-for="email" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <label asp-for="website" class="col-form-label col-md-2">Website:</label>
+        <div class="col-md-4">
+            <input asp-for="website" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="website" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <label asp-for="paypal" class="col-form-label col-md-2">Paypal:</label>
+        <div class="col-md-4">
+            <input asp-for="paypal" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="paypal" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
         <label asp-for="backgroundColor" class="col-form-label col-md-2">Background Color:</label>
         <div class="col-md-4">
-            <input id="bgColor" asp-for="backgroundColor" type="text" data-coloris /> <button type="button" onclick="backgroundColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
+            <input asp-for="backgroundColor" class="form-control" type="text" id="background" data-coloris /> <button type="button" onclick="backgroundColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
         </div>
         <div class="col">
             <span asp-validation-for="backgroundColor" class="text-danger"></span>
@@ -70,7 +97,7 @@
     <div class="row mb-2">
         <label asp-for="fontColor" class="col-form-label col-md-2">Font Color:</label>
         <div class="col-md-4">
-            <input id="fColor" asp-for="fontColor" type="text" data-coloris /> <button type="button" onclick="fontColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
+            <input asp-for="fontColor" class="form-control" type="text" id="font" data-coloris /> <button type="button" onclick="fontColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
         </div>
         <div class="col">
             <span asp-validation-for="fontColor" class="text-danger"></span>
@@ -90,12 +117,12 @@
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
     <script>
         function backgroundColorDefault() {
-            document.getElementById("bgcolor").value = "#262626";
-            document.querySelector('#color-field').dispatchEvent(new Event('input', { bubbles: true }));
+            document.getElementById("background").value = "#262626";
+            document.querySelector('#background').dispatchEvent(new Event('input', { bubbles: true }));
         }
         function fontColorDefault() {
-            document.getElementById("fcolor").value = "#FFC107";
-            document.querySelector('#color-field').dispatchEvent(new Event('input', { bubbles: true }));
+            document.getElementById("font").value = "#FFC107";
+            document.querySelector('#font').dispatchEvent(new Event('input', { bubbles: true }));
         }  
     </script>
 }
