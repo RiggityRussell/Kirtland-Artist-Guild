@@ -140,27 +140,45 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uploadFileName = UploadedFile(model);
-                if (uploadFileName == null)
+                if (model.ArtistImage != null)
                 {
-                    return NotFound();
+                    // Check if the uploaded file has a valid file extension
+                    string fileExtension = Path.GetExtension(model.ArtistImage.FileName).ToLower();
+                    if (fileExtension != ".jpg" && fileExtension != ".jpeg" && fileExtension != ".png")
+                    {
+                        ModelState.AddModelError("ArtistImage", "Invalid file type. Please upload a PNG, JPG, or JPEG file.");
+                        return View(model);
+                    }
+
+                    // Process the uploaded image and save it to the server
+                    string uploadFileName = UploadedFile(model);
+                    if (uploadFileName == null)
+                    {
+                        return NotFound();
+                    }
+
+                    string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
+                    string fileName = Path.GetFileName(uploadFileName);
+
+                    ArtistImage artistImage = new ArtistImage
+                    {
+                        Source = uploadFolder,
+                        FileName = fileName,
+                        UserID = userManager.GetUserId(User)
+                    };
+
+                    _context.Add(artistImage);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ProfileImageIndex));
                 }
-
-                string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
-                string fileName = Path.GetFileName(uploadFileName);
-
-                ArtistImage artistImage = new ArtistImage
+                else
                 {
-                    Source = uploadFolder,
-                    FileName = fileName,
-                    UserID = userManager.GetUserId(User)
-                };
-
-                _context.Add(artistImage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(ProfileImageIndex));
+                    ModelState.AddModelError("ArtistImage", "Please choose an image to upload.");
+                    return View(model);
+                }
             }
-            return View();
+
+            return View(model);
         }
 
         // GET: ArtistImage/Delete/5
