@@ -335,28 +335,29 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ArtImageCreate(ArtImageViewModel model, IFormFile file)
+        public async Task<IActionResult> ArtImageCreate(ArtImageViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (file != null)
+                if (model.ArtImage != null)
                 {
-                    string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    // Check if the uploaded file has a valid file extension
+                    string fileExtension = Path.GetExtension(model.ArtImage.FileName).ToLower();
                     if (fileExtension != ".png" && fileExtension != ".jpg" && fileExtension != ".jpeg")
                     {
-                        ModelState.AddModelError("file", "Invalid file format. Only .png, .jpg, and .jpeg files are allowed.");
+                        ModelState.AddModelError("ArtImage", "Invalid file format. Only .png, .jpg, and .jpeg files are allowed.");
                         ViewData["art"] = model.ArtID;
                         return View(model);
                     }
 
-                    string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
-                    string fileName = Path.GetFileName(file.FileName);
-                    string uploadFilePath = Path.Combine(uploadFolder, fileName);
-
-                    using (var stream = new FileStream(uploadFilePath, FileMode.Create))
+                    // Process the uploaded image and save it to the server
+                    string uploadFileName = UploadedFile(model);
+                    if (uploadFileName == null)
                     {
-                        await file.CopyToAsync(stream);
+                        return NotFound();
                     }
+                    string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
+                    string fileName = Path.GetFileName(uploadFileName);
 
                     ArtImage artImage = new ArtImage
                     {
@@ -371,14 +372,14 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("file", "Please select a file to upload.");
+                    ModelState.AddModelError("ArtImage", "Please select a file to upload.");
+                    return View(model);
                 }
             }
 
             ViewData["art"] = model.ArtID;
             return View(model);
         }
-
 
         public async Task<IActionResult> ArtImageDelete(int? artid, int? artimageid)
         {
