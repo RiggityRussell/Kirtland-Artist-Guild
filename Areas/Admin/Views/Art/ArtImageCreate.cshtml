@@ -19,7 +19,7 @@
                 <div class="custom-file">
                     <input asp-for="ArtImage" class="custom-file-input form-control-file" id="ArtImage"
                            accept=".png,.jpg,.jpeg" data-val="true" data-val-accept="Invalid file type. Please select a PNG, JPG, or JPEG file.">
-                    <label class="custom-file-label" for="ArtImage">Choose image</label>
+                  @*  <label class="custom-file-label" for="ArtImage">Choose image</label>*@
                 </div>
                 <span asp-validation-for="ArtImage" class="text-danger"></span>
             </div>
@@ -37,7 +37,7 @@
     }
 
     <script type="text/javascript">
-        // Add the following code if you want the name of the file appear on select
+        // The following code has the name of the file appear after selected
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
