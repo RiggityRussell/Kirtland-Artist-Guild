@@ -15,7 +15,5 @@ namespace Kirtland_Artist_Guild.Models
 
         [Required]
         public string Source { get; set; } = string.Empty;
-
-
     }
 }

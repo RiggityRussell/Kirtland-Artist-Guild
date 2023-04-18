@@ -60,8 +60,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 ArtImages = images
             };
             var artist = await userManager.FindByIdAsync(art.UserID);
-            if (artist != null) 
-            { 
+            if (artist != null)
+            {
                 ViewData["artist"] = artist.UserName;
                 ViewData["artistName"] = artist.firstName + " " + artist.lastName;
             }
@@ -190,7 +190,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             }
             ViewData["art"] = artid;
             ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
-            
+
             return View();
         }
 
@@ -203,7 +203,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
             if (artcolor.ToList().Count != 0)
             {
                 return RedirectToAction(nameof(Edit), new { id = artColorLink.ArtID });
-            }            
+            }
             else if (ModelState.IsValid)
             {
                 _context.Add(artColorLink);
@@ -335,33 +335,50 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ArtImageCreate(ArtImageViewModel model)
+        public async Task<IActionResult> ArtImageCreate(ArtImageViewModel model, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                string uploadFileName = UploadedFile(model);
-                if (uploadFileName == null)
+                if (file != null)
                 {
-                    return NotFound();
+                    string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    if (fileExtension != ".png" && fileExtension != ".jpg" && fileExtension != ".jpeg")
+                    {
+                        ModelState.AddModelError("file", "Invalid file format. Only .png, .jpg, and .jpeg files are allowed.");
+                        ViewData["art"] = model.ArtID;
+                        return View(model);
+                    }
+
+                    string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
+                    string fileName = Path.GetFileName(file.FileName);
+                    string uploadFilePath = Path.Combine(uploadFolder, fileName);
+
+                    using (var stream = new FileStream(uploadFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    ArtImage artImage = new ArtImage
+                    {
+                        Source = uploadFolder,
+                        FileName = fileName,
+                        ArtID = model.ArtID
+                    };
+
+                    _context.Add(artImage);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Edit), new { id = model.ArtID });
                 }
-
-                string uploadFolder = "/media/uploads/" + userManager.GetUserId(User) + "/";
-                string fileName = Path.GetFileName(uploadFileName);
-
-                ArtImage artImage = new ArtImage
+                else
                 {
-                    Source = uploadFolder,
-                    FileName = fileName,
-                    ArtID = model.ArtID
-                };
-
-                _context.Add(artImage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Edit), new { id = model.ArtID });
+                    ModelState.AddModelError("file", "Please select a file to upload.");
+                }
             }
-            ViewData["art"] = model.ArtID;           
+
+            ViewData["art"] = model.ArtID;
             return View(model);
         }
+
 
         public async Task<IActionResult> ArtImageDelete(int? artid, int? artimageid)
         {

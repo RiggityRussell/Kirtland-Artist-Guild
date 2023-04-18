@@ -38,7 +38,7 @@ namespace Kirtland_Artist_Guild.Controllers
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
             }
-           /* users.Sort((x, y) => x.lastName.CompareTo(y.lastName)); // Sort artists by last name*/
+            users.Sort((x, y) => x.lastName.CompareTo(y.lastName)); // Sort artists by last name
             artistImages = await _context.ArtistImages.ToListAsync();
 
             ArtistsViewModel model = new ArtistsViewModel
@@ -79,6 +79,7 @@ namespace Kirtland_Artist_Guild.Controllers
             var arts = from a in _context.Arts.Where(u => u.UserID == user.Id).Include(m => m.ArtMediumLinks).ThenInclude(l => l.ArtMedium) select a;             
             model.Arts = await arts.ToListAsync();
             model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
+            model.Arts.Reverse(); // Sort newest first
 
             var artistImages = from a in _context.ArtistImages.Where(u => u.UserID == user.Id) select a;
             model.ArtistImages = await artistImages.ToListAsync();
@@ -152,6 +153,7 @@ namespace Kirtland_Artist_Guild.Controllers
 
             model.Arts = await arts.ToListAsync();
             model.Arts.Sort((x,y) => x.Created.CompareTo(y.Created)); // Sort art by created date
+            model.Arts.Reverse(); // Sort newest first
 
             return View(model);
         }
