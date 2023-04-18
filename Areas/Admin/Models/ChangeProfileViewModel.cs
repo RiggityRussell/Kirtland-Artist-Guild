@@ -17,5 +17,7 @@ namespace Kirtland_Artist_Guild.Models
         public string? quote { get; set; }
         public string? artistMedium { get; set; }
         public string? bio { get; set; }
+        public string? backgroundColor { get; set; }
+        public string? fontColor { get; set; }
     }
 }

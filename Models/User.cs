@@ -26,6 +26,12 @@ namespace Kirtland_Artist_Guild.Models
         [DataType(DataType.Text)]
         public string? bio { get; set; }
 
+        [DataType(DataType.Text)]
+        public string? backgroundColor { get; set; } = "#262626";
+
+        [DataType(DataType.Text)]
+        public string? fontColor { get; set; } = "#FFC107";
+
         public ICollection<Art>? Art { get; set; } // Navigation property for one-to-many relationship
         public ICollection<ArtistImage>? ArtistImages { get; set; } // Navigation property for one-to-many relationship
 

@@ -5,8 +5,8 @@
 @section styles {
     <link rel="stylesheet" href="~/css/Artistic_Style.css">
 }
-
-<h1 class="KAG_title text-warning">@Model.User.firstName @Model.User.lastName</h1>
+<div style="background-color: @Model.User.backgroundColor; color: @Model.User.fontColor">
+<h1 class="KAG_title">@Model.User.firstName @Model.User.lastName</h1>
 <h4 class="text-center">@Model.User.artistMedium</h4>
 
     <div class="container py-2 mt-5">
@@ -102,7 +102,7 @@
 </div>
 
 <div class="container">
-    <div class="text-center text-warning">
+    <div class="text-center">
         <h2>Artist Gallery</h2>
     </div>
     <div class="row masonry-grid border-top border-warning">
@@ -177,7 +177,7 @@
         }
     </div>
 </div>
-
+</div>
 @section scripts {
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>

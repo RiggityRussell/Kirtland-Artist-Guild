@@ -58,6 +58,24 @@
             <span asp-validation-for="bio" class="text-danger"></span>
         </div>
     </div>
+    <div class="row mb-2">
+        <label asp-for="backgroundColor" class="col-form-label col-md-2">Background Color:</label>
+        <div class="col-md-4">
+            <input id="bgColor" asp-for="backgroundColor" type="text" data-coloris /> <button type="button" onclick="backgroundColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
+        </div>
+        <div class="col">
+            <span asp-validation-for="backgroundColor" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <label asp-for="fontColor" class="col-form-label col-md-2">Font Color:</label>
+        <div class="col-md-4">
+            <input id="fColor" asp-for="fontColor" type="text" data-coloris /> <button type="button" onclick="fontColorDefault()" class="btn btn-sm btn-outline-secondary">Default</button>
+        </div>
+        <div class="col">
+            <span asp-validation-for="fontColor" class="text-danger"></span>
+        </div>
+    </div>
     <div class="row">
         <div class="col offset-md-2">
             <button type="submit" class="btn btn-primary">Change</button>
@@ -65,3 +83,19 @@
         </div>
     </div>
 </form>
+@section styles{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+}
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script>
+        function backgroundColorDefault() {
+            document.getElementById("bgcolor").value = "#262626";
+            document.querySelector('#color-field').dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        function fontColorDefault() {
+            document.getElementById("fcolor").value = "#FFC107";
+            document.querySelector('#color-field').dispatchEvent(new Event('input', { bubbles: true }));
+        }  
+    </script>
+}
