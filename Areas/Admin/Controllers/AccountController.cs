@@ -82,7 +82,9 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 lastName = user.lastName ?? "",
                 artistMedium = user.artistMedium ?? "",
                 quote = user.quote ?? "",
-                bio = user.bio ?? ""
+                bio = user.bio ?? "",
+                backgroundColor = user.backgroundColor ?? "",
+                fontColor = user.fontColor ?? ""
             };
             return View(model);
         }
@@ -99,6 +101,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 user.artistMedium = model.artistMedium;
                 user.quote = model.quote;
                 user.bio = model.bio;
+                user.backgroundColor = model.backgroundColor;
+                user.fontColor = model.fontColor;
 
                 var result = await userManager.UpdateAsync(user);
 
