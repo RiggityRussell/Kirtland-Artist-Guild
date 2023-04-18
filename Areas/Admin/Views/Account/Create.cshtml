@@ -51,7 +51,7 @@
         }, "Invalid file type. Please select a PNG, JPG, or JPEG file.");
 
         // Enable client-side validation on the form
-        $("#CreateForm").validate({
+        $("form").validate({
             rules: {
                 ArtistImage: {
                     accept: "png,jpg,jpeg"
