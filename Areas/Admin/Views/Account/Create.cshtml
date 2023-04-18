@@ -15,7 +15,7 @@
                 <div class="custom-file">
                     <input asp-for="ArtistImage" class="custom-file-input" id="customFile"
                            accept=".png,.jpg,.jpeg" data-val="true" data-val-accept="Invalid file type. Please select a PNG, JPG, or JPEG file.">
-                    <label class="custom-file-label" for="customFile">Choose image</label>
+                  @*  <label class="custom-file-label" for="customFile">Choose image</label>*@
                 </div>
                 <span asp-validation-for="ArtistImage" class="text-danger"></span>
             </div>
@@ -33,6 +33,13 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script type="text/javascript">
+
+        // The following code has the name of the file appear after selected
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
         // Add client-side validation for file type
         $.validator.addMethod("accept", function (value, element, param) {
             // Split the accepted file types into an array
@@ -44,18 +51,12 @@
         }, "Invalid file type. Please select a PNG, JPG, or JPEG file.");
 
         // Enable client-side validation on the form
-        $("form").validate({
+        $("#CreateForm").validate({
             rules: {
                 ArtistImage: {
                     accept: "png,jpg,jpeg"
                 }
             }
-        });
-
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     </script>
 }
