@@ -5,7 +5,7 @@
     <div class="col-sm-auto text-center mb-2">
         @if (SignInManager.IsSignedIn(User))
         {
-            <div class="text-warning">@User.Identity?.Name</div>
+            <a asp-controller="Home" asp-action="Artist" asp-route-id="@User.Identity?.Name" class="text-warning">@User.Identity?.Name</a>
         }
     </div>
 </div>

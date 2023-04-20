@@ -27,6 +27,7 @@ namespace Kirtland_Artist_Guild.Controllers
             return View();
         }
 
+        [Route("Artists")]
         public async Task<IActionResult> Artists()
         {
 
@@ -50,16 +51,19 @@ namespace Kirtland_Artist_Guild.Controllers
             return View(model);
         }
 
+        [Route("About")]
         public IActionResult About_Us()
         {
             return View();
         }
 
+        [Route("Exhibitions")]
         public IActionResult Exhibitions()
         {
             return View();
         }
 
+        [Route("Artists/{id}")]
         public async Task<IActionResult> Artist(string? id) // View by username
         {
             if (id == null)
@@ -91,6 +95,7 @@ namespace Kirtland_Artist_Guild.Controllers
             return View(model);
         }
 
+        [Route("art/{id}")]
         public async Task<IActionResult> Art(int? id)
         {
             if (id == null || _context.Arts == null)
@@ -108,22 +113,25 @@ namespace Kirtland_Artist_Guild.Controllers
                 var defaultImage = Configuration["DefaultImage:Art"];
                 images.Add(new ArtImage { ArtID = art.ID, FileName = defaultImage, ID = 0, Source = "/media/" } );
             }
+            var artist = await userManager.FindByIdAsync(art.UserID);
+            if (artist == null)
+            {
+                return NotFound();
+            }
 
             ArtViewModel model = new ArtViewModel
             {
                 Art = art,
-                ArtImages = images
+                ArtImages = images,
+                Artist = artist
             };
-            var artist = await userManager.FindByIdAsync(art.UserID);
-            if (artist != null)
-            {
-                ViewData["artist"] = artist.UserName;
-                ViewData["artistName"] = artist.firstName + " " + artist.lastName;
-            }
+            ViewData["artist"] = artist.UserName;
+            ViewData["artistName"] = artist.firstName + " " + artist.lastName;       
 
             return View(model);
         }
 
+        [Route("art")]
         public async Task<IActionResult> Artistic_Style(int colorFilter = 0, int mediumFilter = 0, int styleFilter = 0)
         {
             ArtisticStyleViewModel model = new ArtisticStyleViewModel();
