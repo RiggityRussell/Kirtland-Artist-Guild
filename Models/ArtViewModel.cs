@@ -5,5 +5,7 @@
         public Art Art { get; set; }
 
         public List<ArtImage> ArtImages { get; set; }
+
+        public User Artist { get; set; }
     }
 }

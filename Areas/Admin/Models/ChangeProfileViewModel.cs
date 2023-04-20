@@ -19,5 +19,8 @@ namespace Kirtland_Artist_Guild.Models
         public string? bio { get; set; }
         public string? backgroundColor { get; set; }
         public string? fontColor { get; set; }
+        public string? email { get; set; }
+        public string? website { get; set; }
+        public string? paypal { get; set; }
     }
 }
