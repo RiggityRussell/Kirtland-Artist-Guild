@@ -18,8 +18,8 @@
                 <label for="ArtImage">Choose Image:</label>
                 <div class="custom-file">
                     <input asp-for="ArtImage" class="custom-file-input form-control-file" id="ArtImage"
-                           accept=".png,.jpg,.jpeg" data-val="true" data-val-accept="Invalid file type. Please select a PNG, JPG, or JPEG file.">
-                    <label class="custom-file-label" for="ArtImage">Choose image</label>
+                           accept=".png,.jpg,.jpeg" data-val="true">
+                    @*<label class="custom-file-label" for="ArtImage">Choose image</label>*@
                 </div>
                 <span asp-validation-for="ArtImage" class="text-danger"></span>
             </div>
