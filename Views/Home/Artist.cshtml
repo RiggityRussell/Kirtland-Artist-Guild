@@ -101,11 +101,11 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" >
     <div class="text-center">
         <h2>Artist Gallery</h2>
     </div>
-    <div class="row masonry-grid border-top border-warning">
+        <div class="row masonry-grid border-top border-warning" id="main">
         @foreach (var art in Model.Arts)
         {
             if (art.User != null)
@@ -193,4 +193,16 @@
             msnry.layout();
         });
     </script>
+
+    <script type="text/javascript" src="jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.ajax.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.av.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.iframe.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.noop.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.picture.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.script.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.vimeo.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.lazy.youtube.min.js"></script>
+
+    <script>$('#main .img-responsive').lazy();</script>
 }
