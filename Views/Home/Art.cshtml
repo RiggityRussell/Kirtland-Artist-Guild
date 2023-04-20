@@ -42,10 +42,15 @@
         <div class="col-sm-4 col-md-4 py-3">
             <div class="card bg-transparent">
                 <div class="card-body">
-
-                    <a class="text-warning" asp-area="" asp-controller="Home" asp-action="Artist" asp-route-id="@ViewData["artist"]">@ViewData["artistName"]</a>
-
-                    <h3 class="card-title">@Html.DisplayFor(model => model.Art.Name)</h3>
+                    @if (Model.Art.Name != null)
+                    {
+                        <h3 class="card-title">@Html.DisplayFor(model => model.Art.Name)</h3>
+                    }
+                    
+                    @if (Model.Artist.firstName != null && Model.Artist.lastName != null)
+                    {
+                        <a class="btn btn-sm btn-outline-warning mb-1" asp-area="" asp-controller="Home" asp-action="Artist" asp-route-id="@Model.Artist.UserName">@Model.Artist.firstName @Model.Artist.lastName</a>
+                    }                   
 
                     @if (Model.Art.ArtMediumLinks != null)
                     {
@@ -75,6 +80,19 @@
                             <b>@Html.DisplayNameFor(model => model.Art.Description)</b>:
                             <br />@Html.Raw(Model.Art.Description.Replace(Environment.NewLine, "<br/>"))
                         </p>
+                    }
+
+                    @if (Model.Artist.website != null)
+                    {
+                        <a href="@Model.Artist.website" target="_blank" class="btn btn-secondary m-1"><i class="fa fa-external-link fa-2x" style="vertical-align: middle"></i> @Model.Artist.website</a>
+                    }
+                    @if (Model.Artist.Email != null)
+                    {
+                        <a href="mailto:@Model.Artist.Email" target="_blank" class="btn btn-secondary m-1"><i class="fa fa-envelope fa-2x" style="vertical-align: middle"></i> @Model.Artist.Email</a>
+                    }
+                    @if (Model.Artist.paypal != null)
+                    {
+                        <a href="@Model.Artist.paypal" target="_blank=" class="btn btn-secondary m-1"><i class="fa fa-cc-paypal fa-2x" style="vertical-align: middle"></i> @Model.Artist.paypal</a>
                     }
                 </div>
             </div>
