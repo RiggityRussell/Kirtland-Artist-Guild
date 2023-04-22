@@ -1,1 +1,0 @@
-# Kirtland Artist Guild
