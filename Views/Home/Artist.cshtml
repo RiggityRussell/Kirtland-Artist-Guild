@@ -28,7 +28,7 @@
                 <h2 class="text-center mt-3">@Model.User.quote</h2>
             </div>
             <div class="col-sm-8">
-                @if (Model.User.Email != null || Model.User.website != null || Model.User.paypal != null)
+                @if (Model.User.Email != null || Model.User.website != null || Model.User.paypal != null) 
                 {
                     <div class="row">
                         <div class="col-sm-12">                    
@@ -56,7 +56,7 @@
                         <div class="card bg-transparent">
                             <div class="card-body">
                                 <p>
-                                    @if (Model.User.bio != null)
+                                    @if (Model.User.bio != null) 
                                     {
                                         @Html.Raw(Model.User.bio.Replace(Environment.NewLine, "<br/>"))
                                     }
@@ -132,14 +132,6 @@
             </div>
             <div class="row masonry-grid border-top border-warning" id="main">
                 @foreach (var art in Model.Arts)
-
-        {
-            if (art.User != null)
-            {
-                var picture = new ArtImage { ArtID = art.ID, FileName = (string)ViewData["defaultArt"], ID = 0, Source = "/media/" };
-
-                @foreach (var image in Model.ArtImages)
-
                 {
                     if (art.User != null)
                     {
