@@ -74,6 +74,7 @@
 </div>
 
 <p></p>
+@*Here is where we define main for lazy load*@
 <div class="container" id="main">
     <div class="row masonry-grid">
         @foreach (var art in Model.Arts)
@@ -165,16 +166,9 @@
 
        </script>
 
+     @*Below is the script for creating the Lazy load within the id of main*@
     <script type="text/javascript" src = "jquery.lazy.min.js" ></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.ajax.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.av.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.iframe.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.noop.min.js"></script>
     <script type="text/javascript" src="plugins/jquery.lazy.picture.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.script.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.vimeo.min.js"></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.youtube.min.js"></script>
-
     <script>$('#main .img-responsive').lazy();</script>     
     
 }
