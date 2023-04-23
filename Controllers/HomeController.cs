@@ -58,9 +58,16 @@ namespace Kirtland_Artist_Guild.Controllers
         }
 
         [Route("Exhibitions")]
-        public IActionResult Exhibitions()
+        public async Task<IActionResult> Exhibitions()
         {
-            return View();
+            if (_context.Exhibitions == null)
+            {
+                return Problem("Entity set 'StoreContext.Exhibitions' is null.");
+            }
+            var exhibitions = await _context.Exhibitions.ToListAsync();
+            exhibitions.Sort((x, y) => x.StartDate.CompareTo(y.StartDate)); // Sort by StartDate
+
+            return View(exhibitions);
         }
 
         [Route("Artists/{id}")]

@@ -1,0 +1,66 @@
+﻿@model Kirtland_Artist_Guild.Models.Exhibition
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="Source" />
+            <input type="hidden" asp-for="FileName" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="10" type="text"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+                <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th class="text-end">
+                        @if (Model.Source == null || Model.FileName == null)
+                        {
+                            <a class="btn btn-secondary btn-sm" asp-action="ExhibitionImageCreate" asp-route-id="@Model.ID">Add</a>
+                        }
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Source != null && Model.FileName != null)
+                {
+                    <tr>
+                        <td><img class="w-100 img-fluid border border-warning" src="@(Model.Source + Model.FileName)"></td>
+                        <td class="text-end"><a class="btn btn-danger btn-sm" asp-action="ExhibitionImageDelete" asp-route-id="@Model.ID">Remove</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

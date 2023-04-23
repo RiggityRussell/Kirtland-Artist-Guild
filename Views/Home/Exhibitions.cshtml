@@ -1,50 +1,33 @@
-﻿@{
+﻿@model IEnumerable<Kirtland_Artist_Guild.Models.Exhibition>
+
+@{
     ViewData["Title"] = "Exhibitions";
 }
-
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Kirtland Art Show: Tuesday June 13th - Friday June 16th</h2>
-            <hr />
+        @foreach (var exhibition in Model)
+        {
             <div class="col-md-12">
-                <img src="/media/IMG_6661_2.jpg" alt="" class="img-fluid rounded border border-2 border-warning" onContextMenu="return false;">
-                <p class="text-center text-muted">Kirtland Art Show</p>
+                @if (exhibition.Title != null)
+                {
+                    <h2>@exhibition.Title</h2>
+                    <hr />
+                }   
+                @if (exhibition.Source != null && exhibition.FileName != null)
+                {
+                    <div class="col-md-12">
+                        <img src="@(@exhibition.Source + @exhibition.FileName)" class="img-fluid rounded border border-2 border-warning" oncontextmenu="return false;">
+                    </div>
+                    <hr />
+                }
+                @if (exhibition.Description != null)
+                {
+                    <p class="lead">
+                        @Html.Raw(exhibition.Description.Replace(Environment.NewLine, "<br/>"))
+                    </p>
+                }
             </div>
             <hr />
-            <p class="lead">
-               The Kirtland Art Show will showcase the artwork of the Kirtland Artist Guild. This will be an oppertunity to meet and greet the artists and to
-               directly support local artists. The show will be held in the Kirtland Studio of Art and Design on the Kirtland Community College Campus. Doors
-               open at 6pm, and the show ends at 9pm. We hope to see you there!
-            </p>
-            <p class="lead">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-        </div>
-        <hr />
-        <div class="col-md-12">
-            <h2>Kirtland Christmas Extravaganza: December 23rd</h2>
-            <hr />
-            <div class="col-md-12">
-                <img src="/media/christmas-tree-2928142.jpg" alt="" class="img-fluid rounded border border-2 border-warning" onContextMenu="return false;">
-                <p class="text-center text-muted">Kirtland Art Show</p>
-            </div>
-            <hr />
-            <p class="lead">
-                Join the Kirtland Artist Guild for an evening of Christmas spirit as we sell artwork donated by a variety of local artists,
-                all sales will benefit the local food pantry! Enjoy light snacks and beverages while playing games, chatting with artists,
-                and even participating in a cake walk! YUM! Doors open at 5pm and the extravaganza ends at 8pm.
-            </p>
-            <p class="lead">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-        </div>
-        <hr />
+        }
     </div>
 </div>
