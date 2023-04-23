@@ -76,36 +76,27 @@
 <p></p>
 <div class="container" id="main">
     <div class="row masonry-grid">
-        @foreach (var art in Model.Arts)
+        @for (var i = 0; i < Model.Arts.Count; i++)
         {
-            if (art.User != null)
+            if (Model.Arts[i].User != null)
             {
-                var picture = new ArtImage { ArtID = art.ID, FileName = (string)ViewData["defaultArt"], ID = 0, Source = "/media/" };
-
-                @foreach (var image in Model.ArtImages) @* This needs to be moved to controller and made more efficient. Create a new model combining art and a single image?*@
-                {
-                    @if (image.ArtID == art.ID)
-                    {
-                        picture = image;
-                    }
-                }
                 <div class="col-md-4 col-lg-3 masonry-item mt-4">
                     <div class="image-container">
-                        <a asp-controller="Home" asp-action="Art" asp-route-id="@art.ID">
-                            <img src="@(@picture.Source + @picture.FileName)" alt="@art.Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
+                        <a asp-controller="Home" asp-action="Art" asp-route-id="@Model.Arts[i].ID">
+                            <img src="@(@Model.ArtImages[i].Source + @Model.ArtImages[i].FileName)" alt="@Model.Arts[i].Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
                             <div class="image-info">
                                 <table style="width:100%">
-                                    <tr>                                         
-                                        @if (art.User.firstName != null && art.User.lastName != null) 
+                                    <tr>
+                                        @if (Model.Arts[i].User.firstName != null && Model.Arts[i].User.lastName != null)
                                         {
-                                            <td style="text-align:left">  
-                                                @art.User.firstName @art.User.lastName
+                                            <td style="text-align:left">
+                                                @Model.Arts[i].User.firstName @Model.Arts[i].User.lastName
                                             </td>
                                         }                                                                              
-                                        @if (art.Available == true)
+                                        @if (Model.Arts[i].Available == true)
                                         {
                                             <td style="text-align:right">
-                                                &#36 @art.Price
+                                                &#36 @Model.Arts[i].Price
                                             </td>
                                         }
                                         else
@@ -117,15 +108,15 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align:left">
-                                        @if (art.Name != null)
+                                        @if (Model.Arts[i].Name != null)
                                         {
-                                            @art.Name 
+                                            @Model.Arts[i].Name
                                         }
                                         </td>
-                                        @if (art.ArtMediumLinks != null)
+                                        @if (Model.Arts[i].ArtMediumLinks != null)
                                         {
                                             <td style="text-align:right">
-                                            @foreach (var medium in art.ArtMediumLinks)
+                                            @foreach (var medium in Model.Arts[i].ArtMediumLinks)
                                             {
                                                 @if (medium.ArtMedium != null)
                                                 {   

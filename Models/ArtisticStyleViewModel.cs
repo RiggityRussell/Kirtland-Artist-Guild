@@ -4,16 +4,9 @@
     {
         public List<ArtColor> ArtColors { get; set; } = new List<ArtColor>();
         public List<ArtMedium> ArtMediums { get; set; } = new List<ArtMedium>();
-        public List<ArtStyle> ArtStyles { get; set; } = new List<ArtStyle>(); 
-
+        public List<ArtStyle> ArtStyles { get; set; } = new List<ArtStyle>();
 
         public List<Art> Arts { get; set; } = new List<Art>();
         public List<ArtImage> ArtImages { get; set; } = new List<ArtImage>();
     }
-}
-
-public class MyViewModel
-{
-    public int Page { get; set; }
-    // Other properties for the view can be added here
 }
