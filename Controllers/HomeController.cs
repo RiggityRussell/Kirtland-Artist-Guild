@@ -58,9 +58,16 @@ namespace Kirtland_Artist_Guild.Controllers
         }
 
         [Route("Exhibitions")]
-        public IActionResult Exhibitions()
+        public async Task<IActionResult> Exhibitions()
         {
-            return View();
+            if (_context.Exhibitions == null)
+            {
+                return Problem("Entity set 'StoreContext.Exhibitions' is null.");
+            }
+            var exhibitions = await _context.Exhibitions.ToListAsync();
+            exhibitions.Sort((x, y) => x.StartDate.CompareTo(y.StartDate)); // Sort by StartDate
+
+            return View(exhibitions);
         }
 
         [Route("Artists/{id}")]
@@ -72,6 +79,7 @@ namespace Kirtland_Artist_Guild.Controllers
             }
 
             ArtistViewModel model = new ArtistViewModel();
+            model.ArtImages = new List<ArtImage>();
 
             var user = await userManager.FindByNameAsync(id);
             if (user == null) 
@@ -85,12 +93,23 @@ namespace Kirtland_Artist_Guild.Controllers
             model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
             model.Arts.Reverse(); // Sort newest first
 
+            foreach (var art in model.Arts)
+            {
+                ArtImage artImage = await _context.ArtImages.Where(a => a.ArtID == art.ID).FirstOrDefaultAsync();
+                if (artImage == null)
+                {
+                    artImage = new ArtImage { ArtID = art.ID, FileName = Configuration["DefaultImage:Art"], ID = 0, Source = "/media/" };
+                }
+                model.ArtImages.Add(artImage);
+            }
+
             var artistImages = from a in _context.ArtistImages.Where(u => u.UserID == user.Id) select a;
             model.ArtistImages = await artistImages.ToListAsync();
-
-            model.ArtImages = await _context.ArtImages.ToListAsync();
-            ViewData["defaultArt"] = Configuration["DefaultImage:Art"];
-            ViewData["defaultProfile"] = Configuration["DefaultImage:Profile"];
+            if (model.ArtistImages.Count == 0)
+            {
+                ArtistImage artistImage = new ArtistImage { UserID = user.Id, FileName = Configuration["DefaultImage:Profile"], ID = 0, Source = "/media/" };
+                model.ArtistImages.Add(artistImage);
+            }
 
             return View(model);
         }
@@ -138,13 +157,26 @@ namespace Kirtland_Artist_Guild.Controllers
             ViewData["CurrentColorFilter"] = colorFilter;
             ViewData["CurrentMediumFilter"] = mediumFilter;
             ViewData["CurrentStyleFilter"] = styleFilter;
-            ViewData["defaultArt"] = Configuration["DefaultImage:Art"];
 
             model.ArtColors = await _context.ArtColors.ToListAsync();
             model.ArtMediums = await _context.ArtMediums.ToListAsync();
             model.ArtStyles = await _context.ArtStyles.ToListAsync();
-            model.ArtImages = await _context.ArtImages.ToListAsync();
+            model.ArtImages = new List<ArtImage>();
+
             var arts = from a in _context.Arts.Include(u => u.User).Include(m => m.ArtMediumLinks).ThenInclude(l => l.ArtMedium) select a;
+            model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
+            model.Arts.Reverse(); // Sort newest first
+
+            foreach (var art in model.Arts)
+            {
+                ArtImage artImage = await _context.ArtImages.Where(a => a.ArtID == art.ID).FirstOrDefaultAsync();
+                if (artImage == null)
+                {
+                    artImage = new ArtImage { ArtID = art.ID, FileName = Configuration["DefaultImage:Art"], ID = 0, Source = "/media/" };
+                }
+                model.ArtImages.Add(artImage);
+            }
 
             if (colorFilter != 0)
             {
@@ -158,10 +190,6 @@ namespace Kirtland_Artist_Guild.Controllers
             {
                 arts = arts.Where(a => a.ArtStyleLinks.Any(c => c.ArtStyleID == styleFilter));
             }
-
-            model.Arts = await arts.ToListAsync();
-            model.Arts.Sort((x,y) => x.Created.CompareTo(y.Created)); // Sort art by created date
-            model.Arts.Reverse(); // Sort newest first
 
             return View(model);
         }

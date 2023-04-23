@@ -20,6 +20,8 @@ namespace Kirtland_Artist_Guild.Models
         public DbSet<ArtColorLink> ArtColorLinks { get; set; }
         public DbSet<ArtMediumLink> ArtMediumLinks { get; set; }
 
+        public DbSet<Exhibition> Exhibitions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
