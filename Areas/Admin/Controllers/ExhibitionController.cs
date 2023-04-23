@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class ExhibitionController : Controller
     {
@@ -64,7 +67,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Description,StartDate,FileName,Source")] Exhibition exhibition)
+        public async Task<IActionResult> Create([Bind("ID,Title,Description,StartDate,EndDate,FileName,Source")] Exhibition exhibition)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +99,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,StartDate,FileName,Source")] Exhibition exhibition)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,StartDate,EndDate,FileName,Source")] Exhibition exhibition)
         {
             if (id != exhibition.ID)
             {
