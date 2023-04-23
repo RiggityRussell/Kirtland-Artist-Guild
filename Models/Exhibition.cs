@@ -16,8 +16,12 @@ namespace Kirtland_Artist_Guild.Models
         [DisplayName("Start Date")]
         public DateTime StartDate { get; set; }
 
-        public string? FileName { get; set; } = string.Empty;
+        [DataType(DataType.Date)]
+        [DisplayName("End Date")]
+        public DateTime? EndDate { get; set; }
 
-        public string? Source { get; set; } = string.Empty;
+        public string? FileName { get; set; }
+
+        public string? Source { get; set; }
     }
 }

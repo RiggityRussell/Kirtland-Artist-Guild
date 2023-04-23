@@ -11,8 +11,17 @@
                 @if (exhibition.Title != null)
                 {
                     <h2>@exhibition.Title</h2>
+                }
+                @if (exhibition.EndDate == null || exhibition.StartDate == exhibition.EndDate)
+                {
+                    <h4>@exhibition.StartDate.ToShortDateString()</h4>
                     <hr />
-                }   
+                }
+                @if (exhibition.EndDate != null)
+                {
+                    <h4>@exhibition.StartDate.ToShortDateString() - @exhibition.EndDate.Value.ToShortDateString()</h4>
+                    <hr />
+                }
                 @if (exhibition.Source != null && exhibition.FileName != null)
                 {
                     <div class="col-md-12">
