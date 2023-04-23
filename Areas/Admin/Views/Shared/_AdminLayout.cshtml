@@ -32,6 +32,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a asp-action="Index" asp-controller="Exhibition"
+           class="nav-link @Nav.Active("Exhibition", current)">
+                Manage Exhibitions
+        </a>
+    </li>
+    <li class="nav-item">
         <a asp-action="Index" asp-controller="ArtColor"
            class="nav-link @Nav.Active("ArtColor", current)">
             Art Colors

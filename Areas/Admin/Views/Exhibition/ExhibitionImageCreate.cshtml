@@ -1,31 +1,33 @@
 ﻿@using Kirtland_Artist_Guild.Models
 
-@model ArtImageViewModel
+@model ExhibitionImageViewModel
 
 @{
-    ViewData["Title"] = "Upload Art Image";
+    ViewData["Title"] = "Upload Exhibition Image";
 }
 
-<h1>Upload Art Image</h1>
+<h1>Upload Exhibition Image</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ArtImageCreate" method="post" class="mt-3" enctype="multipart/form-data">
+        <form asp-action="ExhibitionImageCreate" method="post" class="mt-3" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ArtID" />
+            <input type="hidden" asp-for="exhibition.ID" />
+            <input type="hidden" asp-for="exhibition.Title" />
+            <input type="hidden" asp-for="exhibition.Description" />
+            <input type="hidden" asp-for="exhibition.StartDate" />
             <div class="form-group">
-                <label for="ArtImage">Choose Image:</label>
+                <label for="ExhibitionImage">Choose Image:</label>
                 <div class="custom-file">
-                    <input asp-for="ArtImage" class="custom-file-input form-control-file" id="ArtImage"
+                    <input asp-for="ExhibitionImage" class="custom-file-input form-control-file" id="ExhibitionImage"
                            accept=".png,.jpg,.jpeg" data-val="true">
-                    @*<label class="custom-file-label" for="ArtImage">Choose image</label>*@
                 </div>
-                <span asp-validation-for="ArtImage" class="text-danger"></span>
+                <span asp-validation-for="ExhibitionImage" class="text-danger"></span>
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Upload" class="btn btn-primary" /> |
-                <a asp-action="Edit" asp-route-id="@ViewBag.art" class="btn btn-secondary">Back</a>
+                <a asp-action="Edit" asp-route-id="@ViewBag.exhibition" class="btn btn-secondary">Back</a>
             </div>
         </form>
     </div>
@@ -49,7 +51,7 @@
         // Enable client-side validation on the form
         $("form").validate({
             rules: {
-                ArtImage: {
+                ExhibitionImage: {
                     accept: "png,jpg,jpeg"
                 }
             }
