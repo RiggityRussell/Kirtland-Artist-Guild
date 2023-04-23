@@ -1,0 +1,46 @@
+﻿@model Kirtland_Artist_Guild.Models.Exhibition
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Exhibition</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.Description != null)
+            {
+                @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Source != null && Model.FileName != null)
+            {
+                <img src="@(@Model.Source + @Model.FileName)" class="img-fluid rounded border border-2 border-warning">
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
