@@ -24,7 +24,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // GET: ArtMedium
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ArtMediums.ToListAsync());
+            return View(await _context.ArtMediums.OrderBy(c => c.Name).ToListAsync());
         }
 
         // GET: ArtMedium/Create
