@@ -10,7 +10,7 @@ namespace Kirtland_Artist_Guild.Models
         [Required, StringLength(200, ErrorMessage = "Name is too long.")]
         public string Title { get; set; } = string.Empty;
 
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         [Required, DataType(DataType.Date)]
         [DisplayName("Start Date")]

@@ -8,11 +8,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="form" onsubmit="handleSubmit()">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="Source" />
             <input type="hidden" asp-for="FileName" />
+            <input type="hidden" id="jdr" asp-for="Description" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -30,7 +31,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="10" type="text"></textarea>
+                <!-- <textarea asp-for="Description" class="form-control" rows="10" type="text"></textarea> -->
+                <div id="description" style="min-height: 200px;">
+                    @if (Model.Description != null)
+                    {
+                        @Html.Raw(Model.Description)
+                    }                    
+                </div>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
@@ -65,7 +72,48 @@
         </table>
     </div>
 </div>
+@section Styles {
+    <!-- Include the Quill stylesheet, customize toolbar color -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        .ql-toolbar .ql-stroke {
+            fill: none;
+            stroke: #fff;
+        }
 
+        .ql-toolbar .ql-fill {
+            fill: #fff;
+            stroke: none;
+        }
+
+        .ql-toolbar .ql-picker-label {
+            color: #fff;
+        }
+    </style>
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Initialize Quill editor, customize toolbar -->
+    <script>
+        var toolbarOptions = [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "link"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["clean"],
+        ];
+        var quill = new Quill('#description', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+        function handleSubmit() {
+            document.getElementById('jdr').value = quill.root.innerHTML;
+        };
+    </script>
 }
