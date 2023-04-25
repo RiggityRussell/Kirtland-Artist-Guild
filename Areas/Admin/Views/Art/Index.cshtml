@@ -11,7 +11,7 @@
     <table class="table table-dark table-striped table-hover table-responsive-md table-bordered table-sm">
         <thead>
             <tr>
-                <th stylestyle="width: 350px; white-space: normal;">
+                <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
@@ -39,8 +39,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td style="max-width: 350px; word-wrap: break-word;">
-                        @Html.DisplayFor(modelItem => item.Description)
+                    <td>
+                        @if (item.Description != null)
+                        {
+                            @Html.Raw(item.Description.Replace(Environment.NewLine, "<br/>"))
+                        }                        
                     </td>
                     @if (item.Available)
                     {
