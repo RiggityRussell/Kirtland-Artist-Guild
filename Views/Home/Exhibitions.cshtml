@@ -17,7 +17,7 @@
                     <h4>@exhibition.StartDate.ToShortDateString()</h4>
                     <hr />
                 }
-                @if (exhibition.EndDate != null)
+                @if (exhibition.EndDate != null && exhibition.StartDate != exhibition.EndDate)
                 {
                     <h4>@exhibition.StartDate.ToShortDateString() - @exhibition.EndDate.Value.ToShortDateString()</h4>
                     <hr />
