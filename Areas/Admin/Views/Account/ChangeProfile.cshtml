@@ -5,8 +5,9 @@
 
 <h2>Change Profile</h2>
 <hr />
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<form method="post" asp-action="ChangeProfile">
+<form method="post" asp-action="ChangeProfile" id="form" onsubmit="handleSubmit()">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" id="jdr" asp-for="bio" />
     <div class="row mb-2">
         <label asp-for="Username" class="col-form-label col-md-2">Username:</label>
         <div class="col-md-4">
@@ -52,7 +53,13 @@
     <div class="row mb-2">
         <label asp-for="bio" class="col-form-label col-md-2">Bio:</label>
         <div class="col-md-4">
-            <textarea asp-for="bio" class="form-control" rows="10" type="text"></textarea>
+            <!-- <textarea asp-for="bio" class="form-control" rows="10" type="text"></textarea> -->
+            <div id="bio" style="min-height: 200px;">
+                @if (Model.bio != null)
+                {
+                    @Html.Raw(Model.bio)
+                }
+            </div>
         </div>
         <div class="col">
             <span asp-validation-for="bio" class="text-danger"></span>
@@ -112,6 +119,24 @@
 </form>
 @section styles{
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+
+    <!-- Include the Quill stylesheet, customize toolbar color -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        .ql-toolbar .ql-stroke {
+            fill: none;
+            stroke: #fff;
+        }
+
+        .ql-toolbar .ql-fill {
+            fill: #fff;
+            stroke: none;
+        }
+
+        .ql-toolbar .ql-picker-label {
+            color: #fff;
+        }
+    </style>
 }
 @section scripts {
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
@@ -124,5 +149,28 @@
             document.getElementById("font").value = "#FFC107";
             document.querySelector('#font').dispatchEvent(new Event('input', { bubbles: true }));
         }  
+    </script>
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Initialize Quill editor, customize toolbar -->
+    <script>
+        var toolbarOptions = [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "link"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["clean"],
+        ];
+        var quill = new Quill('#bio', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+        function handleSubmit() {
+            document.getElementById('jdr').value = quill.root.innerHTML;
+        };
     </script>
 }

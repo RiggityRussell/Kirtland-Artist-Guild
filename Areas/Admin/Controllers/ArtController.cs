@@ -9,6 +9,7 @@ using Kirtland_Artist_Guild.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Configuration;
+using Kirtland_Artist_Guild.Migrations;
 
 namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
 {
@@ -32,7 +33,8 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         // GET: Art
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Arts.Where(a => a.UserID == userManager.GetUserId(User)).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(m => m.ArtMediumLinks).ThenInclude(n => n.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).ToListAsync());
+            var arts = await _context.Arts.Where(a => a.UserID == userManager.GetUserId(User)).Include(c => c.ArtColorLinks).ThenInclude(d => d.ArtColor).Include(m => m.ArtMediumLinks).ThenInclude(n => n.ArtMedium).Include(s => s.ArtStyleLinks).ThenInclude(t => t.ArtStyle).OrderBy(p => p.Name).ToListAsync();
+            return View(arts);
         }
 
         // GET: Art/Details/5
@@ -189,7 +191,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["art"] = artid;
-            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name");
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors.OrderBy(c => c.Name), "ID", "Name");
 
             return View();
         }
@@ -211,7 +213,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Edit), new { id = artColorLink.ArtID });
             }
             ViewData["art"] = artColorLink.ArtID;
-            ViewData["ArtColorID"] = new SelectList(_context.ArtColors, "ID", "Name", artColorLink.ArtColorID);
+            ViewData["ArtColorID"] = new SelectList(_context.ArtColors.OrderBy(c => c.Name), "ID", "Name", artColorLink.ArtColorID);
             return View(artColorLink);
         }
 
@@ -237,7 +239,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["art"] = artid;
-            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums, "ID", "Name");
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums.OrderBy(c => c.Name), "ID", "Name");
             return View();
         }
 
@@ -258,7 +260,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Edit), new { id = artMediumLink.ArtID });
             }
             ViewData["art"] = artMediumLink.ArtID;
-            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums, "ID", "Name", artMediumLink.ArtMediumID);
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtMediums.OrderBy(c => c.Name), "ID", "Name", artMediumLink.ArtMediumID);
             return View(artMediumLink);
         }
 
@@ -284,7 +286,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["art"] = artid;
-            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles, "ID", "Name");
+            ViewData["ArtStyleID"] = new SelectList(_context.ArtStyles.OrderBy(c => c.Name), "ID", "Name");
             return View();
         }
 
@@ -305,7 +307,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Edit), new { id = artStyleLink.ArtID });
             }
             ViewData["art"] = artStyleLink.ArtID;
-            ViewData["ArtMediumID"] = new SelectList(_context.ArtStyles, "ID", "Name", artStyleLink.ArtStyleID);
+            ViewData["ArtMediumID"] = new SelectList(_context.ArtStyles.OrderBy(c => c.Name), "ID", "Name", artStyleLink.ArtStyleID);
             return View(artStyleLink);
         }
         public async Task<IActionResult> ArtStyleLinkDelete(int? artid, int? artstyleid)

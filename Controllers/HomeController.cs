@@ -143,9 +143,7 @@ namespace Kirtland_Artist_Guild.Controllers
                 Art = art,
                 ArtImages = images,
                 Artist = artist
-            };
-            ViewData["artist"] = artist.UserName;
-            ViewData["artistName"] = artist.firstName + " " + artist.lastName;       
+            };   
 
             return View(model);
         }
@@ -158,25 +156,12 @@ namespace Kirtland_Artist_Guild.Controllers
             ViewData["CurrentMediumFilter"] = mediumFilter;
             ViewData["CurrentStyleFilter"] = styleFilter;
 
-            model.ArtColors = await _context.ArtColors.ToListAsync();
-            model.ArtMediums = await _context.ArtMediums.ToListAsync();
-            model.ArtStyles = await _context.ArtStyles.ToListAsync();
+            model.ArtColors = await _context.ArtColors.OrderBy(c => c.Name).ToListAsync();
+            model.ArtMediums = await _context.ArtMediums.OrderBy(c => c.Name).ToListAsync();
+            model.ArtStyles = await _context.ArtStyles.OrderBy(c => c.Name).ToListAsync();
             model.ArtImages = new List<ArtImage>();
 
             var arts = from a in _context.Arts.Include(u => u.User).Include(m => m.ArtMediumLinks).ThenInclude(l => l.ArtMedium) select a;
-            model.Arts = await arts.ToListAsync();
-            model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
-            model.Arts.Reverse(); // Sort newest first
-
-            foreach (var art in model.Arts)
-            {
-                ArtImage artImage = await _context.ArtImages.Where(a => a.ArtID == art.ID).FirstOrDefaultAsync();
-                if (artImage == null)
-                {
-                    artImage = new ArtImage { ArtID = art.ID, FileName = Configuration["DefaultImage:Art"], ID = 0, Source = "/media/" };
-                }
-                model.ArtImages.Add(artImage);
-            }
 
             if (colorFilter != 0)
             {
@@ -189,6 +174,20 @@ namespace Kirtland_Artist_Guild.Controllers
             if (styleFilter != 0)
             {
                 arts = arts.Where(a => a.ArtStyleLinks.Any(c => c.ArtStyleID == styleFilter));
+            }
+
+            model.Arts = await arts.ToListAsync();
+            model.Arts.Sort((x, y) => x.Created.CompareTo(y.Created)); // Sort art by created date
+            model.Arts.Reverse(); // Sort newest first
+
+            foreach (var art in model.Arts)
+            {
+                ArtImage artImage = await _context.ArtImages.Where(a => a.ArtID == art.ID).FirstOrDefaultAsync();
+                if (artImage == null)
+                {
+                    artImage = new ArtImage { ArtID = art.ID, FileName = Configuration["DefaultImage:Art"], ID = 0, Source = "/media/" };
+                }
+                model.ArtImages.Add(artImage);
             }
 
             return View(model);
