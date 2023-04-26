@@ -17,43 +17,40 @@ else
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4 ms-4 me-4">
         @foreach (User user in Model.Users)
         {
-            @if (user.RoleNames.Contains("Artist"))
-            {
-                bool imageDisplayed = false; // Flag to track if an image has been displayed for the current user
-                <div class="col mb-3">
-                    <div class="d-flex flex-column align-items-center">
-                        <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
-                            @foreach (var artistImage in Model.ArtistImages)
+            bool imageDisplayed = false; // Flag to track if an image has been displayed for the current user
+            <div class="col mb-3">
+                <div class="d-flex flex-column align-items-center">
+                    <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName">
+                        @foreach (var artistImage in Model.ArtistImages)
+                        {
+                            if (user.Id == artistImage.UserID && !imageDisplayed)
                             {
-                                if (user.Id == artistImage.UserID && !imageDisplayed)
-                                {
-                                    <img src="@(@artistImage.Source + @artistImage.FileName)" alt="Image" class="img-fluid border border-warning" style="max-height: 300px;" onContextMenu="return false;">
-                                    imageDisplayed = true; // Set the flag to indicate that an image has been displayed
-                                }
+                                <img src="@(@artistImage.Source + @artistImage.FileName)" alt="Image" class="img-fluid border border-warning" style="max-height: 300px;" onContextMenu="return false;">
+                                imageDisplayed = true; // Set the flag to indicate that an image has been displayed
                             }
-                            @* Display a default image if no image has been displayed yet *@
-                            @if (!imageDisplayed)
-                            {
+                        }
+                        @* Display a default image if no image has been displayed yet *@
+                        @if (!imageDisplayed)
+                        {
 
-                                var defaultProfile = "/media/" + ViewData["defaultProfile"];
-                                <img src="@defaultProfile" alt="Default profile image" class="img-fluid border border-warning" style="max-height: 300px;">
+                            var defaultProfile = "/media/" + ViewData["defaultProfile"];
+                            <img src="@defaultProfile" alt="Default profile image" class="img-fluid border border-warning" style="max-height: 300px;">
 
-                            }
-                        </a>
-                        <div class="text-center">
-                            @if (user.firstName != null && user.lastName != null) 
-                            {
-                                <div class="fw-bold mt-1">@user.firstName @user.lastName</div>
-                            }
-                            else
-                            {
-                                <div class="fw-bold mt-1">@user.UserName</div>
-                            }
-                            <div class="fst-italic">@user.artistMedium</div>
-                        </div>
+                        }
+                    </a>
+                    <div class="text-center">
+                        @if (user.firstName != null && user.lastName != null) 
+                        {
+                            <div class="fw-bold mt-1">@user.firstName @user.lastName</div>
+                        }
+                        else
+                        {
+                            <div class="fw-bold mt-1">@user.UserName</div>
+                        }
+                        <div class="fst-italic">@user.artistMedium</div>
                     </div>
-                </div>            
-            }
+                </div>
+            </div>
         }
     </div>
 }
