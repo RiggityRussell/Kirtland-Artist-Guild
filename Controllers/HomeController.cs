@@ -36,8 +36,11 @@ namespace Kirtland_Artist_Guild.Controllers
            
             foreach (User user in userManager.Users) 
             {
-                user.RoleNames = await userManager.GetRolesAsync(user);
-                users.Add(user);
+                var roles = await userManager.GetRolesAsync(user);
+                if (roles.Contains("Artist"))
+                {
+                    users.Add(user);
+                }                
             }
             users.Sort((x, y) => x.lastName.CompareTo(y.lastName)); // Sort artists by last name
             artistImages = await _context.ArtistImages.ToListAsync();
