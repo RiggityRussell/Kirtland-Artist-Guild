@@ -34,7 +34,7 @@ namespace Kirtland_Artist_Guild.Controllers
             List<User> users = new List<User>();   
             List<ArtistImage> artistImages = new List<ArtistImage>();
            
-            foreach (User user in userManager.Users) 
+            foreach (User user in userManager.Users.ToList()) 
             {
                 var roles = await userManager.GetRolesAsync(user);
                 if (roles.Contains("Artist"))

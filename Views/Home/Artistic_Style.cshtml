@@ -74,8 +74,7 @@
 </div>
 
 <p></p>
-@*Here is where we define main for lazy load*@
-<div class="container" id="main">
+<div class="container">
     <div class="row masonry-grid">
         @for (var i = 0; i < Model.Arts.Count; i++)
         {
@@ -84,7 +83,7 @@
                 <div class="col-md-4 col-lg-3 masonry-item mt-4">
                     <div class="image-container">
                         <a asp-controller="Home" asp-action="Art" asp-route-id="@Model.Arts[i].ID">
-                            <img src="@(@Model.ArtImages[i].Source + @Model.ArtImages[i].FileName)" alt="@Model.Arts[i].Name" class="img-fluid border border-1 border-warning" onContextMenu="return false;">
+                            <img data-src="@(@Model.ArtImages[i].Source + @Model.ArtImages[i].FileName)" src="/media/default_art_image_1.jpg" alt="@Model.Arts[i].Name" class="img-fluid border border-1 border-warning lazy" onContextMenu="return false;">
                             <div class="image-info">
                                 <table style="width:100%">
                                     <tr>
@@ -140,9 +139,7 @@
     </div>
 </div>
 @section scripts {
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
-
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script>
         var masonryGrid = document.querySelector('.masonry-grid');
         var masonry = new Masonry(masonryGrid, {
@@ -150,16 +147,15 @@
             columnWidth: '.col-md-4',
             percentPosition: true
         });
-        imagesLoaded(masonryGrid).on('progress', function() {
-            // layout Masonry after each image loads
-            msnry.layout();
+    </script>
+     @*Below is the script for creating the Lazy load within the class of lazy*@
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+    <script>
+        $('.lazy').Lazy({
+            afterLoad: function(element) {
+                masonry.layout();
+            }
         });
-
-       </script>
-
-     @*Below is the script for creating the Lazy load within the id of main*@
-    <script type="text/javascript" src = "jquery.lazy.min.js" ></script>
-    <script type="text/javascript" src="plugins/jquery.lazy.picture.min.js"></script>
-    <script>$('#main .img-responsive').lazy();</script>     
-    
+    </script>  
 }
