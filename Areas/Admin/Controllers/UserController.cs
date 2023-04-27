@@ -22,7 +22,7 @@ namespace Kirtland_Artist_Guild.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             List<User> users = new List<User>();
-            foreach (User user in userManager.Users)
+            foreach (User user in userManager.Users.ToList())
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
