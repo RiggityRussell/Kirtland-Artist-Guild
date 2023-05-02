@@ -48,7 +48,7 @@ namespace Kirtland_Artist_Guild.Controllers
             ArtistsViewModel model = new ArtistsViewModel
             {
                 Users = users,
-                ArtistImages = artistImages 
+                ArtistImages = artistImages
             };
             ViewData["defaultProfile"] = Configuration["DefaultImage:Profile"];
             return View(model);
