@@ -41,11 +41,11 @@ else
                     <div class="text-center">
                         @if (user.firstName != null && user.lastName != null) 
                         {
-                            <div class="fw-bold mt-1">@user.firstName @user.lastName</div>
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName" style="text-decoration:none;"><div class="fw-bold mt-1 text-warning">@user.firstName @user.lastName</div></a>
                         }
                         else
                         {
-                            <div class="fw-bold mt-1">@user.UserName</div>
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@user.UserName"><div class="fw-bold mt-1">@user.UserName</div></a>
                         }
                         <div class="fst-italic">@user.artistMedium</div>
                     </div>
