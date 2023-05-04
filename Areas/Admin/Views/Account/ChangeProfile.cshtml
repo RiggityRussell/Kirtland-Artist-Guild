@@ -53,7 +53,6 @@
     <div class="row mb-2">
         <label asp-for="bio" class="col-form-label col-md-2">Bio:</label>
         <div class="col-md-4">
-            <!-- <textarea asp-for="bio" class="form-control" rows="10" type="text"></textarea> -->
             <div id="bio" style="min-height: 200px;">
                 @if (Model.bio != null)
                 {
@@ -76,7 +75,7 @@
         </div>
     </div>
     <div class="row mb-2">
-        <label asp-for="website" class="col-form-label col-md-2">Website:</label>
+        <label asp-for="website" class="col-form-label col-md-2">Website (full URL):</label>
         <div class="col-md-4">
             <input asp-for="website" class="form-control" />
         </div>
@@ -85,7 +84,7 @@
         </div>
     </div>
     <div class="row mb-2">
-        <label asp-for="paypal" class="col-form-label col-md-2">Paypal:</label>
+        <label asp-for="paypal" class="col-form-label col-md-2">Paypal (full URL):</label>
         <div class="col-md-4">
             <input asp-for="paypal" class="form-control" />
         </div>
