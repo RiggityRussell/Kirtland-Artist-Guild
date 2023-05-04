@@ -64,17 +64,17 @@
                     <div class="col-sm-12">
                         @if (Model.ArtistImages.Count == 2)
                         {
-                            <div class="card bg-transparent h-100">
-                                <div class="card-body h-100">
-                                        <img class="d-block mx-auto img-fluid" style="max-height: 1000px; max-width: 1100px; object-fit: contain;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="Profile" onContextMenu="return false;">
+                            <div class="card bg-transparent">
+                                <div class="card-body">
+                                        <img class="d-block mx-auto img-fluid" style="max-height: 500px;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="Profile" onContextMenu="return false;">
                                 </div>
                             </div>
                         }
                         @if (Model.ArtistImages.Count > 2)
                         {
-                        <div class="card bg-transparent h-100">
-                            <div class="card-body h-100">
-                                <div id="artistCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+                        <div class="card bg-transparent">
+                            <div class="card-body">
+                                <div id="artistCarousel" class="carousel slide" data-bs-ride="carousel">
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">
                                         <li data-bs-target="#artistCarousel" data-bs-slide-to="0" class="active"></li>
@@ -84,18 +84,18 @@
                                         }
                                     </ol>
                                     <!-- Slides -->
-                                    <div class="carousel-inner h-100">
+                                    <div class="carousel-inner">
 
                                         <!-- First image -->
-                                        <div class="carousel-item active h-100">
-                                            <img class="d-block mx-auto img-fluid" style="max-height: 1000px; max-width: 1100px; object-fit: contain;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="First slide">
+                                        <div class="carousel-item active">
+                                            <img class="d-block mx-auto img-fluid" style="max-height: 500px;" src="@Model.ArtistImages[1].Source@Model.ArtistImages[1].FileName" alt="First slide">
                                         </div>
                                         <!-- Subsequent images -->
                                         @foreach (var image in Model.ArtistImages.Skip(2))
 
                                         {
-                                            <div class="carousel-item h-100">
-                                                <img class="d-block mx-auto img-fluid" style="max-height: 1000px; max-width: 1100px; object-fit: contain;" src="@image.Source@image.FileName" alt="Slide">
+                                            <div class="carousel-item">
+                                                <img class="d-block mx-auto img-fluid" style="max-height: 500px;" src="@image.Source@image.FileName" alt="Slide">
                                             </div>
                                         }                                
                                         <!-- Controls -->
